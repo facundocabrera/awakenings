@@ -217,8 +217,9 @@ let mainCanvas;
 let stats = [0,0,0,0,0,0,0,0,0,0];
 
 function setup() {
-//     canvasWidth = windowWidth;
-//     canvasHeight = windowHeight;
+    canvasWidth = windowWidth;
+    canvasHeight = windowHeight;
+
     mainCanvas = createCanvas(canvasWidth, canvasHeight);
 
     background(0);
