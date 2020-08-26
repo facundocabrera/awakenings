@@ -151,61 +151,6 @@ let time;
 //         rotate: Math.PI / +2,
 //         color: '#FF550011'
 //     },
-//     {
-//         // serie insectos
-//         // reina
-//         disabled: true,
-//         waves: [{
-//             fn: classicFrequencyMapping,
-//             freq: 1/8,
-//             //phase: Math.PI / 2,
-//             radius: 500
-//         }, {
-//             fn: classicFrequencyMapping,
-//             freq: 1/32,
-// //             phase: Math.PI / -2,
-//             radius: 500
-//         }, {
-//             fn: classicFrequencyMapping,
-//             freq: 1/64,
-//             //phase: Math.PI / -2,
-//             radius: 500
-//         },{
-//             fn: classicFrequencyMapping,
-//             freq: 1/16,
-// //             phase: Math.PI / -2,
-//             radius: 500
-//         },],
-//         rotate: Math.PI / +2,
-//         color: '#DCC30A11'
-//     },
-//     {
-//         // serie insectos
-//         disabled: true,
-//         waves: [{
-//             fn: classicFrequencyMapping,
-//             freq: 1/32,
-//             //phase: Math.PI / 2,
-//             radius: 500
-//         }, {
-//             fn: classicFrequencyMapping,
-//             freq: 1/8,
-// //             phase: Math.PI / -2,
-//             radius: 500
-//         }, {
-//             fn: classicFrequencyMapping,
-//             freq: 1/64,
-//             //phase: Math.PI / -2,
-//             radius: 500
-//         },{
-//             fn: classicFrequencyMapping,
-//             freq: 1/8,
-// //             phase: Math.PI / -2,
-//             radius: 500
-//         },],
-//         rotate: Math.PI / +2,
-//         color: '#90BBCD11'
-//     },
 // ];
 
 let canvasWidth = 1080;
