@@ -211,12 +211,11 @@ let time;
 let canvasWidth = 1080;
 let canvasHeight = 1080;
 
-const waveWidth = 360 * 2;
-
 let mainCanvas;
 let stats = [0,0,0,0,0,0,0,0,0,0];
 
 function setup() {
+    // override manual screen size
     canvasWidth = windowWidth;
     canvasHeight = windowHeight;
 
@@ -228,10 +227,7 @@ function setup() {
 
     time = inc(1);
 
-    layers.forEach(layer=>{
-        layer.canvas = createGraphics(canvasWidth, canvasHeight);
-    }
-    );
+    layers.forEach(layer => layer.canvas = createGraphics(canvasWidth, canvasHeight));
 }
 
 function draw() {
