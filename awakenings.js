@@ -161,8 +161,8 @@ let stats = [0,0,0,0,0,0,0,0,0,0];
 
 function setup() {
     // override manual screen size
-    canvasWidth = windowWidth;
-    canvasHeight = windowHeight;
+    // canvasWidth = windowWidth;
+    // canvasHeight = windowHeight;
 
     mainCanvas = createCanvas(canvasWidth, canvasHeight);
 
@@ -218,14 +218,16 @@ function draw() {
         canvas.noFill();
 //         canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
         //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
-        canvas.bezier(one.x, one.y, two.x, two.y, four.x, four.y, three.x, three.y);
+        canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
-        const d = Math.sqrt(Math.pow(one.x - two.x, 2) + Math.pow(one.y - two.y, 2));
+        const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
+        const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
 
-        stats[(d+'')[0]]++;
+        stats[(d1+'')[0]]++;
+        stats[(d2+'')[0]]++;
 
         // al incrementar x frame, frameCount representa el total
-        console.log(stats.map(x => Math.round(x / (frameCount * enabled.length) * 100)));
+        console.log(stats.map(x => Math.round(x / (2 * frameCount * enabled.length) * 100)));
 
         canvas.pop();
     }
