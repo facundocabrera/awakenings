@@ -168,7 +168,7 @@ function setup() {
 
     background(0);
 
-    frameRate(30);
+    frameRate(60);
 
     time = inc(1);
 
@@ -181,7 +181,7 @@ function draw() {
     const enabled = layers.filter(({disabled=false})=>!disabled);
 
     enabled.forEach(context=>{
-        const {canvas, waves, color, width=1, closed, rotate = 0} = context;
+        const {canvas, waves, color, width=1, rotate = 0, draw = 'bezier'} = context;
 
         canvas.push();
 
@@ -193,7 +193,6 @@ function draw() {
         canvas.translate(canvasWidth / 2, canvasHeight / 2);
         canvas.rotate(rotate);
 
-        //canvas.beginShape(LINES);
         const points = waves.map(waveContext=>{
             const {fn} = waveContext;
 
@@ -205,29 +204,36 @@ function draw() {
             else
                 point = harmonic(waveContext)(tValue);
 
-            //canvas.vertex(point.x, point.y);
-
             return point;
         }
         );
 
-        //canvas.endShape();
-
-        const [one, two, three, four] = points;
-
         canvas.noFill();
-//         canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
-        //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
-        canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
-        const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
-        const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
+        switch(draw) {
+          case 'bezier': {
+            const [one, two, three, four] = points;
+            //canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
+            //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
+            canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
-        stats[(d1+'')[0]]++;
-        stats[(d2+'')[0]]++;
+            const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
+            const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
 
-        // al incrementar x frame, frameCount representa el total
-        console.log(stats.map(x => Math.round(x / (2 * frameCount * enabled.length) * 100)));
+            stats[(d1+'')[0]]++;
+            stats[(d2+'')[0]]++;
+
+            // al incrementar x frame, frameCount representa el total
+            console.log(stats.map(x => Math.round(x / (frameCount * enabled.length) * 100)));
+            break;
+          }
+          case 'lines': {
+            canvas.beginShape(LINES);
+            points.map(({ x, y }) => canvas.vertex(x, y));
+            canvas.endShape();
+            break;
+          }
+        }
 
         canvas.pop();
     }
