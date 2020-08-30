@@ -172,16 +172,17 @@ function setup() {
 
     time = inc(1);
 
-    layers.forEach(layer => layer.canvas = createGraphics(canvasWidth, canvasHeight));
+    layers.forEach(layer => {
+      layer.clock = inc(layer.clock_unit);
+      layer.canvas = createGraphics(canvasWidth, canvasHeight);
+    });
 }
 
 function draw() {
-    const tValue = time.next().value;
-
     const enabled = layers.filter(({disabled=false})=>!disabled);
 
     enabled.forEach(context=>{
-        const {canvas, waves, color, width=1, rotate = 0, draw = 'bezier'} = context;
+        const {clock, canvas, waves, color, width=1, rotate = 0, draw = 'bezier'} = context;
 
         canvas.push();
 
@@ -192,6 +193,8 @@ function draw() {
         canvas.strokeWeight(width);
         canvas.translate(canvasWidth / 2, canvasHeight / 2);
         canvas.rotate(rotate);
+
+        const tValue = clock.next().value;
 
         const points = waves.map(waveContext=>{
             const {fn} = waveContext;
@@ -211,11 +214,12 @@ function draw() {
         canvas.noFill();
 
         switch(draw) {
-          case 'bezier': {
+          case 'bezier':
+          case 'curve': {
             const [one, two, three, four] = points;
             //canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
             //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
-            canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
+            canvas[draw](one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
             const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
             const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
@@ -224,7 +228,7 @@ function draw() {
             stats[(d2+'')[0]]++;
 
             // al incrementar x frame, frameCount representa el total
-            console.log(stats.map(x => Math.round(x / (frameCount * enabled.length) * 100)));
+            //console.log(stats.map(x => Math.round(x / (frameCount * enabled.length) * 100)));
             break;
           }
           case 'lines': {
@@ -246,6 +250,9 @@ function draw() {
 }
 
 function mousePressed() {
-    // document.body.appendChild(new Image).src = mainCanvas.elt.toDataURL('image/webp', 1.0);
-    saveCanvas(mainCanvas, 'out', 'png');
+  const now = new Date().toISOString();
+  const name = 'out' + now;
+
+  saveCanvas(mainCanvas, name, 'png');
+  downloadFile(new Blob([snapshot(layers)], {type : 'application/json'}), name, 'json');
 }
