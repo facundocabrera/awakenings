@@ -161,8 +161,8 @@ let stats = [0,0,0,0,0,0,0,0,0,0];
 
 function setup() {
     // override manual screen size
-    // canvasWidth = windowWidth;
-    // canvasHeight = windowHeight;
+    canvasWidth = windowWidth;
+    canvasHeight = windowHeight;
 
     mainCanvas = createCanvas(canvasWidth, canvasHeight);
 

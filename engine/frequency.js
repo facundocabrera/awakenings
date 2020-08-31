@@ -115,19 +115,28 @@ function kepler(time) {
     };
 }
 
-// experimento que aun no le encontre la vuelta. 👁
-function kepler2(time) {
-    const {freq, phase=0, radius=0, e = 0.707} = this;
+function plusplus(time) {
+    const {
+        freq1,
+        freq2,
+        phase,
+        radius
+    } = this;
 
-    const w = 6 / (2 * Math.PI);
-
-    const arc = 2 * PI * freq * time + phase;
-    const y = radius * cos(arc) * Math.sin( w ) / w;
-    const x = radius * Math.sqrt(1 - Math.pow(e, 2)) * sin(arc);
+    const f1 = classicFrequencyMapping.apply({
+        freq: freq1,
+        phase,
+        radius
+    }, [time]);
+    const f2 = classicFrequencyMapping.apply({
+        freq: freq2,
+        phase,
+        radius
+    }, [time]);
 
     return {
-        arc,
-        x,
-        y
+        arc: f1.arc + f2.arc,
+        x: (f1.x + f2.x) / 2,
+        y: (f1.y + f2.y) / 2,
     };
 }
