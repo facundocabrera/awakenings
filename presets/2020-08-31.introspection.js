@@ -11,6 +11,78 @@ const layers = [
         draw: 'bezier',
         waves: [
         {
+            fn: plusplus,
+            freq1: 1/2,
+            freq2: 1/8,
+            //phase: Math.PI / 5,
+            radius: 500
+        },
+        {
+            fn: classicFrequencyMapping,
+            freq: 1/4,
+            phase: Math.PI / 2,
+            radius: 200
+        },
+        {
+            fn: classicFrequencyMapping,
+            freq: 1/4,
+            phase: 3 * Math.PI / -2,
+            radius: 200
+        },
+        {
+            fn: plusplus,
+            freq1: 1/2,
+            freq2: 1/8,
+            phase: Math.PI,
+            radius: 500
+        },
+        ],
+        color: '#F4002011',
+//         rotate: Math.PI / -2
+    },
+
+
+    {
+        disabled: true,
+        clock_unit: 1,
+        draw: 'bezier',
+        waves: [
+        {
+            fn: classicFrequencyMapping,
+            freq: 1/4,
+            phase: Math.PI / -4,
+            radius: 80
+        },
+        {
+            fn: plusplus,
+            freq1: 1/2,
+            freq2: -1/144,
+//             phase: Math.PI / -4,
+            radius: 600
+        },
+        {
+            fn: plusplus,
+            freq1: 1/2,
+            freq2: 1/144,
+//             phase: Math.PI / 4,
+            radius: 600
+        },
+        {
+            fn: classicFrequencyMapping,
+            freq: 1/4,
+            phase: Math.PI / 4,
+            radius: 80
+        },
+        ],
+        color: '#F4002011',
+        rotate: Math.PI / -2
+    },
+    {
+        disabled: true,
+        clock_unit: 1,
+        draw: 'bezier',
+        waves: [
+        {
             fn: classicFrequencyMapping,
             freq: 1/4,
             phase: Math.PI / -4,
@@ -37,7 +109,7 @@ const layers = [
             radius: 100
         },
         ],
-        color: '#AAFAFF11',
+        color: '#1DD59011',
         rotate: Math.PI / -2
     },
 //     {

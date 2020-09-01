@@ -168,7 +168,7 @@ function setup() {
 
     background(0);
 
-    frameRate(54);
+    frameRate(15);
 
     time = inc(1);
 
