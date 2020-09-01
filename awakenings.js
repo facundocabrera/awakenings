@@ -168,7 +168,7 @@ function setup() {
 
     background(0);
 
-    frameRate(60);
+    frameRate(54);
 
     time = inc(1);
 
@@ -217,18 +217,15 @@ function draw() {
           case 'bezier':
           case 'curve': {
             const [one, two, three, four] = points;
-            //canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
-            //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
+
             canvas[draw](one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
-            const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
-            const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
+            const d = dist(one.x, one.y, four.x, four.y);
 
-            stats[(d1+'')[0]]++;
-            stats[(d2+'')[0]]++;
+            stats[(d+'')[0]]++;
 
             // al incrementar x frame, frameCount representa el total
-            //console.log(stats.map(x => Math.round(x / (frameCount * enabled.length) * 100)));
+            console.log(stats.map(x => Math.round(x / frameCount * 100)));
             break;
           }
           case 'lines': {
