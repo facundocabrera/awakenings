@@ -79,29 +79,23 @@ const SoundV1 = ((global) => {
 
     if (freqs.length === 6) {
       let c = color((freqs[0] + freqs[1]) / 2, (freqs[2] + freqs[3]) / 2, (freqs[4] + freqs[5]) / 2);
-    
-//       c.setAlpha(255);
-  
+      
       const points = freqs.map((f, index) => ({
         x: 500 * Math.cos(Math.PI / f * frameCount + Math.PI / 3 * index),
         y: 500 * Math.sin(Math.PI / f * frameCount + Math.PI / 3 * index)
       }));
 
-      c.setAlpha((freqs[4] + freqs[5]) / 100);
+      c.setAlpha((freqs[3] + freqs[5]) / 64);
       
       canvas.fill(c);
       canvas.stroke(c);
       canvas.strokeWeight(2);
       canvas.circle(0, 0, 1000);
 
-//       console.log(points);
-
-//       canvas.fill(c);
       c.setAlpha(10);
       canvas.fill(c);
 
-      c.setAlpha(144);
-
+      c.setAlpha(221);
       canvas.stroke(c);
 
       canvas.bezier(...points.slice(0, 4).map(({x, y}) => [x, y]).flat());
@@ -109,6 +103,7 @@ const SoundV1 = ((global) => {
         ...points.slice(0, 4).map(({x, y}) => [x, y]).flat().reverse()
       );
       canvas.bezier(...points.slice(2).map(({x, y}) => [x, y]).flat());
+      canvas.bezier(...points.slice(2).map(({x, y}) => [x, y]).flat().reverse());
     }
     
     canvas.pop();
