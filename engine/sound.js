@@ -114,7 +114,8 @@ const SoundV1 = ((global) => {
   return {
     init,
     setup,
-    draw: memo(draw, 5)
+//     draw: memo(draw, 5)
+    draw
   };
 
 })(this);

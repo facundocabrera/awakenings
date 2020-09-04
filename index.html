@@ -7,10 +7,12 @@
   <script language="javascript" type="text/javascript" src="https://unpkg.com/lodash@4.17.15/lodash.js"></script>
 
   <!-- ENGINE -->
+  <script language="javascript" type="text/javascript" src="engine/fifo.js"></script>
   <script language="javascript" type="text/javascript" src="engine/snapshot.js"></script>
   <script language="javascript" type="text/javascript" src="engine/clock.js"></script>
   <script language="javascript" type="text/javascript" src="engine/frequency.js"></script>
   <script language="javascript" type="text/javascript" src="engine/sound.js"></script>
+  <script language="javascript" type="text/javascript" src="engine/plotter.js"></script>
 
   <!-- Configurations goes BEFORE setup so global variables are available!!! -->
   <script language="javascript" type="text/javascript" src="presets/2020-09-01.sunrise.js"></script>
@@ -25,8 +27,12 @@
        You might only need one of these values set. -->
   <style>
     body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0;
       margin: 0;
+      background: #000;
     }
   </style>
 </head>
