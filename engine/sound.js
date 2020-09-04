@@ -1,8 +1,6 @@
 const SoundV1 = ((global) => {
   let mic;
-  let fft;
-  let time;
-  
+  let fft; 
   let canvas;
 
   function init(canvas) {
@@ -16,8 +14,6 @@ const SoundV1 = ((global) => {
     mic.start();
 
     fft.setInput(mic);
-
-    time = inc(1);
 
     canvas = createGraphics(canvasWidth, canvasHeight);
   }
@@ -41,28 +37,7 @@ const SoundV1 = ((global) => {
     };
   }
 
-  function draw() {
-    //let spectrum = fft.analyze();
-
-    // canvas.noStroke();
-    // canvas.fill(255, 255, 255);
-    // for (let i = 0; i< spectrum.length; i++){
-    //   let x = map(i, 0, spectrum.length, 0, width);
-    //   let h = -height + map(spectrum[i], 0, 255, height, 0);
-    //   canvas.rect(x, height, width / spectrum.length, h )
-    // }
-
-    // let waveform = fft.waveform();
-    // canvas.noFill();
-    // canvas.beginShape();
-    // canvas.stroke(255);
-    // for (let i = 0; i < waveform.length; i++){
-    //   let x = map(i, 0, waveform.length, 0, width);
-    //   let y = map( waveform[i], -1, 1, 0, height);
-    //   canvas.vertex(x,y);
-    // }
-    // canvas.endShape();
-    
+  function draw() {  
     canvas.clear();
     canvas.push();
 
@@ -85,7 +60,7 @@ const SoundV1 = ((global) => {
         y: 500 * Math.sin(Math.PI / f * frameCount + Math.PI / 3 * index)
       }));
 
-      c.setAlpha((freqs[3] + freqs[5]) / 64);
+      c.setAlpha((freqs[0] + freqs[1]) / 64);
       
       canvas.fill(c);
       canvas.stroke(c);

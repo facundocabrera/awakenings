@@ -11,24 +11,24 @@ const layers = [
             },
             {
                 fn: classicFrequencyMapping,
-                freq: 1/4,
+                freq: 1/7,
                 // phase: 3 * Math.PI / -2,
                 radius: 500
             },
             {
                 fn: classicFrequencyMapping,
-                freq: 1/8,
-                // phase: Math.PI / 2,
+                freq: 1/7,
+                phase: 3 * Math.PI / 2,
                 radius: 500
             },
             {
                 fn: classicFrequencyMapping,
-                freq: 1/16,
-                // phase: 3 * Math.PI / -2,
+                freq: 1/2,
+                phase: 3 * Math.PI / 2,
                 radius: 500
             },
         ],
-        color: '#FFFFFF',
+        color: '#FFFFFF11',
         rotate: Math.PI / -2
     },
 ];
