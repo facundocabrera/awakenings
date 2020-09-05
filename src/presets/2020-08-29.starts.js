@@ -1,6 +1,6 @@
 /* 45 */
 
-const layers = [
+export default [
     {
         clock_unit: .1,
         draw: 'bezier',

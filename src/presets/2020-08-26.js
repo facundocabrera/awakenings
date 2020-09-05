@@ -1,6 +1,6 @@
 /* SERIE INSECTOS */
 
-const layers = [{
+export default [{
   waves: [{
       fn: classicFrequencyMapping,
       freq: 1/8,

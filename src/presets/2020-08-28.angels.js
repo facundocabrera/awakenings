@@ -2,7 +2,7 @@
 
 const r = 500;
 
-const layers = [
+export default [
     {
         disabled: true,
         draw: 'bezier',

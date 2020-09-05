@@ -1,11 +1,13 @@
-const PlotterV1 = ((global) => {
+import p5 from 'p5';
+
+const PlotterV1 = (global) => {
   let stats = [0,0,0,0,0,0,0,0,0,0];
   let canvas;
 
   function setup() {
     global.layers = layers.filter(({disabled=false})=>!disabled);
     
-    canvas = createGraphics(canvasWidth, canvasHeight);
+    canvas = p5.createGraphics(canvasWidth, canvasHeight);
     
     // si logro hacer que los clocks dependan del frameCount, me olvido de todo
     global.layers.forEach(layer => {
@@ -75,4 +77,8 @@ const PlotterV1 = ((global) => {
     setup,
     draw
   }
-})(this);
+};
+
+export {
+  PlotterV1
+};

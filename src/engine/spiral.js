@@ -1,15 +1,20 @@
 // 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
 
-const SpiralV1 = ((global) => {
+function SpiralV1() {
   let canvas;
   let p1;
+  let globalContext;
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  function setup() {
-    canvas = createGraphics(canvasWidth, canvasHeight);
+  function setup({
+    ctx, canvasWidth, canvasHeight
+  }) {
+    globalContext = ctx;
+
+    canvas = globalContext.createGraphics(canvasWidth, canvasHeight);
     canvas.translate(canvasWidth / 2, canvasHeight / 2);
     canvas.rotate(2 * Math.PI / 3)
   }
@@ -17,7 +22,7 @@ const SpiralV1 = ((global) => {
   function draw() {  
     const fragment = 33;
 
-    const step = frameCount % (fragment * 5);
+    const step = globalContext.frameCount % (fragment * 5);
 
     const l = step * Math.PI / fragment;
 
@@ -27,7 +32,7 @@ const SpiralV1 = ((global) => {
     if (step % 12 === 0) {
       canvas.rotate(Math.PI / 12);
       
-      let c = color(getRandomInt(255), getRandomInt(255), getRandomInt(255));
+      let c = globalContext.color(getRandomInt(255), getRandomInt(255), getRandomInt(255));
       c.setAlpha(11);
       canvas.stroke(c);
     }
@@ -66,4 +71,8 @@ const SpiralV1 = ((global) => {
     setup,
     draw
   };
-})(this);
+};
+
+export {
+  SpiralV1
+};

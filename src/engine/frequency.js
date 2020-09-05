@@ -140,3 +140,14 @@ function plusplus(time) {
         y: (f1.y + f2.y) / 2,
     };
 }
+
+export {
+    harmonic,
+    polar,
+    classicFrequencyMapping,
+    hookeLawHarmonicOscillator,
+    unstablePhase,
+    elliptic,
+    kepler,
+    plusplus
+};

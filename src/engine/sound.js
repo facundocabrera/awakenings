@@ -1,4 +1,6 @@
-const SoundV1 = ((global) => {
+import p5 from 'p5';
+
+const SoundV1 = (global) => {
   let mic;
   let fft; 
   let canvas;
@@ -93,4 +95,8 @@ const SoundV1 = ((global) => {
     draw
   };
 
-})(this);
+};
+
+export {
+  SoundV1
+};

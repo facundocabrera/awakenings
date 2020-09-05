@@ -5,7 +5,7 @@
  * https://books.apple.com/ar/book/natures-law-the-secret-of-the-universe/id512156268?l=en
  */
 
-const layers = [
+export default  [
     {
         clock_unit: 1,
         draw: 'bezier',

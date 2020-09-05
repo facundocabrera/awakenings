@@ -3,7 +3,7 @@
  * FIRST 144 Pi DIGITS (after decimal point) WITH INDEXED PRIME NUMBERS:
  */
 
-const layers = [
+export default [
     {
         clock_unit: 1,
         draw: 'curve',

@@ -1,4 +1,4 @@
-const layers = [
+export default [
     {
         disabled: true,
         clock_unit: 1,

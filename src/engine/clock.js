@@ -36,3 +36,10 @@ function *counterMode(n) {
         counter++;
     }
 }
+
+export {
+    fibonacci,
+    inc,
+    limitedInc,
+    counterMode
+};

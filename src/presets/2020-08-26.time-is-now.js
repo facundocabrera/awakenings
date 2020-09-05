@@ -1,6 +1,6 @@
 /* TIME IS NOW */
 
-const layers = [
+export default [
     {
         disabled: true,
         waves: [{

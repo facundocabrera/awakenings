@@ -1,6 +1,6 @@
 /* SERIE INSECTOS LA REINA */
 
-const layers = [
+export default [
     {
         waves: [{
             fn: classicFrequencyMapping,
