@@ -1,5 +1,6 @@
 const layers = [
     {
+        disabled: true,
         clock_unit: 1,
         draw: 'bezier',
         waves: [

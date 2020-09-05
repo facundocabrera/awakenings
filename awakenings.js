@@ -16,16 +16,17 @@ function setup() {
 
     background(0);
 
-    frameRate(30);
+    frameRate(60);
 
+    SpiralV1.setup();
     PlotterV1.setup();
-    SoundV1.setup();
+    // SoundV1.setup();
 }
 
 function draw() {
     if (frameCount % 11) {
-        mainCanvas.background(0);
-        soundQueue.push(SoundV1.draw());
+//         mainCanvas.background(0);
+        //soundQueue.push(SoundV1.draw());
         frequencyQueue.push(PlotterV1.draw());
     }
 
@@ -34,12 +35,15 @@ function draw() {
             image(canvas, 0, 0);
         }
     });
+    
+    // background(0);
+    image(SpiralV1.draw(), 0, 0);
 }
 
-// function keyPressed() {
-//   const now = new Date().toISOString();
-//   const name = 'out' + now;
+function keyPressed() {
+  const now = new Date().toISOString();
+  const name = 'out' + now;
 
-// //   saveCanvas(mainCanvas, name, 'png');
-// //   downloadFile(new Blob([snapshot(layers)], {type : 'application/json'}), name, 'json');
-// }
+  saveCanvas(mainCanvas, name, 'png');
+//   downloadFile(new Blob([snapshot(layers)], {type : 'application/json'}), name, 'json');
+}
