@@ -1,50 +1,33 @@
-import p5 from 'p5';
-
 const SoundV1 = (global) => {
+  let globalContext;
+  let canvas, width, height;
+
   let mic;
   let fft; 
-  let canvas;
 
-  function init(canvas) {
-    canvas.mousePressed(userStartAudio);
-  }
+  function setup({
+    ctx, canvasWidth, canvasHeight
+  }) {
+    globalContext = ctx;
+    width = canvasWidth;
+    height = canvasHeight;
 
-  function setup() {
     fft = new p5.FFT();
-    
+
     mic = new p5.AudioIn();
     mic.start();
 
     fft.setInput(mic);
 
-    canvas = createGraphics(canvasWidth, canvasHeight);
-  }
-
-  function memo(fn, limit) {
-    let calls = 0;
-    let ret;
-
-    return (...args) => {
-      calls++;
-
-      if (calls > limit) {
-        ret = null;
-        calls = 0;
-      }
-
-      if (!ret)
-        ret = fn(...args);
-  
-      return ret;
-    };
+    canvas = globalContext.createGraphics(width, height);
   }
 
   function draw() {  
     canvas.clear();
     canvas.push();
 
-    canvas.translate(canvasWidth / 2, canvasHeight / 2);
-    canvas.rotate(PI / 4);
+    canvas.translate(width / 2, height / 2);
+    canvas.rotate(Math.PI / 4);
     
     fft.analyze();
 
@@ -55,11 +38,11 @@ const SoundV1 = (global) => {
     freqs = freqs.filter(v => v > 0);
 
     if (freqs.length === 6) {
-      let c = color((freqs[0] + freqs[1]) / 2, (freqs[2] + freqs[3]) / 2, (freqs[4] + freqs[5]) / 2);
+      let c = globalContext.color((freqs[0] + freqs[1]) / 2, (freqs[2] + freqs[3]) / 2, (freqs[4] + freqs[5]) / 2);
       
       const points = freqs.map((f, index) => ({
-        x: 500 * Math.cos(Math.PI / f * frameCount + Math.PI / 3 * index),
-        y: 500 * Math.sin(Math.PI / f * frameCount + Math.PI / 3 * index)
+        x: 500 * Math.cos(Math.PI / f * globalContext.frameCount + Math.PI / 3 * index),
+        y: 500 * Math.sin(Math.PI / f * globalContext.frameCount + Math.PI / 3 * index)
       }));
 
       c.setAlpha((freqs[0] + freqs[1]) / 64);
@@ -89,12 +72,9 @@ const SoundV1 = (global) => {
   }
 
   return {
-    init,
     setup,
-//     draw: memo(draw, 5)
     draw
   };
-
 };
 
 export {

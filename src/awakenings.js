@@ -1,11 +1,14 @@
-import p5 from 'p5';
+require('p5');
+require('p5/lib/addons/p5.sound');
 
 import { SpiralV1 } from './engine/spiral';
+import { SoundV1 } from './engine/sound';
 
 import { responsiveScreen } from './utils/responsive-screen';
 
 const sketch = (ctx) => {
   const spiralPainter = SpiralV1();
+  const soundPainter = SoundV1();
 
   let canvasWidth;
   let canvasHeight;
@@ -24,10 +27,20 @@ const sketch = (ctx) => {
         canvasWidth,
         canvasHeight
       });
+
+      soundPainter.setup({
+        ctx,
+        canvasWidth,
+        canvasHeight
+      });
   }
 
   function draw() {
+    // if (ctx.frameCount % 8)
+    //   ctx.clear();
+
     ctx.image(spiralPainter.draw(), 0, 0);
+    //ctx.image(soundPainter.draw(), 0, 0);
   }
 
   // Hook functions into p5 sketch configuration context
@@ -37,4 +50,4 @@ const sketch = (ctx) => {
 
 const runtime = new p5(sketch);
 
-console.log(runtime);
+onmousedown = () => runtime.userStartAudio();

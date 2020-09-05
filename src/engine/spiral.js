@@ -4,6 +4,17 @@ function SpiralV1() {
   let canvas;
   let p1;
   let globalContext;
+  let time;
+  
+  let w = 2;
+  let k = 1/8;
+
+  function freq(l) {
+    return [ 
+      w * Math.exp(k * l) * Math.cos(l),
+      w * Math.exp(k * l) * Math.sin(l)
+    ];
+  }
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -17,43 +28,30 @@ function SpiralV1() {
     canvas = globalContext.createGraphics(canvasWidth, canvasHeight);
     canvas.translate(canvasWidth / 2, canvasHeight / 2);
     canvas.rotate(2 * Math.PI / 3)
+
+    time = 0;
   }
 
   function draw() {  
-    const fragment = 33;
+    time += 1;
 
-    const step = globalContext.frameCount % (fragment * 5);
-
-    const l = step * Math.PI / fragment;
-
-//     if (frameCount % 11)
-//       canvas.clear();
-
-    if (step % 12 === 0) {
-      canvas.rotate(Math.PI / 12);
-      
-      let c = globalContext.color(getRandomInt(255), getRandomInt(255), getRandomInt(255));
-      c.setAlpha(11);
-      canvas.stroke(c);
+    if (time > 54) { 
+      time = 0;
+      w = -w;
+      k = k;
     }
-      
 
-    canvas.push();
+    const fragment = 8;
+    const l = time * Math.PI / fragment;
     
-    //canvas.rotate(Math.PI / 32);
+    // random coloring
+    // let c = globalContext.color(getRandomInt(255), getRandomInt(255), getRandomInt(255));
+    // c.setAlpha(11);
+    canvas.stroke('#5489dd11');
 
-    const w = getRandomInt(32);
-    const k = 1/Math.PI;
-    const p = [
-      w * Math.exp(k * l) * Math.cos(l), 
-      w * Math.exp(k * l) * Math.sin(l)
-    ];
+    const p = freq(l);
 
-    
-    canvas.strokeWeight(1);
-//     canvas.strokeJoin(ROUND);
-
-    if (p1) {
+    if (p1 && time !== 0) {
       canvas.line(
         ...p1,
         ...p
@@ -61,8 +59,6 @@ function SpiralV1() {
     }
 
     p1 = p;
-
-    canvas.pop();
 
     return canvas;
   }
