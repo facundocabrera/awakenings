@@ -15,7 +15,9 @@ const Painters = {
 
 import { responsiveScreen } from './utils/responsive-screen';
 
+// 👁👁 PRESETS HERE!
 import preset from './presets/2020-09-05.lets-ln-spirals';
+// import preset from './presets/2020-09-06.lets-ln-spirals';
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -26,9 +28,9 @@ const sketch = (ctx) => {
     filter(preset, ['disabled', false]),
     'painter'
   ), (value, key) => Painters[key](value));
-  
+
   function setup() {
-      [canvasWidth, canvasHeight] = responsiveScreen(ctx.windowWidth, ctx.windowHeight);
+      [canvasWidth, canvasHeight] = responsiveScreen(ctx.windowWidth, ctx.windowHeight, undefined, undefined, true);
 
       mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
 
@@ -45,6 +47,8 @@ const sketch = (ctx) => {
   function draw() {
     // if (ctx.frameCount % 8)
     //   ctx.clear();
+    console.log(painters);
+
     painters.forEach(p => ctx.image(p.draw(), 0, 0));
   }
 
@@ -56,3 +60,11 @@ const sketch = (ctx) => {
 const runtime = new p5(sketch);
 
 onmousedown = () => runtime.userStartAudio();
+
+onkeypress = () => {
+  const now = new Date().toISOString();
+  const name = 'out' + now;
+
+  runtime.saveCanvas(runtime.canvas, name, 'png');
+  // downloadFile(new Blob([snapshot(layers)], {type : 'application/json'}), name, 'json');
+}

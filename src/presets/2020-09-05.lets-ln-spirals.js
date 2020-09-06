@@ -1,58 +1,31 @@
-// Presets should be able of create seveal painters and define a way of describe overlapping.
 
-import { ln } from '../engine/frequency';
+
+import { ln, kepler2 } from '../engine/frequency';
 
 export default [
   {
     disabled: false,
-    painter: 'SpiralV1', // create factory! 
-    clock_unit: 1,
-    draw: 'lines',
-    waves: [
-      {
-          fn: ln,
-          freq: 1/8,
-          k: 1/12,
-          w: 41,
-          // phase: Math.PI / 2,
-          // radius: 500
-      },
-      {
-          fn: ln,
-          freq: 1/8,
-          k: 1/12,
-          w: 41,
-          phase: Math.PI / 3,
-          // radius: 500
-      },
-    ],
-    color: '#DDDDDD11',
-    // rotate: Math.PI / -2
-  },
-  {
-    disabled: false,
-    painter: 'SpiralV1', // create factory! 
-    clock_unit: 1,
+    painter: 'SpiralV1',
     draw: 'bezier',
+    stop1: [-400, 0],
+    stop2: [400, 0],
     waves: [
       {
           fn: ln,
-          freq: 1/8,
-          k: 1/10,
-          w: 45,
-          // phase: Math.PI / 2,
-          // radius: 500
+          freq: 1/160,
+          k: 1/16,
+          w: 16,
+          phase: Math.PI / -2,
       },
       {
-          fn: ln,
-          freq: 1/8,
-          k: 1/10,
-          w: 45,
-          phase: Math.PI / 11,
-          // radius: 500
+          fn: kepler2,
+          freq: 1/640,
+          e: 0.3,
+          phase: Math.PI / 4,
+          radius: 300
       },
     ],
-    color: '#FAFAFA11',
-    rotate: Math.PI / 2
-  },
+    color: '#AA99FF11',
+    // rotate: 2 * Math.PI / 3
+  }
 ];
