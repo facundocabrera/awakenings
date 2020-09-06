@@ -3,10 +3,10 @@ function harmonic({freq, phase=0, radius}) {
 
     function fn(time) {
         // const arc = 2 * PI * (1 / freq) * time + phase;
-        const arc = 2 * PI * freq * time + phase;
-        const x = radius * cos(arc)/* * 1 / (time % freq)*/
+        const arc = 2 * Math.PI * freq * time + phase;
+        const x = radius * Math.cos(arc)/* * 1 / (time % freq)*/
         ;
-        const y = radius * sin(arc)/* * 1 / (time % freq) */
+        const y = radius * Math.sin(arc)/* * 1 / (time % freq) */
         ;
 
         fn.history = {
@@ -48,7 +48,7 @@ function classicFrequencyMapping(time) {
 
     // La idea de la definicion de la freq de esta forma, es para simplemente
     // definir un numero entero, me parece mas simple.
-    const arc = 2 * PI * freq * time + phase;
+    const arc = 2 * Math.PI * freq * time + phase;
     const { x, y } = polar(arc,radius);
 
     return {
@@ -58,13 +58,19 @@ function classicFrequencyMapping(time) {
     };
 }
 
+function classicFrequencyMapping2(time) {
+    const {x, y} = classicFrequencyMapping.apply(this, [time]);
+    
+    return [x, y];
+}
+
 // https://en.wikipedia.org/wiki/Hooke%27s_law
 // Harmonic oscillator
 function hookeLawHarmonicOscillator(time) {
     const {freq, radius=0} = this;
 
     // Adapte el movimiento armonico de un oscilador
-    const arc = 1 / (2 * PI) * Math.sqrt(freq) * time;
+    const arc = 1 / (2 * Math.PI) * Math.sqrt(freq) * time;
     const { x, y } = polar(arc,radius);
 
     return {
@@ -77,7 +83,7 @@ function hookeLawHarmonicOscillator(time) {
 function unstablePhase(time) {
     const {freq, phase=0, radius=0} = this;
 
-    const arc = 2 * PI * freq * time + Math.sqrt(phase * time);
+    const arc = 2 * Math.PI * freq * time + Math.sqrt(phase * time);
     const { x, y } = polar(arc,radius);
 
     return {
@@ -87,12 +93,18 @@ function unstablePhase(time) {
     };
 }
 
+function unstablePhase2(time) {
+    const {x, y} = unstablePhase.apply(this, [time]);
+    
+    return [x, y];
+}
+
 function elliptic(time) {
     const {freq, phase=0, radius=0} = this;
 
-    const arc = 2 * PI * (1 / freq) * time + phase;
-    const y = radius * Math.cosh(0.5) * cos(arc);
-    const x = radius * Math.sinh(0.3) * sin(arc);
+    const arc = 2 * Math.PI * (1 / freq) * time + phase;
+    const y = radius * Math.cosh(0.5) * Math.cos(arc);
+    const x = radius * Math.sinh(0.3) * Math.sin(arc);
 
     return {
         arc,
@@ -104,15 +116,21 @@ function elliptic(time) {
 function kepler(time) {
     const {freq, phase=0, radius=0, e = 0.707} = this;
 
-    const arc = 2 * PI * freq * time + phase;
-    const y = radius * cos(arc);
-    const x = radius *  Math.sqrt(1 - Math.pow(e, 2)) * sin(arc);
+    const arc = 2 * Math.PI * freq * time + phase;
+    const y = radius * Math.cos(arc);
+    const x = radius * Math.sqrt(1 - Math.pow(e, 2)) * Math.sin(arc);
 
     return {
         arc,
         x,
         y
     };
+}
+
+function kepler2(time) {
+    const {x, y} = kepler.apply(this, [time]);
+    
+    return [x, y];
 }
 
 function plusplus(time) {
@@ -141,13 +159,15 @@ function plusplus(time) {
     };
 }
 
-function ln(l) {
+function ln(time) {
     // BE SMART
     // 👁 w es un NUMERO ENTERO que lo podemos ver como el radio.
     // 👁 k es una FRACCION que controla el desarrollo del espiral.
     const {
-      w, k
+      w, k, freq, phase = 0
     } = this;
+
+    const l = time * Math.PI * freq + phase;
 
     const { x, y } = polar(l, w * Math.exp(k * l));
     
@@ -156,14 +176,46 @@ function ln(l) {
     ];
 }
 
+// https://en.wikipedia.org/wiki/Archimedean_spiral
+// 
+// The normal Archimedean spiral occurs when c = 1. Other spirals falling into this group include the hyperbolic 
+// spiral (c = −1), Fermat's spiral (c = 2), and the lituus (c = −2). Virtually all static spirals appearing in nature 
+// are logarithmic spirals, not Archimedean ones. Many dynamic spirals (such as the Parker spiral of the solar wind, 
+// or the pattern made by a Catherine's wheel) are Archimedean.
+//
+function archimedean(time) {
+    const {
+        a, b, c = 1,
+        freq,
+        phase = 0
+    } = this;
+
+    let r;
+
+    const θ = time * Math.PI * freq + phase;
+
+    if (c === 1)
+        r = a + b * θ;
+    else
+        r = a + b * Math.pow(θ, 1/c);
+
+    const { x, y } = polar(θ, r);
+
+    return [x, y];
+}
+
 export {
     harmonic,
     polar,
     classicFrequencyMapping,
+    classicFrequencyMapping2,
     hookeLawHarmonicOscillator,
     unstablePhase,
+    unstablePhase2,
     elliptic,
     kepler,
+    kepler2,
     plusplus,
-    ln
+    ln,
+    archimedean
 };
