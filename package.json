@@ -5,6 +5,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^4.4.1",
+    "lodash": "^4.17.20",
     "p5": "^1.1.9",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",

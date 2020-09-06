@@ -4,43 +4,48 @@ require('p5/lib/addons/p5.sound');
 import { SpiralV1 } from './engine/spiral';
 import { SoundV1 } from './engine/sound';
 
+import map from 'lodash/map';
+import filter from 'lodash/filter';
+import groupBy from 'lodash/groupBy';
+
+const Painters = {
+  SpiralV1,
+  SoundV1
+};
+
 import { responsiveScreen } from './utils/responsive-screen';
 
-const sketch = (ctx) => {
-  const spiralPainter = SpiralV1();
-  const soundPainter = SoundV1();
+import preset from './presets/2020-09-05.lets-ln-spirals';
 
+const sketch = (ctx) => {
   let canvasWidth;
   let canvasHeight;
   let mainCanvas;
 
+  const painters = map(groupBy(
+    filter(preset, ['disabled', false]),
+    'painter'
+  ), (value, key) => Painters[key](value));
+  
   function setup() {
       [canvasWidth, canvasHeight] = responsiveScreen(ctx.windowWidth, ctx.windowHeight);
 
       mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
 
       ctx.background(0);
-      ctx.frameRate(30);
+      ctx.frameRate(60);
 
-      spiralPainter.setup({
+      painters.forEach(p => p.setup({
         ctx,
         canvasWidth,
         canvasHeight
-      });
-
-      soundPainter.setup({
-        ctx,
-        canvasWidth,
-        canvasHeight
-      });
+      }));
   }
 
   function draw() {
     // if (ctx.frameCount % 8)
     //   ctx.clear();
-
-    ctx.image(spiralPainter.draw(), 0, 0);
-    //ctx.image(soundPainter.draw(), 0, 0);
+    painters.forEach(p => ctx.image(p.draw(), 0, 0));
   }
 
   // Hook functions into p5 sketch configuration context

@@ -33,8 +33,8 @@ function harmonic({freq, phase=0, radius}) {
 }
 
 function polar(arc, radius) {
-    const x = radius * cos(arc);
-    const y = radius * sin(arc);
+    const x = radius * Math.cos(arc);
+    const y = radius * Math.sin(arc);
 
     return {
         arc,
@@ -141,6 +141,21 @@ function plusplus(time) {
     };
 }
 
+function ln(l) {
+    // BE SMART
+    // 👁 w es un NUMERO ENTERO que lo podemos ver como el radio.
+    // 👁 k es una FRACCION que controla el desarrollo del espiral.
+    const {
+      w, k
+    } = this;
+
+    const { x, y } = polar(l, w * Math.exp(k * l));
+    
+    return [
+        x, y
+    ];
+}
+
 export {
     harmonic,
     polar,
@@ -149,5 +164,6 @@ export {
     unstablePhase,
     elliptic,
     kepler,
-    plusplus
+    plusplus,
+    ln
 };
