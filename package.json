@@ -7,13 +7,19 @@
     "html-webpack-plugin": "^4.4.1",
     "lodash": "^4.17.20",
     "p5": "^1.1.9",
+    "prettier": "^2.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
+    "format": "prettier -w .",
     "watch": "webpack --watch",
     "build": "webpack",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2"
   }
 }

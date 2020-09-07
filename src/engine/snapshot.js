@@ -9,20 +9,22 @@ function snapshot(layers = []) {
     draw,
     waves,
     rotate,
-    color
+    color,
   }) => ({ clock_unit, draw, waves, rotate, color });
 
   // agregar soporte para que use el nombre de las funciones cuando
   // convertimos a JSON.
   const replacer = (key, value) => {
-    if (typeof value === 'function') {
+    if (typeof value === "function") {
       return value.name;
     }
 
     return value;
-  }
+  };
 
-  const data = layers.filter(({ disabled }) => !disabled).map(snapshotLayerSettings);
+  const data = layers
+    .filter(({ disabled }) => !disabled)
+    .map(snapshotLayerSettings);
 
   return JSON.stringify(data, replacer, 2);
 }

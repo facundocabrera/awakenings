@@ -5,9 +5,7 @@ function SpiralV1(presets) {
   let globalContext;
   let time;
 
-  function setup({
-    ctx, canvasWidth, canvasHeight
-  }) {
+  function setup({ ctx, canvasWidth, canvasHeight }) {
     globalContext = ctx;
 
     canvas = globalContext.createGraphics(canvasWidth, canvasHeight);
@@ -17,20 +15,29 @@ function SpiralV1(presets) {
     time = 0;
   }
 
-  function draw() {  
+  function draw() {
     time += 0.1;
 
     if (time > 128) {
       time = 0;
     }
 
-    if (canvas.frameCount % 7 === 0)
-      canvas.clear();
+    if (canvas.frameCount % 7 === 0) canvas.clear();
 
-    presets.forEach(context => {
-      const {waves, color, width = 1, rotate = 0, draw = 'bezier', stop1, stop2} = context;
-      
-      const points = waves.map(({fn, ...context}) => fn.apply(context, [time]));
+    presets.forEach((context) => {
+      const {
+        waves,
+        color,
+        width = 1,
+        rotate = 0,
+        draw = "bezier",
+        stop1,
+        stop2,
+      } = context;
+
+      const points = waves.map(({ fn, ...context }) =>
+        fn.apply(context, [time])
+      );
 
       if (rotate !== 0) {
         canvas.push();
@@ -41,22 +48,21 @@ function SpiralV1(presets) {
       canvas.stroke(color);
       canvas.strokeWeight(width);
 
-      switch(draw) {
-        case 'bezier':
-        case 'curve': {
+      switch (draw) {
+        case "bezier":
+        case "curve": {
           canvas[draw](...stop1, ...points[0], ...points[1], ...stop2);
           break;
         }
-        case 'lines': {
+        case "lines": {
           canvas.line(...points[0], ...points[1]);
           break;
-        }       
+        }
       }
 
       if (rotate !== 0) {
         canvas.pop();
       }
-
     });
 
     return canvas;
@@ -64,10 +70,8 @@ function SpiralV1(presets) {
 
   return {
     setup,
-    draw
+    draw,
   };
-};
+}
 
-export {
-  SpiralV1
-};
+export { SpiralV1 };

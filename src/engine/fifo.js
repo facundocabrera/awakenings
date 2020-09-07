@@ -6,15 +6,15 @@ function FIFO(size) {
     arr = [...n, el];
     return arr;
   };
-  
+
   const get = () => {
     return arr;
   };
 
   return {
     push,
-    get
+    get,
   };
-}    
+}
 
 export { FIFO };
