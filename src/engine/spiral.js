@@ -22,7 +22,7 @@ function SpiralV1(presets) {
       time = 0;
     }
 
-    if (canvas.frameCount % 7 === 0) canvas.clear();
+    if (canvas.frameCount % 11 === 0) canvas.clear();
 
     presets.forEach((context) => {
       const {
@@ -38,6 +38,8 @@ function SpiralV1(presets) {
       const points = waves.map(({ fn, ...context }) =>
         fn.apply(context, [time])
       );
+
+      //console.log(points.flat());
 
       if (rotate !== 0) {
         canvas.push();

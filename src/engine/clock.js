@@ -13,8 +13,8 @@ function* inc(v) {
   let x = 0;
 
   while (true) {
-    yield x;
     x += v;
+    yield x;
   }
 }
 

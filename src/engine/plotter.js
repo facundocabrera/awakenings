@@ -1,37 +1,37 @@
-import p5 from "p5";
+import { inc } from './clock';
 
-const PlotterV1 = (global) => {
+const PlotterV1 = (preset) => {
   let stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let canvas;
+  let globalContext;
 
-  function setup() {
-    global.layers = layers.filter(({ disabled = false }) => !disabled);
+  let width, height;
 
-    canvas = p5.createGraphics(canvasWidth, canvasHeight);
+  function setup({ ctx, canvasWidth, canvasHeight }) {
+    globalContext = ctx;
+    width = canvasWidth;
+    height = canvasHeight;
 
-    // si logro hacer que los clocks dependan del frameCount, me olvido de todo
-    global.layers.forEach((layer) => {
-      layer.clock = inc(layer.clock_unit);
+    canvas = globalContext.createGraphics(width, height);
+
+    preset.forEach((p) => {
+      p.clock = inc(p.clock_unit);
     });
   }
 
   function draw() {
-    global.layers.forEach((context) => {
+    preset.forEach((context) => {
       const {
         clock,
         waves,
         color,
-        width = 1,
-        rotate = 0,
         draw = "bezier",
       } = context;
 
       canvas.push();
 
       canvas.stroke(color);
-      canvas.strokeWeight(width);
-      canvas.translate(canvasWidth / 2, canvasHeight / 2);
-      canvas.rotate(rotate);
+      canvas.translate(width / 2, height / 2);
 
       const tValue = clock.next().value;
 
@@ -47,7 +47,11 @@ const PlotterV1 = (global) => {
         return point;
       });
 
+      // console.log(points);
+        
       canvas.noFill();
+
+      // points.map(p => globalContext.ellipse(p.x, p.y, 10, 10));
 
       switch (draw) {
         case "bezier":
@@ -65,7 +69,7 @@ const PlotterV1 = (global) => {
             four.y
           );
 
-          const d = dist(one.x, one.y, four.x, four.y);
+          const d = globalContext.dist(one.x, one.y, four.x, four.y);
 
           stats[(d + "")[0]]++;
 
@@ -74,10 +78,13 @@ const PlotterV1 = (global) => {
           break;
         }
         case "lines": {
-          canvas.beginShape(LINES);
+          canvas.beginShape(globalContext.LINES);
           points.map(({ x, y }) => canvas.vertex(x, y));
           canvas.endShape();
           break;
+        }
+        case 'points': {
+          points.map(({ x, y }) => canvas.ellipse(x, y, 10, 10));
         }
       }
 

@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   entry: {
     p5: "./node_modules/p5/lib/p5.min.js",
-    app: "./src/awakenings.js",
+    app: ["@babel/polyfill", "./src/awakenings.js"],
   },
   devtool: "inline-source-map",
   devServer: {
