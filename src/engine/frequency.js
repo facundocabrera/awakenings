@@ -205,5 +205,5 @@ export {
   kepler2,
   plusplus,
   ln,
-  archimedean,
+  archimedean
 };

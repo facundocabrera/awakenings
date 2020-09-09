@@ -26,12 +26,17 @@ const PlotterV1 = (preset) => {
         waves,
         color,
         draw = "bezier",
+        rotate
       } = context;
+
+      if (canvas.frameCount % 7) 
+        canvas.clear();
 
       canvas.push();
 
       canvas.stroke(color);
       canvas.translate(width / 2, height / 2);
+      canvas.rotate(rotate);
 
       const tValue = clock.next().value;
 
@@ -45,13 +50,12 @@ const PlotterV1 = (preset) => {
         else point = harmonic(waveContext)(tValue);
 
         return point;
-      });
+      }).map(p => Array.isArray(p) ? {x: p[0], y: p[1]} : p);
 
       // console.log(points);
+      // points.map(({x, y}) => canvas.ellipse(x, y, 10, 10));
         
       canvas.noFill();
-
-      // points.map(p => globalContext.ellipse(p.x, p.y, 10, 10));
 
       switch (draw) {
         case "bezier":

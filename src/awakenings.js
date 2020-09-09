@@ -21,7 +21,8 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import preset from "./presets/2020-09-05.lets-ln-spirals";
 // import preset from './presets/2020-09-06.lets-ln-spirals';
 // import preset from './presets/2020-09-06.archimedean';
-import preset from './presets/2020-09-07.circles';
+// import preset from './presets/2020-09-07.circles';
+import preset from './presets/2020-09-08.grounded';
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -45,7 +46,7 @@ const sketch = (ctx) => {
     mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
 
     ctx.background(0);
-    ctx.frameRate(30);
+    ctx.frameRate(60);
 
     painters.forEach((p) =>
       p.setup({
@@ -57,8 +58,6 @@ const sketch = (ctx) => {
   }
 
   function draw() {
-    // if (ctx.frameCount % 8)
-    //   ctx.clear();
     painters.forEach((p) => ctx.image(p.draw(), 0, 0));
   }
 
