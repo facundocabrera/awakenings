@@ -4,6 +4,7 @@ require("p5/lib/addons/p5.sound");
 import { SpiralV1 } from "./engine/spiral";
 import { SoundV1 } from "./engine/sound";
 import { PlotterV1 } from "./engine/plotter";
+import { XY } from "./engine/xy";
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -12,7 +13,8 @@ import groupBy from "lodash/groupBy";
 const Painters = {
   SpiralV1,
   SoundV1,
-  PlotterV1
+  PlotterV1,
+  XY
 };
 
 import { responsiveScreen } from "./utils/responsive-screen";
@@ -22,7 +24,8 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import preset from './presets/2020-09-06.lets-ln-spirals';
 // import preset from './presets/2020-09-06.archimedean';
 // import preset from './presets/2020-09-07.circles';
-import preset from './presets/2020-09-08.grounded';
+// import preset from './presets/2020-09-08.grounded';
+import presets from './presets/2020-09-09.xy';
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -30,8 +33,11 @@ const sketch = (ctx) => {
   let mainCanvas;
 
   const painters = map(
-    groupBy(filter(preset, ["disabled", false]), "painter"),
-    (value, key) => Painters[key](value)
+    groupBy(
+      filter(presets, (preset) => preset.disabled == null), 
+      "painter"
+    ),
+    (config, key) => Painters[key](config)
   );
 
   function setup() {

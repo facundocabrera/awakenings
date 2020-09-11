@@ -161,9 +161,9 @@ function ln(time) {
   // 👁 k es una FRACCION que controla el desarrollo del espiral.
   const { w, k, freq, phase = 0 } = this;
 
-  const l = time * Math.PI * freq + phase;
+  const l = time * 2 * Math.PI * freq + phase;
 
-  const { x, y } = polar(l, w * Math.exp(k * l));
+  const { x, y } = polar(l, w * Math.exp(-k * l));
 
   return [x, y];
 }
