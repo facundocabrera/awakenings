@@ -9,6 +9,7 @@
     "lodash": "^4.17.20",
     "p5": "^1.1.9",
     "prettier": "^2.1.1",
+    "regenerator-runtime": "^0.13.7",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
@@ -21,6 +22,12 @@
     "test": "jest"
   },
   "devDependencies": {
+    "babel-jest": "^26.3.0",
     "jest": "^26.4.2"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/setup.js"
+    ]
   }
 }

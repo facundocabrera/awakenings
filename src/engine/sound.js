@@ -1,3 +1,5 @@
+import { Benford } from './benford';
+
 const SoundV1 = (global) => {
   let globalContext;
   let canvas, width, height;
@@ -5,12 +7,28 @@ const SoundV1 = (global) => {
   let mic;
   let fft;
 
+  const metric = Benford();
+
+  const colors = [
+    '#DE0004',
+    '#ECF20E',
+    "#63FF07",
+    '#AB27EF',
+    '#149EEF'
+  ].reverse();
+  
+  // Imaginate que me armo un rando de 16 opciones.
+  // Es el minimo que me permite la libreria.
+  // Esto tiene impacto directo en las muestras que estoy tomando
+  // pero para hacer graficos, no hace falta usar tanta informacion
+  const bins = 256;
+
   function setup({ ctx, canvasWidth, canvasHeight }) {
     globalContext = ctx;
     width = canvasWidth;
     height = canvasHeight;
 
-    fft = new p5.FFT();
+    fft = new p5.FFT(0.618, bins);
 
     mic = new p5.AudioIn();
     mic.start();
@@ -18,90 +36,42 @@ const SoundV1 = (global) => {
     fft.setInput(mic);
 
     canvas = globalContext.createGraphics(width, height);
+    canvas.translate(width / 2, height / 2);
+    canvas.noFill();
+    canvas.strokeWeight(2);
   }
 
   function draw() {
-    canvas.clear();
-    canvas.push();
-
-    canvas.translate(width / 2, height / 2);
-    canvas.rotate(Math.PI / 4);
-
-    fft.analyze();
-
-    let freqs = [
-      [60, 250],
-      [250, 500],
-      [500, 2000],
-      [2000, 4000],
-      [4000, 6000],
-      [6000, 20000],
-    ].map((f) => fft.getEnergy(...f));
-
-    freqs = freqs.filter((v) => v > 0);
-
-    if (freqs.length === 6) {
-      let c = globalContext.color(
-        (freqs[0] + freqs[1]) / 2,
-        (freqs[2] + freqs[3]) / 2,
-        (freqs[4] + freqs[5]) / 2
-      );
-
-      const points = freqs.map((f, index) => ({
-        x:
-          500 *
-          Math.cos(
-            (Math.PI / f) * globalContext.frameCount + (Math.PI / 3) * index
-          ),
-        y:
-          500 *
-          Math.sin(
-            (Math.PI / f) * globalContext.frameCount + (Math.PI / 3) * index
-          ),
-      }));
-
-      c.setAlpha((freqs[0] + freqs[1]) / 64);
-
-      canvas.fill(c);
-      canvas.stroke(c);
-      canvas.strokeWeight(2);
-      canvas.circle(0, 0, 1000);
-
-      c.setAlpha(10);
-      canvas.fill(c);
-
-      c.setAlpha(221);
-      canvas.stroke(c);
-
-      canvas.bezier(
-        ...points
-          .slice(0, 4)
-          .map(({ x, y }) => [x, y])
-          .flat()
-      );
-      canvas.bezier(
-        ...points
-          .slice(0, 4)
-          .map(({ x, y }) => [x, y])
-          .flat()
-          .reverse()
-      );
-      canvas.bezier(
-        ...points
-          .slice(2)
-          .map(({ x, y }) => [x, y])
-          .flat()
-      );
-      canvas.bezier(
-        ...points
-          .slice(2)
-          .map(({ x, y }) => [x, y])
-          .flat()
-          .reverse()
-      );
+    if (globalContext.frameCount % 60 * 7) {
+      canvas.background(0);
+      canvas.rotate(Math.PI / 7);
     }
 
-    canvas.pop();
+    fft.analyze().filter(v => v > 0).forEach(element => {
+      metric.add(element);
+    });
+
+    const energy = ["bass", "lowMid", "mid", "highMid", "treble"]
+      .map(v => 4 * Math.round(fft.getEnergy(v)));
+
+    canvas.stroke(colors[globalContext.frameCount % 5]);
+    canvas.quad(
+      0, 0, 
+      energy[0], 0, 
+      energy[0], energy[4], 
+      0, energy[4]
+    );
+    canvas.quad(
+      0, 0, 
+      -1 * energy[0], 0, 
+      -1 * energy[0], -1 * energy[4], 
+      0, -1 * energy[4]
+    );
+
+    energy.forEach((amplitude, index) => {
+      canvas.stroke(colors[index]);
+      canvas.ellipse(0,0, amplitude, amplitude);
+    });
 
     return canvas;
   }

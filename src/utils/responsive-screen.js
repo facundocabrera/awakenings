@@ -3,8 +3,13 @@ function responsiveScreen(
   windowHeight,
   maxWidth = 1080,
   maxHeight = 1080,
-  useMax = false
+  useMax = false,
+  fullScreen = false
 ) {
+  if (fullScreen) {
+    return [windowWidth, windowHeight]
+  }
+
   if (useMax) {
     return [maxWidth, maxHeight];
   }

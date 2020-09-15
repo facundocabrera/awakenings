@@ -20,12 +20,13 @@ const Painters = {
 import { responsiveScreen } from "./utils/responsive-screen";
 
 // 👁👁 PRESETS HERE!
-// import preset from "./presets/2020-09-05.lets-ln-spirals";
-// import preset from './presets/2020-09-06.lets-ln-spirals';
-// import preset from './presets/2020-09-06.archimedean';
-// import preset from './presets/2020-09-07.circles';
-// import preset from './presets/2020-09-08.grounded';
-import presets from './presets/2020-09-09.xy';
+// import presets from "./presets/2020-09-05.lets-ln-spirals";
+// import presets from './presets/2020-09-06.lets-ln-spirals';
+// import presets from './presets/2020-09-06.archimedean';
+// import presets from './presets/2020-09-07.circles';
+// import presets from './presets/2020-09-08.grounded';
+// import presets from './presets/2020-09-09.xy';
+import presets from './presets/2020-09-11.sound';
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -46,7 +47,8 @@ const sketch = (ctx) => {
       ctx.windowHeight,
       undefined,
       undefined,
-      true
+      true,
+      false
     );
 
     mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
