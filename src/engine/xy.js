@@ -28,7 +28,7 @@ const XY = (presets) => {
   }
 
   function draw() {
-    time += .01;
+    time += .001;
 
     const {
       int, dist

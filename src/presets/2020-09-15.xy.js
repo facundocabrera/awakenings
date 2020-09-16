@@ -11,6 +11,8 @@ function bell(t) {
     r
   } = this;
 
+  t = t % 144;
+
   const point = [
     r * Math.cos(t),
     r * (1 / (σ * sqrtTwoPi)) * Math.exp( -1 * Math.pow(t - μ, 2) / 2 * Math.pow(σ, 2)) * Math.sin(t)
