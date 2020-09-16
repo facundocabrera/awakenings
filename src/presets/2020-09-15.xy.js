@@ -11,10 +11,10 @@ function bell(t) {
     r
   } = this;
 
-  t = t % 144;
+  // t = t % (89 / 100);
 
   const point = [
-    r * Math.cos(t),
+    2 * r * Math.atan(t),
     r * (1 / (σ * sqrtTwoPi)) * Math.exp( -1 * Math.pow(t - μ, 2) / 2 * Math.pow(σ, 2)) * Math.sin(t)
   ];
 
@@ -35,8 +35,8 @@ export default range(-500, 500, 89)
   .map((r, k) => ({
     painter: "XY",
     fn: bell,
-    σ: 1,
-    μ: 1/2,
+    σ: 1/16,
+    μ: 1/16,
     r,
     color: mapping[k % mapping.length]
   }));
