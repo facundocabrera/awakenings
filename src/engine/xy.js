@@ -50,8 +50,8 @@ const XY = (presets) => {
         canvas.noFill();
         canvas.stroke(context.color);
         canvas.strokeWeight(2);
-        canvas.ellipse(...p, 21, 21);
-        canvas.rotate(Math.PI / 7);
+        canvas.ellipse(...p, 33, 33);
+        canvas.rotate(Math.PI / 2);
       });
 
     return canvas;
