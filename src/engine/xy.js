@@ -13,6 +13,7 @@ const XY = (presets) => {
     width = canvasWidth;
     height = canvasHeight;
 
+    console.clear();
     console.log(`Canvas size: ${width}x${height}`);
 
     const {
@@ -21,14 +22,15 @@ const XY = (presets) => {
 
     canvas = global.createGraphics(width, height);
     canvas.translate(width / 2, height / 2);
-    canvas.rotate(3 * Math.PI / 2);
+    // canvas.rotate(3 * Math.PI / 2);
 
-    limit = int(dist(0, 0, 350, 350));
+    // limit = width;
+    limit = int(dist(0, 0, width / 2, height / 2));
     time = 0;
   }
 
   function draw() {
-    time += .01;
+    time += 1;
 
     const {
       int, dist
@@ -45,13 +47,12 @@ const XY = (presets) => {
       .filter(([ p ]) => {
         return int(dist(0, 0, ...p) <= limit);
       })
-      .forEach(([p, context]) => {
-        // canvas.fill(context.color);
-        canvas.noFill();
-        canvas.stroke(context.color);
-        canvas.strokeWeight(2);
-        canvas.ellipse(...p, 33, 33);
-        canvas.rotate(Math.PI / 2);
+      .forEach(([[x, y], { fill, color, angle }]) => {
+        fill ? canvas.fill(color) : canvas.noFill();
+        canvas.stroke(color);
+        canvas.strokeWeight(1);
+        canvas.ellipse(x, -1 * y, 21);
+        canvas.rotate(angle);
       });
 
     return canvas;

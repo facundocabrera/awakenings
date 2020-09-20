@@ -28,7 +28,8 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from './presets/2020-09-09.xy';
 // import presets from './presets/2020-09-11.sound';
 // import presets from './presets/2020-09-15.xy';
-import presets from './presets/2020-09-17.xy';
+// import presets from './presets/2020-09-17.xy';
+import presets from './presets/2020-09-19.xy';
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -50,7 +51,7 @@ const sketch = (ctx) => {
       undefined,
       undefined,
       true,
-      false
+      true
     );
 
     mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
