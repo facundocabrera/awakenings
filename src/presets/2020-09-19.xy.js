@@ -3,7 +3,7 @@
 // https://www.quantamagazine.org/when-magic-is-seen-in-twisted-graphene-thats-a-moire-20190620/
 // https://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008/
 
-const steps = 28;
+const steps = 5;
 const freq = t => t * (2 * Math.PI / steps);
 const x = t => Math.cos(freq(t));
 
@@ -59,7 +59,7 @@ const preset = [1,2,3,4,5].map((n, k) => (
     fn: metasin,
     r: 500,
     n,
-    power: 2,
+    power: 7,
     color: saturnColorMapping[k % saturnColorMapping.length],
     angle: angles[k % angles.length],
     fill: true,
