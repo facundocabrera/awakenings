@@ -22,9 +22,7 @@ const XY = (presets) => {
 
     canvas = global.createGraphics(width, height);
     canvas.translate(width / 2, height / 2);
-    // canvas.rotate(3 * Math.PI / 2);
 
-    // limit = width;
     limit = int(dist(0, 0, width / 2, height / 2));
     time = 0;
   }
@@ -38,7 +36,7 @@ const XY = (presets) => {
 
     canvas.clear();
 
-    const points = presets
+    presets
       .map(context => {
         const point = context.fn.apply(context, [time]);
         
@@ -47,11 +45,11 @@ const XY = (presets) => {
       .filter(([ p ]) => {
         return int(dist(0, 0, ...p) <= limit);
       })
-      .forEach(([[x, y], { fill, color, angle }]) => {
+      .forEach(([[x, y], { fill, color, angle, rad }]) => {
         fill ? canvas.fill(color) : canvas.noFill();
         canvas.stroke(color);
         canvas.strokeWeight(1);
-        canvas.ellipse(x, -1 * y, 21);
+        canvas.ellipse(x, -1 * y, rad);
         canvas.rotate(angle);
       });
 

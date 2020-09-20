@@ -51,13 +51,13 @@ const sketch = (ctx) => {
       undefined,
       undefined,
       true,
-      true
+      !!presets.fullScreen
     );
 
     mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
 
-    ctx.background(0);
-    ctx.frameRate(60);
+    ctx.background(presets.background || 0);
+    ctx.frameRate(presets.frameRate || 30);
 
     painters.forEach((p) =>
       p.setup({

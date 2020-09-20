@@ -3,26 +3,37 @@
 // https://www.quantamagazine.org/when-magic-is-seen-in-twisted-graphene-thats-a-moire-20190620/
 // https://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008/
 
-const steps = 936;
+const steps = 28;
 const freq = t => t * (2 * Math.PI / steps);
 const x = t => Math.cos(freq(t));
 
 const mapping = [
-  '#DE000411',
-  '#ECF20E11',
-  "#63FF0711",
-  '#AB27EF11', 
-  '#149EEF11'
+  '#DE000455',
+  '#ECF20E55',
+  "#63FF0755",
+  '#AB27EF55', 
+  '#149EEF55'
+];
+
+const saturnColorMapping = [
+  '#D6C6A8',
+  '#CE9988',
+  '#9F6C70',
+  '#5D4C58',
+  '#2F2C37'
 ];
 
 const angles = [
-  // 0,
-  // 22.5,
-  // 67.5
   0,
-  45,
-  90
-];
+  22.5,
+  67.5
+  // 0,
+  // 45,
+  // 90,
+  // 90,
+  // 180,
+  // 270,
+].map(d => d * 2 * Math.PI / 360);
 
 function metasin(t) {
   const {
@@ -42,15 +53,23 @@ function metasin(t) {
   return point;
 }
 
-export default [2, 3, 6].map((n, k) => (
+const preset = [1,2,3,4,5].map((n, k) => (
   {
     painter: "XY",
     fn: metasin,
     r: 500,
     n,
     power: 2,
-    color: mapping[(k + 3) % mapping.length],
-    angle: angles[k] * Math.PI / 180,
+    color: saturnColorMapping[k % saturnColorMapping.length],
+    angle: angles[k % angles.length],
     fill: true,
+    rad: 13
   }
 ));
+
+// General Engine Control Settings
+preset.frameRate = 30;
+preset.background = 0;
+preset.fullScreen = false;
+
+export default preset;
