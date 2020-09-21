@@ -53,14 +53,14 @@ function metasin(t) {
   return point;
 }
 
-const preset = [2, -2].map((n, k) => (
+const preset = [3, -3].map((n, k) => (
   {
     painter: "XY",
     fn: metasin,
     r: 500,
     n,
     power: 2,
-    color: saturnColorMapping[k % saturnColorMapping.length],
+    color: saturnColorMapping[(k+1) % saturnColorMapping.length],
     angle: angles[k % angles.length],
     fill: true,
     rad: 13
