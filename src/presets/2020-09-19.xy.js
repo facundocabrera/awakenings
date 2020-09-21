@@ -59,7 +59,7 @@ const preset = [1,2,3,4,5].map((n, k) => (
     fn: metasin,
     r: 500,
     n,
-    power: 7,
+    power: 2,
     color: saturnColorMapping[k % saturnColorMapping.length],
     angle: angles[k % angles.length],
     fill: true,
