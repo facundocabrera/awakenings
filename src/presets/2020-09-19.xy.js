@@ -3,7 +3,7 @@
 // https://www.quantamagazine.org/when-magic-is-seen-in-twisted-graphene-thats-a-moire-20190620/
 // https://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008/
 
-const steps = 54;
+const steps = 360;
 const freq = t => t * (2 * Math.PI / steps);
 const x = t => Math.cos(freq(t));
 
@@ -53,7 +53,7 @@ function metasin(t) {
   return point;
 }
 
-const preset = [1,2,3,4,5].map((n, k) => (
+const preset = [2, -2].map((n, k) => (
   {
     painter: "XY",
     fn: metasin,
