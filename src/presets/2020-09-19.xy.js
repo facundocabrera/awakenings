@@ -3,7 +3,7 @@
 // https://www.quantamagazine.org/when-magic-is-seen-in-twisted-graphene-thats-a-moire-20190620/
 // https://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008/
 
-const steps = 6;
+const steps = 23;
 const freq = t => t * (2 * Math.PI / steps);
 const x = t => Math.cos(freq(t));
 
@@ -16,11 +16,11 @@ const mapping = [
 ];
 
 const saturnColorMapping = [
-  '#D6C6A8',
-  '#CE9988',
-  '#9F6C70',
-  '#5D4C58',
-  '#2F2C37'
+  '#D6C6A811',
+  '#CE998811',
+  '#9F6C7011',
+  '#5D4C5811',
+  '#2F2C3711'
 ];
 
 const angles = [
@@ -68,7 +68,7 @@ const preset = [1,2,3,4,5].map((n, k) => (
 ));
 
 // General Engine Control Settings
-preset.frameRate = 30;
+preset.frameRate = 60;
 preset.background = 0;
 preset.fullScreen = false;
 
