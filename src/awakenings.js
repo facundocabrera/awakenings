@@ -5,6 +5,7 @@ import { SpiralV1 } from "./engine/spiral";
 import { SoundV1 } from "./engine/sound";
 import { PlotterV1 } from "./engine/plotter";
 import { XY } from "./engine/xy";
+import { XY2 } from "./engine/xy2";
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -14,7 +15,8 @@ const Painters = {
   SpiralV1,
   SoundV1,
   PlotterV1,
-  XY
+  XY,
+  XY2,
 };
 
 import { responsiveScreen } from "./utils/responsive-screen";
@@ -29,7 +31,8 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from './presets/2020-09-11.sound';
 // import presets from './presets/2020-09-15.xy';
 // import presets from './presets/2020-09-17.xy';
-import presets from './presets/2020-09-19.xy';
+// import presets from './presets/2020-09-19.xy';
+import presets from "./presets/2020-09-24.xy";
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -38,7 +41,7 @@ const sketch = (ctx) => {
 
   const painters = map(
     groupBy(
-      filter(presets, (preset) => preset.disabled == null), 
+      filter(presets, (preset) => preset.disabled == null),
       "painter"
     ),
     (config, key) => Painters[key](config)
