@@ -10,6 +10,8 @@ import { XY2 } from "./engine/xy2";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import groupBy from "lodash/groupBy";
+import pick from "lodash/pick";
+import assign from "lodash/assign";
 
 const Painters = {
   SpiralV1,
@@ -32,7 +34,17 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from './presets/2020-09-15.xy';
 // import presets from './presets/2020-09-17.xy';
 // import presets from './presets/2020-09-19.xy';
-import presets from "./presets/2020-09-24.xy";
+// import presets from "./presets/2020-09-24.xy";
+import presets from "./presets/2020-09-29";
+
+const properties = [
+  'frameRate', 
+  'background', 
+  'fullScreen', 
+  'center',
+  'axis',
+  'before'
+];
 
 const sketch = (ctx) => {
   let canvasWidth;
@@ -44,7 +56,7 @@ const sketch = (ctx) => {
       filter(presets, (preset) => preset.disabled == null),
       "painter"
     ),
-    (config, key) => Painters[key](config)
+    (config, key) => Painters[key](assign(config, pick(presets, properties)))
   );
 
   function setup() {

@@ -1,3 +1,5 @@
+import preset from "../presets/2020-09-24.xy";
+
 const XY2 = (presets) => {
   let global;
   let canvas;
@@ -13,7 +15,7 @@ const XY2 = (presets) => {
     const { int, dist } = global;
 
     // moving the center now move the axis 
-    const center = [20, height - 20];
+    const center = presets.center(width, height);
     const axis = [  
       [center[0], 0, center[0], height],
       [0, center[1], width, center[1]]
@@ -22,10 +24,12 @@ const XY2 = (presets) => {
     canvas = global.createGraphics(width, height);
 
     // draw axis
-    canvas.stroke('white');
-    canvas.strokeWeight(1);
-    canvas.line(...axis[0]);
-    canvas.line(...axis[1]);
+    if (presets.axis) {
+      canvas.stroke('white');
+      canvas.strokeWeight(1);
+      canvas.line(...axis[0]);
+      canvas.line(...axis[1]);
+    }
 
     // align coordinate system, remember it's rotate 180 deg given the canvas is draw from 0,0 point.
     canvas.translate(...center);
@@ -39,15 +43,17 @@ const XY2 = (presets) => {
 
     const { int, dist } = global;
 
+    presets.before(canvas);
+
     presets
       .map((context) => {
         const point = context.fn.apply(context, [time]);
 
         return [point, context];
       })
-      // .filter(([p]) => {
-      //   return int(dist(0, 0, ...p) <= limit);
-      // })
+      .filter(([p]) => {
+        return int(dist(0, 0, ...p) <= limit);
+      })
       .forEach(([[x, y], { fill, color, angle, rad }]) => {
         fill && canvas.fill(color) || canvas.noFill();
         canvas.stroke(color);
