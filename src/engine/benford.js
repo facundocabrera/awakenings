@@ -1,5 +1,7 @@
 // https://en.wikipedia.org/wiki/Benford's_law
 
+import asciichart from 'asciichart';
+
 const idealDistribution = [1,2,3,4,5,6,7,8,9].map(d => Math.log10(1 + 1 / d));
 
 const Benford = ({
@@ -9,14 +11,18 @@ const Benford = ({
   let counter = 0;
 
   const add = (n) => {
-    const digit = (n + "")[0];
-    
-    if (digit < 1) {
-      throw `first digit must be 1,2,3,4,5,6,7,8,9 given ${n}`;
-    }
+    if (Number.isFinite(n)) {
+      const digit = (n + "")[0];
 
-    stats[digit - 1]++;
-    counter++;
+      if (digit < 1) {
+        throw `first digit must be 1,2,3,4,5,6,7,8,9 given ${n}`;
+      }
+
+      stats[digit - 1]++;
+      counter++;
+    } else {
+      throw `Infinity value provided / Overflow`;
+    }
   };
 
   const ideal = () => idealDistribution;
@@ -47,7 +53,7 @@ const Benford = ({
 
     const current = distribution();
     const limit = current.length;
-    
+
     while (obey && index < limit) {
       obey = Math.abs(idealDistribution[index] - current[index]) < errorMargin;
       index++;
@@ -56,12 +62,27 @@ const Benford = ({
     return obey;
   };
 
+  const plot = (title) => {
+    console.log(title);
+    console.log(asciichart.white, 'PERFECT', asciichart.green, 'CURRENT');
+    console.log(
+      asciichart.plot(
+        [ideal().map(v => v * 100), distribution().map(v => v * 100)], {
+          colors: [
+            asciichart.white,
+            asciichart.green
+          ]
+        })
+    );
+  };
+
   return {
     add,
     distribution,
     obeyTheLaw,
     ideal,
-    diff
+    diff,
+    plot
   }
 };
 

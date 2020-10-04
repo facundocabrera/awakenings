@@ -6,6 +6,7 @@ import { SoundV1 } from "./engine/sound";
 import { PlotterV1 } from "./engine/plotter";
 import { XY } from "./engine/xy";
 import { XY2 } from "./engine/xy2";
+import { XY3 } from "./engine/xy3";
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -19,6 +20,7 @@ const Painters = {
   PlotterV1,
   XY,
   XY2,
+  XY3
 };
 
 import { responsiveScreen } from "./utils/responsive-screen";
@@ -35,7 +37,9 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from './presets/2020-09-17.xy';
 // import presets from './presets/2020-09-19.xy';
 // import presets from "./presets/2020-09-24.xy";
-import presets from "./presets/2020-09-29";
+// import presets from "./presets/2020-09-29";
+// import presets from './presets/2020-10-01.full.moon';
+import presets from './presets/2020-10-04.energy';
 
 const properties = [
   'frameRate', 
@@ -43,7 +47,9 @@ const properties = [
   'fullScreen', 
   'center',
   'axis',
-  'before'
+  'before', // @deprecated?
+  'draw',
+  'setup'
 ];
 
 const sketch = (ctx) => {

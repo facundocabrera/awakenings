@@ -1,5 +1,3 @@
-import preset from "../presets/2020-09-24.xy";
-
 const XY2 = (presets) => {
   let global;
   let canvas;
