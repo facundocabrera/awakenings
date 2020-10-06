@@ -1,6 +1,9 @@
-const PI = Math.PI;
+const { 
+  PI,
+  cos
+} = Math;
 
-const mapping = ["#E8F3F4", "#CE4A97", "#3534C3", "#95D637"];
+const mapping = ["#B9977811", "#F4D8C311", "#D37A3C11", "#F7FDF911"];
 
 const fixedAcc = (t) => 1;
 const acc = (t) => fixedAcc(t);
@@ -22,21 +25,30 @@ const freqAtom = (steps, phase = 0) => {
 const Ax = (t) => 500;
 const Ay = (t) => 500;
 
-const xAtom = (f) => (t) => Ax(t) * Math.sin(f(t));
-const yAtom = (f) => (t) => Ay(t) * Math.cos(f(t));
+// La funcion sin no es mas que un cos con phase π/2
+const sin = x => cos(x + PI / 2);
+
+// esto significa que puedo crearme mis propias funciones trigonometricas alterando la fase.
+const sx = x => cos(x + PI / 8);
+const sy = x => cos(x);
+
+const xAtom = (f) => (t) => Ax(t) * sx(f(t));
+const yAtom = (f) => (t) => Ay(t) * sy(f(t));
 const zeroAtom = () => 0;
 
 const x1 = zeroAtom;
 const y1 = zeroAtom;
 
-const x2 = xAtom(freqAtom(12));
-const y2 = yAtom(freqAtom(12));
+const x2 = xAtom(freqAtom(2));
+const y2 = yAtom(freqAtom(2));
 
-const x3 = xAtom(freqAtom(12, Math.PI / 6));
-const y3 = yAtom(freqAtom(12, Math.PI / 6));
+const x3 = xAtom(freqAtom(4));
+const y3 = yAtom(freqAtom(4));
 
 const x4 = zeroAtom;
 const y4 = zeroAtom;
+
+const rotate = PI / -7;
 
 function pointAtom(t) {
   const { x, y } = this;
@@ -65,7 +77,7 @@ const preset = [
 }));
 
 // General Engine Control Settings
-preset.frameRate = 1;
+preset.frameRate = 60;
 preset.background = 0;
 preset.fullScreen = false;
 
@@ -76,30 +88,19 @@ preset.center = (width, height) => {
 };
 
 preset.setup = (canvas) => {
-  // canvas.noFill();
-  // canvas.stroke('red');
-  // canvas.ellipse(0, 0, 1000);
+  // canvas.rotate(PI);
 };
 
-preset.draw = ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], canvas) => {
+preset.draw = ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], canvas, global) => {
+  canvas.clear();
+
   canvas.noFill();
 
-  [
-    [x1, y1],
-    [x2, y2],
-    [x3, y3],
-    [x4, y4],
-  ].map(([x, y], k) => {
-    canvas.stroke(mapping[k]);
-    canvas.strokeWeight(2);
-    canvas.ellipse(x, y, 10);
-  });
-
-  canvas.stroke(mapping[3]);
+  canvas.stroke(mapping[global.frameCount % mapping.length]);
   canvas.strokeWeight(1);
   canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
-  // canvas.rotate(PI / 3);
+  canvas.rotate(rotate);
 };
 
 export default preset;

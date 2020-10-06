@@ -39,7 +39,7 @@ const XY3 = (presets) => {
     time += 1;
 
     presets.draw(
-      presets.map(context => context.fn.apply(context, [time])), canvas
+      presets.map(context => context.fn.apply(context, [time])), canvas, global
     );
 
     return canvas;

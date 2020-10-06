@@ -144,3 +144,25 @@ xtest('interesting 👁', () => {
 
   expect(b.obeyTheLaw()).toBe(true);
 });
+
+test('n! applies for benford law', () => { 
+  // Cambiar X por cualquier valor > 1
+  const x = (1 + Math.sqrt(5)) / 2;
+  const b = Benford({
+    errorMargin: 0.01
+  });
+
+  let v = Math.log(1) + Math.log(2) + Math.log(3), i = 4;
+
+  let steps = 0;
+
+  while (Number.isFinite(v) && steps < 10 * 1000 * 1000) {  
+    b.add(v);
+    v += Math.log(i);
+    steps++;
+  }
+
+  b.plot('n! applies for benford law');
+
+  expect(b.obeyTheLaw()).toBe(true);
+});
