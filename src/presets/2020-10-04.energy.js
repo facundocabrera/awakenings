@@ -1,6 +1,7 @@
 const { 
   PI,
-  cos
+  cos,
+  sqrt
 } = Math;
 
 const mapping = ["#B9977811", "#F4D8C311", "#D37A3C11", "#F7FDF911"];
@@ -22,8 +23,8 @@ const freqAtom = (steps, phase = 0) => {
   };
 };
 
-const Ax = (t) => 500;
-const Ay = (t) => 500;
+const Ax = (t) => 400;
+const Ay = (t) => 400;
 
 // La funcion sin no es mas que un cos con phase π/2
 const sin = x => cos(x + PI / 2);
@@ -36,19 +37,19 @@ const xAtom = (f) => (t) => Ax(t) * sx(f(t));
 const yAtom = (f) => (t) => Ay(t) * sy(f(t));
 const zeroAtom = () => 0;
 
-const x1 = zeroAtom;
-const y1 = zeroAtom;
+const x1 = xAtom(freqAtom(2));
+const y1 = yAtom(freqAtom(2));
 
-const x2 = xAtom(freqAtom(2));
-const y2 = yAtom(freqAtom(2));
+const x2 = xAtom(freqAtom(sqrt(3)));
+const y2 = yAtom(freqAtom(sqrt(3)));
 
-const x3 = xAtom(freqAtom(4));
-const y3 = yAtom(freqAtom(4));
+const x3 = xAtom(freqAtom(sqrt(5)));
+const y3 = yAtom(freqAtom(sqrt(5)));
 
-const x4 = zeroAtom;
-const y4 = zeroAtom;
+const x4 = xAtom(freqAtom(8));
+const y4 = yAtom(freqAtom(8));
 
-const rotate = PI / -7;
+const rotate = PI / -6;
 
 function pointAtom(t) {
   const { x, y } = this;
@@ -96,9 +97,12 @@ preset.draw = ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], canvas, global) => {
 
   canvas.noFill();
 
-  canvas.stroke(mapping[global.frameCount % mapping.length]);
-  canvas.strokeWeight(1);
-  canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+  if (global.frameCount % mapping.length === 2) {
+    canvas.stroke(mapping[global.frameCount % mapping.length]);
+    canvas.strokeWeight(1);
+    canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+
+  }
 
   canvas.rotate(rotate);
 };
