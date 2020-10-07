@@ -4,6 +4,8 @@ const {
   sqrt
 } = Math;
 
+import { walker } from '../random-walk/benford-walker';
+
 const mapping = ["#B9977811", "#F4D8C311", "#D37A3C11", "#F7FDF911"];
 
 const fixedAcc = (t) => 1;
@@ -30,26 +32,24 @@ const Ay = (t) => 400;
 const sin = x => cos(x + PI / 2);
 
 // esto significa que puedo crearme mis propias funciones trigonometricas alterando la fase.
-const sx = x => cos(x + PI / 8);
+const sx = x => cos(x + PI / 2);
 const sy = x => cos(x);
 
 const xAtom = (f) => (t) => Ax(t) * sx(f(t));
 const yAtom = (f) => (t) => Ay(t) * sy(f(t));
 const zeroAtom = () => 0;
 
-const x1 = xAtom(freqAtom(2));
+const x1 = zeroAtom;
 const y1 = yAtom(freqAtom(2));
 
-const x2 = xAtom(freqAtom(sqrt(3)));
-const y2 = yAtom(freqAtom(sqrt(3)));
+const x2 = xAtom(freqAtom(3));
+const y2 = yAtom(freqAtom(3));
 
-const x3 = xAtom(freqAtom(sqrt(5)));
-const y3 = yAtom(freqAtom(sqrt(5)));
+const x3 = xAtom(freqAtom(5));
+const y3 = yAtom(freqAtom(5));
 
-const x4 = xAtom(freqAtom(8));
-const y4 = yAtom(freqAtom(8));
-
-const rotate = PI / -6;
+const x4 = zeroAtom;
+const y4 = yAtom(freqAtom(2));
 
 function pointAtom(t) {
   const { x, y } = this;
@@ -97,14 +97,14 @@ preset.draw = ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], canvas, global) => {
 
   canvas.noFill();
 
-  if (global.frameCount % mapping.length === 2) {
+  // if (global.frameCount % mapping.length === 2) {
     canvas.stroke(mapping[global.frameCount % mapping.length]);
     canvas.strokeWeight(1);
     canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
-  }
+  // }
 
-  canvas.rotate(rotate);
+  canvas.rotate(2 * PI / walker());
 };
 
 export default preset;
