@@ -20,7 +20,7 @@ const Painters = {
   PlotterV1,
   XY,
   XY2,
-  XY3
+  XY3,
 };
 
 import { responsiveScreen } from "./utils/responsive-screen";
@@ -40,18 +40,18 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from "./presets/2020-09-29";
 // import presets from './presets/2020-10-01.full.moon';
 // import presets from './presets/2020-10-04.energy';
-import presets from './presets/2020-10-08.the.information.is.coming';
+import presets from "./presets/2020-10-08.the.information.is.coming";
 
 const properties = [
-  'time',
-  'frameRate',
-  'background', 
-  'fullScreen', 
-  'center',
-  'axis',
-  'before', // @deprecated?
-  'draw',
-  'setup'
+  "time",
+  "frameRate",
+  "background",
+  "fullScreen",
+  "center",
+  "axis",
+  "before", // @deprecated?
+  "draw",
+  "setup",
 ];
 
 const sketch = (ctx) => {
@@ -104,10 +104,19 @@ const runtime = new p5(sketch);
 
 onmousedown = () => runtime.userStartAudio();
 
-onkeypress = () => {
-  const now = new Date().toISOString();
-  const name = "out" + now;
+onkeypress = ({ key }) => {
+  switch (key) {
+    case "s":
+      runtime.noLoop();
+      break;
+    case "d":
+      runtime.loop();
+      break;
+    default: {
+      const now = new Date().toISOString();
+      const name = "out" + now;
 
-  runtime.saveCanvas(runtime.canvas, name, "png");
-  // downloadFile(new Blob([snapshot(layers)], {type : 'application/json'}), name, 'json');
+      runtime.saveCanvas(runtime.canvas, name, "png");
+    }
+  }
 };

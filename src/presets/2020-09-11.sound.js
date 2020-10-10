@@ -1,3 +1,5 @@
-export default [{
-  painter: "SoundV1",
-}];
+export default [
+  {
+    painter: "SoundV1",
+  },
+];

@@ -16,9 +16,7 @@ const XY = (presets) => {
     console.clear();
     console.log(`Canvas size: ${width}x${height}`);
 
-    const {
-      int, dist
-    } = global;
+    const { int, dist } = global;
 
     canvas = global.createGraphics(width, height);
     canvas.translate(width / 2, height / 2);
@@ -30,19 +28,17 @@ const XY = (presets) => {
   function draw() {
     time += 1;
 
-    const {
-      int, dist
-    } = global;
+    const { int, dist } = global;
 
     canvas.clear();
 
     presets
-      .map(context => {
+      .map((context) => {
         const point = context.fn.apply(context, [time]);
-        
+
         return [point, context];
       })
-      .filter(([ p ]) => {
+      .filter(([p]) => {
         return int(dist(0, 0, ...p) <= limit);
       })
       .forEach(([[x, y], { fill, color, angle, rad }]) => {

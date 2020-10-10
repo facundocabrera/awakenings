@@ -12,18 +12,18 @@ const XY2 = (presets) => {
 
     const { int, dist } = global;
 
-    // moving the center now move the axis 
+    // moving the center now move the axis
     const center = presets.center(width, height);
-    const axis = [  
+    const axis = [
       [center[0], 0, center[0], height],
-      [0, center[1], width, center[1]]
+      [0, center[1], width, center[1]],
     ];
 
     canvas = global.createGraphics(width, height);
 
     // draw axis
     if (presets.axis) {
-      canvas.stroke('white');
+      canvas.stroke("white");
       canvas.strokeWeight(1);
       canvas.line(...axis[0]);
       canvas.line(...axis[1]);
@@ -53,10 +53,10 @@ const XY2 = (presets) => {
         return int(dist(0, 0, ...p) <= limit);
       })
       .forEach(([[x, y], { fill, color, angle, rad }]) => {
-        fill && canvas.fill(color) || canvas.noFill();
+        (fill && canvas.fill(color)) || canvas.noFill();
         canvas.stroke(color);
         canvas.strokeWeight(1);
-        (angle !== 0) && canvas.rotate(angle);
+        angle !== 0 && canvas.rotate(angle);
         canvas.ellipse(x, -1 * y, rad);
       });
 

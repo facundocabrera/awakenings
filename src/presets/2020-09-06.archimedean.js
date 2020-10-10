@@ -1,7 +1,7 @@
-import { 
-  kepler2, 
+import {
+  kepler2,
   archimedean,
-  classicFrequencyMapping2
+  classicFrequencyMapping2,
 } from "../engine/frequency";
 
 export default [
@@ -17,16 +17,16 @@ export default [
         fn: archimedean,
         a: Math.PI,
         b: 1,
-        c: 1, 
-        freq: 1/5, 
+        c: 1,
+        freq: 1 / 5,
         // phase: Math.PI / 3
       },
       {
         fn: archimedean,
         a: -1 * Math.PI,
         b: 1,
-        c: 1, 
-        freq: 1/5, 
+        c: 1,
+        freq: 1 / 5,
         // phase: Math.PI / 3
       },
     ],
@@ -45,16 +45,16 @@ export default [
         fn: archimedean,
         a: Math.PI,
         b: 1,
-        c: 1, 
-        freq: 1/5, 
+        c: 1,
+        freq: 1 / 5,
         // phase: Math.PI / 3
       },
       {
         fn: archimedean,
         a: -1 * Math.PI,
         b: 1,
-        c: 1, 
-        freq: 1/5, 
+        c: 1,
+        freq: 1 / 5,
         // phase: Math.PI / 3
       },
     ],

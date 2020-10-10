@@ -1,4 +1,4 @@
-import { inc } from './clock';
+import { inc } from "./clock";
 
 const PlotterV1 = (preset) => {
   let stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -21,16 +21,9 @@ const PlotterV1 = (preset) => {
 
   function draw() {
     preset.forEach((context) => {
-      const {
-        clock,
-        waves,
-        color,
-        draw = "bezier",
-        rotate
-      } = context;
+      const { clock, waves, color, draw = "bezier", rotate } = context;
 
-      if (canvas.frameCount % 7) 
-        canvas.clear();
+      if (canvas.frameCount % 7) canvas.clear();
 
       canvas.push();
 
@@ -40,21 +33,23 @@ const PlotterV1 = (preset) => {
 
       const tValue = clock.next().value;
 
-      const points = waves.map((waveContext) => {
-        const { fn } = waveContext;
+      const points = waves
+        .map((waveContext) => {
+          const { fn } = waveContext;
 
-        let point;
+          let point;
 
-        // nueva version que soporta redefinir la function
-        if (fn) point = fn.apply(waveContext, [tValue]);
-        else point = harmonic(waveContext)(tValue);
+          // nueva version que soporta redefinir la function
+          if (fn) point = fn.apply(waveContext, [tValue]);
+          else point = harmonic(waveContext)(tValue);
 
-        return point;
-      }).map(p => Array.isArray(p) ? {x: p[0], y: p[1]} : p);
+          return point;
+        })
+        .map((p) => (Array.isArray(p) ? { x: p[0], y: p[1] } : p));
 
       // console.log(points);
       // points.map(({x, y}) => canvas.ellipse(x, y, 10, 10));
-        
+
       canvas.noFill();
 
       switch (draw) {
@@ -87,7 +82,7 @@ const PlotterV1 = (preset) => {
           canvas.endShape();
           break;
         }
-        case 'points': {
+        case "points": {
           points.map(({ x, y }) => canvas.ellipse(x, y, 10, 10));
         }
       }

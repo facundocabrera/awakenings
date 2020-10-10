@@ -1,4 +1,4 @@
-import { Benford } from './benford';
+import { Benford } from "./benford";
 
 const SoundV1 = (global) => {
   let globalContext;
@@ -10,13 +10,13 @@ const SoundV1 = (global) => {
   const metric = Benford();
 
   const colors = [
-    '#DE0004',
-    '#ECF20E',
+    "#DE0004",
+    "#ECF20E",
     "#63FF07",
-    '#AB27EF',
-    '#149EEF'
+    "#AB27EF",
+    "#149EEF",
   ].reverse();
-  
+
   // Imaginate que me armo un rando de 16 opciones.
   // Es el minimo que me permite la libreria.
   // Esto tiene impacto directo en las muestras que estoy tomando
@@ -42,35 +42,38 @@ const SoundV1 = (global) => {
   }
 
   function draw() {
-    if (globalContext.frameCount % 60 * 7) {
+    if ((globalContext.frameCount % 60) * 7) {
       canvas.background(0);
       canvas.rotate(Math.PI / 7);
     }
 
-    fft.analyze().filter(v => v > 0).forEach(element => {
-      metric.add(element);
-    });
+    fft
+      .analyze()
+      .filter((v) => v > 0)
+      .forEach((element) => {
+        metric.add(element);
+      });
 
-    const energy = ["bass", "lowMid", "mid", "highMid", "treble"]
-      .map(v => 4 * Math.round(fft.getEnergy(v)));
+    const energy = ["bass", "lowMid", "mid", "highMid", "treble"].map(
+      (v) => 4 * Math.round(fft.getEnergy(v))
+    );
 
     canvas.stroke(colors[globalContext.frameCount % 5]);
+    canvas.quad(0, 0, energy[0], 0, energy[0], energy[4], 0, energy[4]);
     canvas.quad(
-      0, 0, 
-      energy[0], 0, 
-      energy[0], energy[4], 
-      0, energy[4]
-    );
-    canvas.quad(
-      0, 0, 
-      -1 * energy[0], 0, 
-      -1 * energy[0], -1 * energy[4], 
-      0, -1 * energy[4]
+      0,
+      0,
+      -1 * energy[0],
+      0,
+      -1 * energy[0],
+      -1 * energy[4],
+      0,
+      -1 * energy[4]
     );
 
     energy.forEach((amplitude, index) => {
       canvas.stroke(colors[index]);
-      canvas.ellipse(0,0, amplitude, amplitude);
+      canvas.ellipse(0, 0, amplitude, amplitude);
     });
 
     return canvas;

@@ -4,27 +4,27 @@ const XY3 = (preset) => {
   let width, height;
   let time = 1;
 
-  function setup({ ctx, canvasWidth, canvasHeight }) {   
+  function setup({ ctx, canvasWidth, canvasHeight }) {
     global = ctx;
     width = canvasWidth;
     height = canvasHeight;
 
-    console.log('Setup XY3.');
+    console.log("Setup XY3.");
     console.log(`Canvas ${width}x${height}.`);
-    console.log('preset', preset);
+    console.log("preset", preset);
 
-    // moving the center now move the axis 
+    // moving the center now move the axis
     const center = preset.center(width, height);
-    const axis = [  
+    const axis = [
       [center[0], 0, center[0], height],
-      [0, center[1], width, center[1]]
+      [0, center[1], width, center[1]],
     ];
 
     canvas = global.createGraphics(width, height);
 
     // draw axis
     if (preset.axis) {
-      canvas.stroke('#FFFFFF55');
+      canvas.stroke("#FFFFFF55");
       canvas.strokeWeight(1);
       canvas.line(...axis[0]);
       canvas.line(...axis[1]);
@@ -39,11 +39,13 @@ const XY3 = (preset) => {
   }
 
   function draw() {
-    time += 1;
-
     preset.draw(
-      preset.map(context => context.fn.apply(context, [time])), canvas, global
+      preset.map((context) => context.fn.apply(context, [time])),
+      canvas,
+      global
     );
+
+    time += 1;
 
     return canvas;
   }

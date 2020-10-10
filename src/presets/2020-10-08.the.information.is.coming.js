@@ -1,57 +1,59 @@
-const { 
-  PI,
-  cos,
-  sqrt,
-  pow,
-  atan,
-  abs
-} = Math;
+const { PI, cos, sqrt, pow, atan, abs } = Math;
 
-const mapping = ["#B9977811", "#F4D8C311", "#D37A3C11", "#F7FDF911"];
+const mapping = [
+  "#EC1D06",
+  "#EC6E32",
+  "#F4E72D",
+  "#F400FF",
+  "#74E2FE",
+  "#7E3FFD",
+  "#FFFFFF",
+];
 
 const unity = 10;
 
-const r1 = (step) => ([
-  0, 0, 
-  sqrt(step) * unity, -1* unity * sqrt(step)
-]);
+const r1 = (step) => [0, 0, unity * sqrt(step), -1 * unity * sqrt(step)];
 
-const r2 = (step) => ([
-  sqrt(step) * unity, -1 * sqrt(step) * unity, 
-  unity * sqrt(step), -1 * unity * sqrt(step)
-]);
+// const r2 = (step) => ([
+//   sqrt(step) * unity, -1 * sqrt(step) * unity,
+//   unity * sqrt(step), -1 * unity * sqrt(step)
+// ]);
+
+const r2 = (step) => [
+  sqrt(step) * unity,
+  -1 * sqrt(step) * unity,
+  unity,
+  -1 * unity,
+];
 
 const move = (canvas, step) => {
-  canvas.translate( 0, -1 * (sqrt(step) * unity));
+  canvas.translate(0, -1 * (sqrt(step) * unity));
 
-  // Math.atan2( unity, sqrt(step) * unity )
+  console.log(step, atan(1 / sqrt(step)));
 
-  canvas.rotate( -1 * PI * sqrt(step));
-}
+  canvas.rotate(-1 * atan((1 * unity) / (sqrt(step) * unity)));
+};
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
-  const squares = [
-    r1(t),
-    r2(t),
-    t
-  ];
+  const squares = [r1(t), r2(t), t];
 
   return squares;
 }
 
 const preset = [
-{
-  painter: "XY3",
-  fn: pointAtom,
-}];
+  {
+    painter: "XY3",
+    fn: pointAtom,
+  },
+];
 
 // General Engine Control Settings
 preset.frameRate = 30;
 preset.background = 0;
 preset.fullScreen = true;
-preset.time = 100;
+preset.time = 1;
 
 // Axis coordinates
 preset.axis = false;
@@ -63,15 +65,15 @@ preset.setup = (canvas) => {
   // canvas.rotate(PI);
 };
 
-preset.draw = ([ [ rect1, rect2, t ] ], canvas, global) => {  
+preset.draw = ([[rect1, rect2, t]], canvas, global) => {
   console.log(rect1, rect2);
 
   canvas.noFill();
 
-  canvas.stroke(mapping[global.frameCount % mapping.length]);
+  canvas.stroke(mapping[t % mapping.length]);
   canvas.strokeWeight(1);
 
-  canvas.ellipse(0, 0, 5);
+  // canvas.ellipse(0, 0, 5);
 
   canvas.ellipse(rect2[0], rect2[1], 5);
 

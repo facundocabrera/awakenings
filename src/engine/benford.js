@@ -1,13 +1,15 @@
 // https://en.wikipedia.org/wiki/Benford's_law
 
-import asciichart from 'asciichart';
+import asciichart from "asciichart";
 
-const idealDistribution = [1,2,3,4,5,6,7,8,9].map(d => Math.log10(1 + 1 / d));
+const idealDistribution = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) =>
+  Math.log10(1 + 1 / d)
+);
 
 const Benford = ({
-  errorMargin = 0.01 // 1% of error 
+  errorMargin = 0.01, // 1% of error
 } = {}) => {
-  const stats = [0,0,0,0,0,0,0,0,0];
+  const stats = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let counter = 0;
 
   const add = (n) => {
@@ -28,7 +30,7 @@ const Benford = ({
   const ideal = () => idealDistribution;
 
   const distribution = () => {
-    return stats.map(s => s / counter);
+    return stats.map((s) => s / counter);
   };
 
   const diff = () => {
@@ -36,7 +38,7 @@ const Benford = ({
 
     const current = distribution();
     const limit = current.length;
-    
+
     const diff = new Array(9);
 
     while (index < limit) {
@@ -64,15 +66,14 @@ const Benford = ({
 
   const plot = (title) => {
     console.log(title);
-    console.log(asciichart.white, 'PERFECT', asciichart.green, 'CURRENT');
+    console.log(asciichart.white, "PERFECT", asciichart.green, "CURRENT");
     console.log(
       asciichart.plot(
-        [ideal().map(v => v * 100), distribution().map(v => v * 100)], {
-          colors: [
-            asciichart.white,
-            asciichart.green
-          ]
-        })
+        [ideal().map((v) => v * 100), distribution().map((v) => v * 100)],
+        {
+          colors: [asciichart.white, asciichart.green],
+        }
+      )
     );
   };
 
@@ -82,10 +83,8 @@ const Benford = ({
     obeyTheLaw,
     ideal,
     diff,
-    plot
-  }
+    plot,
+  };
 };
 
-export {
-  Benford
-}
+export { Benford };

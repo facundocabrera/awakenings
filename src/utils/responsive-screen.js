@@ -7,7 +7,7 @@ function responsiveScreen(
   fullScreen = false
 ) {
   if (fullScreen) {
-    return [windowWidth, windowHeight]
+    return [windowWidth, windowHeight];
   }
 
   if (useMax) {

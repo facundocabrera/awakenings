@@ -1,6 +1,4 @@
-import { 
-  classicFrequencyMapping
-} from "../engine/frequency";
+import { classicFrequencyMapping } from "../engine/frequency";
 
 export default [
   {
@@ -11,25 +9,25 @@ export default [
     waves: [
       {
         fn: classicFrequencyMapping,
-        freq: 1/89,
+        freq: 1 / 89,
         radius: 500,
       },
       {
         fn: classicFrequencyMapping,
-        freq: 1/89,
+        freq: 1 / 89,
         phase: Math.PI / 2,
         radius: 500,
       },
       {
         fn: classicFrequencyMapping,
-        freq: 1/89,
+        freq: 1 / 89,
         phase: Math.PI,
         radius: 500,
       },
       {
         fn: classicFrequencyMapping,
-        freq: 1/89,
-        phase: 3 * Math.PI / 2,
+        freq: 1 / 89,
+        phase: (3 * Math.PI) / 2,
         radius: 500,
       },
     ],

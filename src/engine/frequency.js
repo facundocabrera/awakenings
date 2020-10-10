@@ -175,7 +175,7 @@ function ln(time) {
 // are logarithmic spirals, not Archimedean ones. Many dynamic spirals (such as the Parker spiral of the solar wind,
 // or the pattern made by a Catherine's wheel) are Archimedean.
 //
-// Changing the parameter a moves the centerpoint of the spiral outward from the origin (positive a toward 0 and 
+// Changing the parameter a moves the centerpoint of the spiral outward from the origin (positive a toward 0 and
 // negative a toward π), while b controls the distance between loops.
 function archimedean(time) {
   const { a, b, c = 1, freq, phase = 0 } = this;
@@ -205,5 +205,5 @@ export {
   kepler2,
   plusplus,
   ln,
-  archimedean
+  archimedean,
 };

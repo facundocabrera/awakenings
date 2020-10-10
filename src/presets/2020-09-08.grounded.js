@@ -1,10 +1,6 @@
 // do not forget to keep the balance.
 
-import { 
-  classicFrequencyMapping,
-  ln,
-  archimedean
-} from "../engine/frequency";
+import { classicFrequencyMapping, ln, archimedean } from "../engine/frequency";
 
 export default [
   {
@@ -15,29 +11,29 @@ export default [
     waves: [
       {
         fn: classicFrequencyMapping,
-        freq: 1/32,
+        freq: 1 / 32,
         // phase: Math.PI,
         radius: 500,
       },
       {
         fn: archimedean,
-        a: 50, 
-        b: 1/12,
+        a: 50,
+        b: 1 / 12,
         c: 1,
-        freq: 1/33, 
+        freq: 1 / 33,
         phase: 0,
       },
       {
         fn: archimedean,
-        a: 50, 
-        b: 1/12, 
+        a: 50,
+        b: 1 / 12,
         c: 1,
-        freq: -1/33, 
+        freq: -1 / 33,
         phase: 0,
       },
       {
         fn: classicFrequencyMapping,
-        freq: 1/32,
+        freq: 1 / 32,
         phase: Math.PI / 2,
         radius: 500,
       },

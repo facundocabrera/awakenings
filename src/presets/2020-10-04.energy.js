@@ -1,11 +1,6 @@
-const { 
-  PI,
-  cos,
-  sqrt,
-  pow
-} = Math;
+const { PI, cos, sqrt, pow } = Math;
 
-import { walker } from '../random-walk/benford-walker';
+import { walker } from "../random-walk/benford-walker";
 
 const mapping = ["#B9977811", "#F4D8C311", "#D37A3C11", "#F7FDF911"];
 
@@ -30,11 +25,11 @@ const Ax = (t) => 500;
 const Ay = (t) => 500;
 
 // La funcion sin no es mas que un cos con phase π/2
-const sin = x => cos(x + PI / 2);
+const sin = (x) => cos(x + PI / 2);
 
 // esto significa que puedo crearme mis propias funciones trigonometricas alterando la fase.
-const sx = x => cos(x + PI / 6);
-const sy = x => cos(x);
+const sx = (x) => cos(x + PI / 6);
+const sy = (x) => cos(x);
 
 const xAtom = (f) => (t) => Ax(t) * sx(f(t));
 const yAtom = (f) => (t) => Ay(t) * sy(f(t));
@@ -99,12 +94,12 @@ preset.draw = ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], canvas, global) => {
   canvas.noFill();
 
   // if (global.frameCount % mapping.length === 2) {
-    canvas.stroke(mapping[global.frameCount % mapping.length]);
-    canvas.strokeWeight(1);
-    canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+  canvas.stroke(mapping[global.frameCount % mapping.length]);
+  canvas.strokeWeight(1);
+  canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
   // }
 
-  canvas.rotate(pow(-1, global.frameCount % 2) * 2 * PI / walker());
+  canvas.rotate((pow(-1, global.frameCount % 2) * 2 * PI) / walker());
 };
 
 export default preset;
