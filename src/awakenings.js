@@ -39,10 +39,12 @@ import { responsiveScreen } from "./utils/responsive-screen";
 // import presets from "./presets/2020-09-24.xy";
 // import presets from "./presets/2020-09-29";
 // import presets from './presets/2020-10-01.full.moon';
-import presets from './presets/2020-10-04.energy';
+// import presets from './presets/2020-10-04.energy';
+import presets from './presets/2020-10-08.the.information.is.coming';
 
 const properties = [
-  'frameRate', 
+  'time',
+  'frameRate',
   'background', 
   'fullScreen', 
   'center',
