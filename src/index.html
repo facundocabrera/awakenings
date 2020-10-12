@@ -6,6 +6,13 @@
     <!-- This line removes any default padding and style.
        You might only need one of these values set. -->
     <style>
+      :root {
+        --main-nav-height: 50px;
+        --main-nav-background: white;
+
+        --main-nav-btn-size: 44px;
+      }
+
       body {
         display: flex;
         align-items: center;
@@ -14,8 +21,30 @@
         margin: 0;
         background: #000;
       }
+
+      .nav {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--main-nav-height);
+        background: var(--main-nav-background);
+      }
+
+      .btn {
+        border-radius: var(--main-nav-btn-size);
+        height: var(--main-nav-btn-size);
+        width: var(--main-nav-btn-size);
+      }
     </style>
   </head>
 
-  <body></body>
+  <body>
+    <nav class="nav">
+      <span id="status"></span>
+      <button id="play" class="btn">Play</button>
+      <button id="zoomIn" class="btn">zIn</button>
+      <button id="zoomOut" class="btn">zOut</button>
+    </nav>
+  </body>
 </html>

@@ -11,7 +11,6 @@ const XY3 = (preset) => {
 
     console.log("Setup XY3.");
     console.log(`Canvas ${width}x${height}.`);
-    console.log("preset", preset);
 
     // moving the center now move the axis
     const center = preset.center(width, height);
@@ -33,7 +32,7 @@ const XY3 = (preset) => {
     // align coordinate system, remember it's rotate 180 deg given the canvas is draw from 0,0 point.
     canvas.translate(...center);
 
-    preset.setup(canvas);
+    preset.setup(canvas, global);
 
     time = preset.time;
   }

@@ -26,14 +26,6 @@ const r2 = (step) => [
   -1 * unity,
 ];
 
-const move = (canvas, step) => {
-  canvas.translate(0, -1 * (sqrt(step) * unity));
-
-  console.log(step, atan(1 / sqrt(step)));
-
-  canvas.rotate(-1 * atan((1 * unity) / (sqrt(step) * unity)));
-};
-
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
@@ -54,6 +46,7 @@ preset.frameRate = 30;
 preset.background = 0;
 preset.fullScreen = true;
 preset.time = 1;
+preset.scale = 2;
 
 // Axis coordinates
 preset.axis = false;
@@ -61,36 +54,25 @@ preset.center = (width, height) => {
   return [width / 2, height / 2];
 };
 
-preset.setup = (canvas) => {
-  // canvas.rotate(PI);
+preset.setup = (canvas, global) => {
+  global.noLoop();
+  canvas.scale(preset.scale);
 };
 
 preset.draw = ([[rect1, rect2, t]], canvas, global) => {
-  console.log(rect1, rect2);
-
   canvas.noFill();
 
-  canvas.stroke(mapping[t % mapping.length]);
+  // starts with 0 to use the colors as I want.
+  canvas.stroke(mapping[(t - 1) % mapping.length]);
   canvas.strokeWeight(1);
 
-  // canvas.ellipse(0, 0, 5);
-
-  canvas.ellipse(rect2[0], rect2[1], 5);
-
-  // canvas.stroke('red');
+  // draw rectangles
   canvas.rect(...rect1);
-
-  // canvas.stroke('blue');
   canvas.rect(...rect2);
 
-  // canvas.line(rect1[0], rect1[1], rect2[2], rect2[3])
-
-  // const d = global.dist(0, 0, rect2[2], rect2[3]);
-  // canvas.ellipse(d/2, d/2, d);
-
-  move(canvas, t);
-
-  // console.log(global.frameCount);
+  // translate and rotate to repeat the pattern easily
+  canvas.translate(0, -1 * (sqrt(t) * unity));
+  canvas.rotate(-1 * atan(1 / sqrt(t)));
 };
 
 export default preset;

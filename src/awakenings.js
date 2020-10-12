@@ -25,24 +25,10 @@ const Painters = {
 
 import { responsiveScreen } from "./utils/responsive-screen";
 
-// 👁👁 PRESETS HERE!
-// import presets from "./presets/2020-09-05.lets-ln-spirals";
-// import presets from './presets/2020-09-06.lets-ln-spirals';
-// import presets from './presets/2020-09-06.archimedean';
-// import presets from './presets/2020-09-07.circles';
-// import presets from './presets/2020-09-08.grounded';
-// import presets from './presets/2020-09-09.xy';
-// import presets from './presets/2020-09-11.sound';
-// import presets from './presets/2020-09-15.xy';
-// import presets from './presets/2020-09-17.xy';
-// import presets from './presets/2020-09-19.xy';
-// import presets from "./presets/2020-09-24.xy";
-// import presets from "./presets/2020-09-29";
-// import presets from './presets/2020-10-01.full.moon';
-// import presets from './presets/2020-10-04.energy';
 import presets from "./presets/2020-10-08.the.information.is.coming";
 
 const properties = [
+  "scale",
   "time",
   "frameRate",
   "background",
@@ -55,9 +41,7 @@ const properties = [
 ];
 
 const sketch = (ctx) => {
-  let canvasWidth;
-  let canvasHeight;
-  let mainCanvas;
+  let canvasWidth, canvasHeight, mainCanvas;
 
   const painters = map(
     groupBy(
@@ -82,6 +66,7 @@ const sketch = (ctx) => {
     ctx.background(presets.background || 0);
     ctx.frameRate(presets.frameRate || 30);
 
+    // @see Los engine implementan esta interface
     painters.forEach((p) =>
       p.setup({
         ctx,
@@ -92,6 +77,7 @@ const sketch = (ctx) => {
   }
 
   function draw() {
+    // @see Los engine implementan esta interface
     painters.forEach((p) => ctx.image(p.draw(), 0, 0));
   }
 
@@ -120,3 +106,14 @@ onkeypress = ({ key }) => {
     }
   }
 };
+
+// 👁 Make UI reactive
+const htmlStatus = runtime.select("#status");
+const htmlPlay = runtime.select("#play");
+
+htmlStatus.html(runtime.isLooping() ? "running" : "stopped");
+
+htmlPlay.mouseClicked(() => {
+  runtime[runtime.isLooping() ? "noLoop" : "loop"]();
+  htmlStatus.html(runtime.isLooping() ? "running" : "stopped");
+});
