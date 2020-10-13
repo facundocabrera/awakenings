@@ -28,6 +28,7 @@ import { responsiveScreen } from "./utils/responsive-screen";
 import presets from "./presets/2020-10-08.the.information.is.coming";
 
 const properties = [
+  "canvasSize",
   "scale",
   "time",
   "frameRate",
@@ -53,8 +54,8 @@ const sketch = (ctx) => {
 
   function setup() {
     [canvasWidth, canvasHeight] = responsiveScreen(
-      ctx.windowWidth,
-      ctx.windowHeight,
+      (presets.canvasSize && presets.canvasSize[0]) || ctx.windowWidth,
+      (presets.canvasSize && presets.canvasSize[1]) || ctx.windowHeight,
       undefined,
       undefined,
       true,
@@ -88,16 +89,25 @@ const sketch = (ctx) => {
 
 const runtime = new p5(sketch);
 
-onmousedown = () => runtime.userStartAudio();
-
 onkeypress = ({ key }) => {
   switch (key) {
-    case "s":
-      runtime.noLoop();
+    case "a": {
+      runtime.userStartAudio();
       break;
-    case "d":
-      runtime.loop();
+    }
+    case "h": {
+      const help = runtime.select("#help").elt;
+      help.style.display = help.style.display === "" ? "block" : "";
       break;
+    }
+    case "s": {
+      runtime[runtime.isLooping() ? "noLoop" : "loop"]();
+      break;
+    }
+    case "r": {
+      window.location.reload();
+      break;
+    }
     default: {
       const now = new Date().toISOString();
       const name = "out" + now;
@@ -106,14 +116,3 @@ onkeypress = ({ key }) => {
     }
   }
 };
-
-// 👁 Make UI reactive
-const htmlStatus = runtime.select("#status");
-const htmlPlay = runtime.select("#play");
-
-htmlStatus.html(runtime.isLooping() ? "running" : "stopped");
-
-htmlPlay.mouseClicked(() => {
-  runtime[runtime.isLooping() ? "noLoop" : "loop"]();
-  htmlStatus.html(runtime.isLooping() ? "running" : "stopped");
-});

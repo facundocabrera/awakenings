@@ -42,11 +42,13 @@ const preset = [
 ];
 
 // General Engine Control Settings
+preset.canvasSize = [1080, 1080];
+preset.fullScreen = false;
+
 preset.frameRate = 30;
 preset.background = 0;
-preset.fullScreen = true;
 preset.time = 1;
-preset.scale = 2;
+preset.scale = 1;
 
 // Axis coordinates
 preset.axis = false;
