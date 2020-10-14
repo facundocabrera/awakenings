@@ -25,7 +25,7 @@ const Painters = {
 
 import { responsiveScreen } from "./utils/responsive-screen";
 
-import presets from "./presets/2020-10-12.double.spiral";
+import presets from "./presets/2020-10-13.fighting-hard";
 
 const properties = [
   "canvasSize",

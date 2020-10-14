@@ -3,17 +3,18 @@ import { Benford } from '../engine/benford';
 const { PI, cos, sqrt, pow, atan, abs } = Math;
 
 const mapping = [
-  "#EDFF0013",
+  // "#EDFF0013",
   // "#EC6E3211",
   // "#F4E72D11",
-  // "#F400FF11",
-  // "#74E2FE11",
-  // "#7E3FFD11",
+  "#F400FF11",
+  "#74E2FE11",
+  "#7E3FFD11",
   // "#FFFFFF11",
 ];
 
-const unity = 5;
+const unity = 10;
 
+const p0 = (step) => [0, 0];
 const p1 = (step) => [unity * sqrt(step), 0];
 const p2 = (step) => [unity * sqrt(step), unity * sqrt(step)];
 const p3 = (step) => [unity * sqrt(step), unity * sqrt(step) + unity];
@@ -21,7 +22,7 @@ const p3 = (step) => [unity * sqrt(step), unity * sqrt(step) + unity];
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
-  return [p1(t), p2(t), p3(t), t];
+  return [p0(t), p1(t), p2(t), p3(t), t];
 }
 
 const preset = [
@@ -51,14 +52,11 @@ preset.setup = (canvas, global) => {
 };
 
 const round = v => v.toFixed(2);
-
-window.decimals = v => v.toFixed(7).split('.')[1];
+const decimals = v => v.toFixed(7).split('.')[1];
 
 const benforify = ε => {
   const trial = parseInt(decimals(ε), 10);
   
-  debugger;
-
   if (trial < 20)
     return 1;
   if (trial < 30)
@@ -81,28 +79,29 @@ const benforify = ε => {
 
 const ben = Benford();
 
-preset.draw = ([[p1, p2, p3, t]], canvas, global) => {
-  canvas.noFill();
+preset.draw = ([[p0, p1, p2, p3, t]], canvas, global) => {
+  if (t % 14 === 0) canvas.clear();
 
-  // starts with 0 to use the colors as I want.
-  canvas.stroke(mapping[(t - 1) % mapping.length]);
+  const color = mapping[(t - 1) % mapping.length];
+
+  canvas.fill(color);
+  canvas.stroke(color);
   canvas.strokeWeight(1);
   
-  const α = -1 * atan(1);
-  const β = -1 * atan((1 + sqrt(t)) / sqrt(1));
+  // relacion tiempo y su raiz cuadrada
+  const α = atan(t / sqrt(t));
 
-  // points
-  canvas.beginShape();
+  // rotacion golder ratio.
+  // const α = -1 * atan((1 + sqrt(5)) / 2);
+  
+  // Rotacion en spiral
+  // const α = -1 * atan(1 / sqrt(t));
 
-  canvas.vertex(...p1);
-  canvas.vertex(...p2);  
-  canvas.vertex(...p3);
-
-  canvas.endShape(global.CLOSE);
+  canvas.bezier(...p3, ...p2, ...p1, ...p0);
 
   // translate and rotate to repeat the pattern easily
   canvas.translate(0, p2[1]);
-  canvas.rotate((α + β) * sqrt(23));
+  canvas.rotate(α);
 };
 
 export default preset;
