@@ -25,7 +25,7 @@ const Painters = {
 
 import { responsiveScreen } from "./utils/responsive-screen";
 
-import presets from "./presets/2020-10-08.the.information.is.coming";
+import presets from "./presets/2020-10-12.double.spiral";
 
 const properties = [
   "canvasSize",
@@ -42,8 +42,6 @@ const properties = [
 ];
 
 const sketch = (ctx) => {
-  let canvasWidth, canvasHeight, mainCanvas;
-
   const painters = map(
     groupBy(
       filter(presets, (preset) => preset.disabled == null),
@@ -53,6 +51,8 @@ const sketch = (ctx) => {
   );
 
   function setup() {
+    let canvasWidth, canvasHeight, mainCanvas;
+
     [canvasWidth, canvasHeight] = responsiveScreen(
       (presets.canvasSize && presets.canvasSize[0]) || ctx.windowWidth,
       (presets.canvasSize && presets.canvasSize[1]) || ctx.windowHeight,

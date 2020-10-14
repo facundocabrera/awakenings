@@ -22,3 +22,11 @@ Hay posibilidades de utilizar bezier para armar la progresion de valores, cosa q
 haria la construcción del dibujo, algo mas armonico para la vista.
 
 => react-springs => usar resortes para darle armonia a los movimientos 🤩
+
+### Escalas / Zoom
+
+No tiene sentido intentar manejar la escala a nivel canvas pensando en un zoom. Es mejor aplicar la escala como factor que multiplica cada valor que quiero dibujar.
+
+( x, y ) => ( x * 1 / 2, y * 1 / 2 ) <=> Zoom in
+( x, y ) => ( x * 2, y * 2 ) <=> Zoom out
+
