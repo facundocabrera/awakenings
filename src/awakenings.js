@@ -25,7 +25,7 @@ const Painters = {
 
 import { responsiveScreen } from "./utils/responsive-screen";
 
-import presets from "./presets/2020-10-13.fighting-hard";
+import presets from "./presets/2020-10-14.lets-flow";
 
 const properties = [
   "canvasSize",
@@ -51,18 +51,8 @@ const sketch = (ctx) => {
   );
 
   function setup() {
-    let canvasWidth, canvasHeight, mainCanvas;
-
-    [canvasWidth, canvasHeight] = responsiveScreen(
-      (presets.canvasSize && presets.canvasSize[0]) || ctx.windowWidth,
-      (presets.canvasSize && presets.canvasSize[1]) || ctx.windowHeight,
-      undefined,
-      undefined,
-      true,
-      !!presets.fullScreen
-    );
-
-    mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
+    let [canvasWidth, canvasHeight] = presets.canvasSize;
+    let mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
 
     ctx.background(presets.background || 0);
     ctx.frameRate(presets.frameRate || 30);

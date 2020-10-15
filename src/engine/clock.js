@@ -1,6 +1,6 @@
 function* fibonacci(n) {
   const infinite = !n && n !== 0;
-  let current = 0;
+  let current = 1;
   let next = 1;
 
   while (infinite || n--) {
