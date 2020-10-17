@@ -23,9 +23,7 @@ const Painters = {
   XY3,
 };
 
-import { responsiveScreen } from "./utils/responsive-screen";
-
-import presets from "./presets/2020-10-14.lets-flow";
+import presets from "./presets/2020-10-15.getting-even-better";
 
 const properties = [
   "canvasSize",
@@ -51,9 +49,9 @@ const sketch = (ctx) => {
   );
 
   function setup() {
-    let [canvasWidth, canvasHeight] = presets.canvasSize;
-    let mainCanvas = ctx.createCanvas(canvasWidth, canvasHeight);
-
+    const [canvasWidth = 1080, canvasHeight = 1080] = presets.canvasSize;
+    
+    ctx.createCanvas(canvasWidth, canvasHeight);
     ctx.background(presets.background || 0);
     ctx.frameRate(presets.frameRate || 30);
 
