@@ -22,10 +22,8 @@ function pointAtom(t) {
   } = this;
 
   const ts = sqrt(t);
-  const x = A * ts * (cos(asin(ψ / ts)) - μ);
-  const y = A * ts * (cos(PI / 2 - asin(ψ / ts)) - μ);
-
-  console.log(t, ts);
+  const x = A * ts * cos(atan(ts));
+  const y = A * ts * sin(-1 * atan(ts));
 
   return [[x, y], ts, t];
 }
@@ -34,14 +32,14 @@ const preset = [
   {
     painter: "XY3",
     fn: pointAtom,
-    μ: 0.3,
-    A: 7
+    μ: 0.4,
+    A: 10
   },
   {
     painter: "XY3",
     fn: pointAtom,
     μ: 0.7,
-    A: 1
+    A: 10
   },
 ];
 
@@ -51,7 +49,7 @@ preset.fullScreen = false;
 
 preset.frameRate = 60;
 preset.background = '#000';
-preset.time = 324;
+preset.time = 1;
 
 // Axis coordinates
 preset.axis = false;
@@ -64,7 +62,7 @@ preset.setup = (canvas, global) => {
 };
 
 preset.draw = (values, canvas, global) => {
-  if (global.frameCount % 144) canvas.clear();
+  if (global.frameCount % 7) canvas.clear();
 
   const [ 
     [ [ x, y ], ts, time ],
@@ -89,7 +87,7 @@ preset.draw = (values, canvas, global) => {
   // 👁👁
   // -------------------------------------------------------------------------------------------------------------------
 
-  canvas.rotate( sin( ts * PI ) * cos(ts * PI) );
+  canvas.rotate( sin( ts * 3 * PI / 2) * cos(ts * 3 * PI / 2) );
 };
 
 export default preset;
