@@ -23,7 +23,7 @@ const Painters = {
   XY3,
 };
 
-import presets from "./presets/2020-10-16.more-love";
+import presets from "./presets/2020-10-17.binomial-hypergeometric";
 
 const properties = [
   "canvasSize",
