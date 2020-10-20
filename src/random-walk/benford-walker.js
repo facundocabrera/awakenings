@@ -1,19 +1,10 @@
 const { random } = Math;
 
-import sum from "lodash/sum";
+import { accum } from './stats';
 
 const benford = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => Math.log10(1 + 1 / d));
 
-function produceAccum(distribution) {
-  const accum = [];
-  for (let i = 1; i < distribution.length; i++) {
-    accum.push(sum(distribution.slice(0, i)));
-  }
-
-  return [...accum, 1];
-}
-
-const acc = produceAccum(benford);
+const acc = accum(benford);
 
 function walker() {
   const n = random();

@@ -23,7 +23,7 @@ const Painters = {
   XY3,
 };
 
-import presets from "./presets/2020-10-17.binomial-hypergeometric";
+import presets from "./presets/2020-10-19.geometry-is-the-answer";
 
 const properties = [
   "canvasSize",
