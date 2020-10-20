@@ -67,10 +67,11 @@ preset.center = (width, height) => {
 
 preset.setup = (canvas, global) => {
   global.noLoop();
+  canvas.rotate(PI / 4);
 };
 
 preset.draw = ([ [ vertex, t ] ], canvas, global) => {
-  // 👁👁👁 numero de loops que quiero para dibujar.
+  // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
   if (t > 9)
     global.noLoop();
 
