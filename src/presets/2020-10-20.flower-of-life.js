@@ -2,6 +2,7 @@
 
 const { PI, cos, sqrt, pow, atan, abs, round, asin, sin, floor } = Math;
 
+import { stops } from "../geometry/circle";
 import { line_points } from "../geometry/line";
 
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
@@ -13,16 +14,9 @@ const mapping = [
   '#FFFFFF'
 ];
 
-const unity = 89;
+const unity = 70;
 
-const vertices = [
-  // real
-  [ unity,  0],
-  [ 0,  unity],
-  // imaginary (mirror of real)
-  [-1 * unity,  0], 
-  [ 0, -1 * unity]
-];
+const vertices = stops(12);
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
@@ -33,15 +27,28 @@ function pointAtom(t) {
   if (t === 0)
     return [[[0,0]], 0];
 
-  // 👁👁👁
-  // el orden de los parametros es importante, ya que si cambiamos la pendiente, los puntos
-  // que son calculados en el centro, son diferentes.
-  const l1 = scale(line_points(0, t, t,0, sqrt(2)), unity / 2);
-  const l2 = scale(line_points(-1 *t, 0, 0, -1 * t, sqrt(2)), unity /2);
+  let vertex = [];
 
-  const vertex = [...l1, ...l2];
+  for(let i = 0; i < (vertices.length - 1); i++) {
+    let points = line_points(...vertices[i].map(v => v * t), ...vertices[i+1].map(v => v * t));
+    
+    if (i > 0) {
+      points = points.slice(1);
+    }
 
-  return [ vertex, t ];
+    vertex = [...vertex, ...points];
+  }
+
+  // 👁👁👁 Conectamos el ultimo punto con el primero
+  vertex = [
+    ...vertex, 
+    ...line_points(...vertices[vertices.length-1].map(v => v * t), ...vertices[0].map(v => v * t)).slice(1)
+  ];
+  
+  // console.log('vertices', vertices);
+  // console.log('puntos', vertex);
+
+  return [ scale(vertex, unity / 2) , t ];
 }
 
 const preset = [
@@ -65,14 +72,11 @@ preset.center = (width, height) => {
   return [width / 2, height / 2];
 };
 
-preset.setup = (canvas, global) => {
-  global.noLoop();
-  //canvas.rotate(PI / 4);
-};
+preset.setup = (canvas, global) => {};
 
 preset.draw = ([ [ vertex, t ] ], canvas, global) => {
   // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
-  if (t > 9)
+  if (t > 5)
     global.noLoop();
 
   canvas.noFill();
@@ -81,14 +85,6 @@ preset.draw = ([ [ vertex, t ] ], canvas, global) => {
   vertex.map(v => {
     canvas.ellipse(...v, unity);
   });
-
-  canvas.push();
-  canvas.rotate(PI / 2);
-  canvas.stroke('white');
-  vertex.map(v => {
-    canvas.ellipse(...v, unity);
-  });
-  canvas.pop();
 };
 
 export default preset;
