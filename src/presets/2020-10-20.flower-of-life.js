@@ -7,11 +7,19 @@ import { line_points } from "../geometry/line";
 
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
 
-const mapping = ["#FFFA12", "#57E78C", "#FC61DD", "#FFFFFF"];
+const mapping = [
+  "#FFFFFF55",
+  "#8C00FC11",
+  "#3500FF11",
+  "#01FE0111",
+  "#FFFE3711",
+  "#FF860011",
+  "#ED000311",
+];
 
 const unity = 70;
 
-const vertices = stops(12);
+const vertices = stops(7);
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
@@ -42,7 +50,7 @@ function pointAtom(t) {
     ...line_points(
       ...vertices[vertices.length - 1].map((v) => v * t),
       ...vertices[0].map((v) => v * t)
-    ).slice(1),
+    ).slice(1, -1),
   ];
 
   // console.log('vertices', vertices);
@@ -75,11 +83,13 @@ preset.center = (width, height) => {
 preset.setup = (canvas, global) => {};
 
 preset.draw = ([[vertex, t]], canvas, global) => {
-  // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
-  if (t > 5) global.noLoop();
+  // canvas.clear();
 
-  canvas.noFill();
-  canvas.stroke("green");
+  // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
+  if (t > 14) global.noLoop();
+
+  canvas.fill(mapping[t % mapping.length]);
+  canvas.stroke(mapping[t % mapping.length]);
 
   vertex.map((v) => {
     canvas.ellipse(...v, unity);
