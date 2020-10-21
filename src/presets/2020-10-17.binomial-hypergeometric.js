@@ -4,30 +4,25 @@
 // https://en.wikipedia.org/wiki/Normal_distribution
 // https://en.wikipedia.org/wiki/Hypergeometric_distribution
 // https://en.wikipedia.org/wiki/Law_of_large_numbers
-// 
+//
 
-import range from 'lodash/range';
+import range from "lodash/range";
 
-import { walker  } from '../random-walk/benford-walker';
-import { getRandomInt } from '../utils/random';
-import { benfordWalkerN } from '../random-walk/benford-walker-n';
+import { walker } from "../random-walk/benford-walker";
+import { getRandomInt } from "../utils/random";
+import { benfordWalkerN } from "../random-walk/benford-walker-n";
 
 const { PI, cos, sqrt, pow, atan, abs, round, asin, sin, floor } = Math;
 
-const mapping = [
-  '#FFFA12',
-  '#57E78C',
-  '#FC61DD',
-  '#FFFFFF'
-];
+const mapping = ["#FFFA12", "#57E78C", "#FC61DD", "#FFFFFF"];
 
 const stops = 3;
 const radius = 100;
 
-const xen = (steps, radius) => 
+const xen = (steps, radius) =>
   range(steps)
-    .map(p => p * 2 * PI / steps)
-      .map(θ => [radius * cos(θ) / 2, radius * sin(θ) / 2]);
+    .map((p) => (p * 2 * PI) / steps)
+    .map((θ) => [(radius * cos(θ)) / 2, (radius * sin(θ)) / 2]);
 
 const centroids = xen(stops, radius);
 
@@ -38,25 +33,22 @@ function pointAtom(t) {
 
   // const w = random();
 
-  return [
-    centroids[t % centroids.length],
-    t
-  ];
+  return [centroids[t % centroids.length], t];
 }
 
 const preset = [
   {
     painter: "XY3",
-    fn: pointAtom
+    fn: pointAtom,
   },
 ];
 
 // General Engine Control Settings
-preset.canvasSize = [1080,1080];
+preset.canvasSize = [1080, 1080];
 preset.fullScreen = false;
 
 preset.frameRate = 1;
-preset.background = '#000';
+preset.background = "#000";
 preset.time = 1;
 
 // Axis coordinates
@@ -73,17 +65,17 @@ preset.draw = (evaluations, canvas, global) => {
   canvas.clear();
   canvas.noFill();
 
-  canvas.stroke('white');
-  canvas.ellipse(0,0,radius);
+  canvas.stroke("white");
+  canvas.ellipse(0, 0, radius);
 
-  const [ [ [x, y], t ] ] = evaluations;
-  
+  const [[[x, y], t]] = evaluations;
+
   // canvas.push();
   // canvas.translate(...centroid);
-  
+
   canvas.stroke(mapping[1]);
 
-  centroids.forEach(([w,z], i) => {
+  centroids.forEach(([w, z], i) => {
     canvas.ellipse(...[x + w, y + z], radius);
   });
   // canvas.pop();

@@ -1,4 +1,4 @@
-import { Benford } from '../engine/benford';
+import { Benford } from "../engine/benford";
 
 const { PI, cos, sqrt, pow, atan, abs } = Math;
 
@@ -37,7 +37,7 @@ preset.canvasSize = [1080, 1080];
 preset.fullScreen = false;
 
 preset.frameRate = 60;
-preset.background = '#131313';
+preset.background = "#131313";
 preset.time = 1;
 
 // Axis coordinates
@@ -48,34 +48,25 @@ preset.center = (width, height) => {
 
 preset.setup = (canvas, global) => {
   global.noLoop();
-  canvas.translate(-1 / 2 * unity, 1 / 2 * unity);
+  canvas.translate((-1 / 2) * unity, (1 / 2) * unity);
 };
 
-const round = v => v.toFixed(2);
-const decimals = v => v.toFixed(7).split('.')[1];
+const round = (v) => v.toFixed(2);
+const decimals = (v) => v.toFixed(7).split(".")[1];
 
-const benforify = ε => {
+const benforify = (ε) => {
   const trial = parseInt(decimals(ε), 10);
-  
-  if (trial < 20)
-    return 1;
-  if (trial < 30)
-    return 2;
-  if (trial < 40)
-    return 3;
-  if (trial < 50)
-    return 4;
-  if (trial < 60)
-    return 5;
-  if (trial < 70)
-    return 6;
-  if (trial < 80)
-    return 7;
-  if (trial < 90)
-    return 8;
-  if (trial < 100)
-    return 9;
-}
+
+  if (trial < 20) return 1;
+  if (trial < 30) return 2;
+  if (trial < 40) return 3;
+  if (trial < 50) return 4;
+  if (trial < 60) return 5;
+  if (trial < 70) return 6;
+  if (trial < 80) return 7;
+  if (trial < 90) return 8;
+  if (trial < 100) return 9;
+};
 
 const ben = Benford();
 
@@ -87,13 +78,13 @@ preset.draw = ([[p0, p1, p2, p3, t]], canvas, global) => {
   canvas.fill(color);
   canvas.stroke(color);
   canvas.strokeWeight(1);
-  
+
   // relacion tiempo y su raiz cuadrada
   const α = atan(t / sqrt(t));
 
   // rotacion golder ratio.
   // const α = -1 * atan((1 + sqrt(5)) / 2);
-  
+
   // Rotacion en spiral
   // const α = -1 * atan(1 / sqrt(t));
 

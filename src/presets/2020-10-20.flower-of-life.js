@@ -7,12 +7,7 @@ import { line_points } from "../geometry/line";
 
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
 
-const mapping = [
-  '#FFFA12',
-  '#57E78C',
-  '#FC61DD',
-  '#FFFFFF'
-];
+const mapping = ["#FFFA12", "#57E78C", "#FC61DD", "#FFFFFF"];
 
 const unity = 70;
 
@@ -24,14 +19,16 @@ function pointAtom(t) {
   // 👁👁👁
   // Circulo inicial, por ahora esta es la solucion mas simple que se me ocurrio
   // pero equivale a la X^0, basicamente el primer paso de la secuencia.
-  if (t === 0)
-    return [[[0,0]], 0];
+  if (t === 0) return [[[0, 0]], 0];
 
   let vertex = [];
 
-  for(let i = 0; i < (vertices.length - 1); i++) {
-    let points = line_points(...vertices[i].map(v => v * t), ...vertices[i+1].map(v => v * t));
-    
+  for (let i = 0; i < vertices.length - 1; i++) {
+    let points = line_points(
+      ...vertices[i].map((v) => v * t),
+      ...vertices[i + 1].map((v) => v * t)
+    );
+
     if (i > 0) {
       points = points.slice(1);
     }
@@ -41,29 +38,32 @@ function pointAtom(t) {
 
   // 👁👁👁 Conectamos el ultimo punto con el primero
   vertex = [
-    ...vertex, 
-    ...line_points(...vertices[vertices.length-1].map(v => v * t), ...vertices[0].map(v => v * t)).slice(1)
+    ...vertex,
+    ...line_points(
+      ...vertices[vertices.length - 1].map((v) => v * t),
+      ...vertices[0].map((v) => v * t)
+    ).slice(1),
   ];
-  
+
   // console.log('vertices', vertices);
   // console.log('puntos', vertex);
 
-  return [ scale(vertex, unity / 2) , t ];
+  return [scale(vertex, unity / 2), t];
 }
 
 const preset = [
   {
     painter: "XY3",
-    fn: pointAtom
+    fn: pointAtom,
   },
 ];
 
 // General Engine Control Settings
-preset.canvasSize = [1080,1080];
+preset.canvasSize = [1080, 1080];
 preset.fullScreen = false;
 
 preset.frameRate = 1;
-preset.background = '#000';
+preset.background = "#000";
 preset.time = 0; // 👁👁👁 time starts from 0
 
 // Axis coordinates
@@ -74,15 +74,14 @@ preset.center = (width, height) => {
 
 preset.setup = (canvas, global) => {};
 
-preset.draw = ([ [ vertex, t ] ], canvas, global) => {
+preset.draw = ([[vertex, t]], canvas, global) => {
   // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
-  if (t > 5)
-    global.noLoop();
+  if (t > 5) global.noLoop();
 
   canvas.noFill();
-  canvas.stroke('green');
+  canvas.stroke("green");
 
-  vertex.map(v => {
+  vertex.map((v) => {
     canvas.ellipse(...v, unity);
   });
 };

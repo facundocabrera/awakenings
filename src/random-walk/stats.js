@@ -9,6 +9,4 @@ function accum(distribution) {
   return [...accum, 1];
 }
 
-export {
-  accum
-};
+export { accum };

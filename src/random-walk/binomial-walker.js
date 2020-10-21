@@ -6,7 +6,7 @@ import MersenneTwister from "mersenne-twister";
 import { pow, combinations } from "mathjs";
 import range from "lodash/range";
 
-import { accum } from './stats';
+import { accum } from "./stats";
 
 const generator = new MersenneTwister();
 

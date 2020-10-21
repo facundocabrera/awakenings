@@ -7,19 +7,12 @@ const { PI, cos, sqrt, pow, atan, abs, round, asin, sin } = Math;
 const φ = (1 + sqrt(5)) / 2;
 const ψ = (1 - sqrt(5)) / 2;
 
-const mapping = [
-  '#FFFA1255',
-  '#57E78C55',
-  '#FC61DD55'
-];
+const mapping = ["#FFFA1255", "#57E78C55", "#FC61DD55"];
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
-  const {
-    μ,
-    A
-  } = this;
+  const { μ, A } = this;
 
   const ts = sqrt(t);
   const x = A * ts * cos(-1 * (atan(ts) + PI));
@@ -33,22 +26,22 @@ const preset = [
     painter: "XY3",
     fn: pointAtom,
     μ: 0.4,
-    A: 10
+    A: 10,
   },
   {
     painter: "XY3",
     fn: pointAtom,
     μ: 0.7,
-    A: 10
+    A: 10,
   },
 ];
 
 // General Engine Control Settings
-preset.canvasSize = [1080,1080];
+preset.canvasSize = [1080, 1080];
 preset.fullScreen = false;
 
 preset.frameRate = 60;
-preset.background = '#000';
+preset.background = "#000";
 preset.time = 1;
 
 // Axis coordinates
@@ -64,30 +57,27 @@ preset.setup = (canvas, global) => {
 preset.draw = (values, canvas, global) => {
   if (global.frameCount % 7) canvas.clear();
 
-  const [ 
-    [ [ x, y ], ts, time ],
-    [ [ z, t ] ] 
-  ] = values;
+  const [[[x, y], ts, time], [[z, t]]] = values;
 
   const color = mapping[round(time) % mapping.length];
 
   canvas.noFill();
   canvas.stroke(color);
   canvas.strokeWeight(1);
-    
+
   // canvas.circle(x, y, ts);
   // canvas.circle(z, t, ts);
 
-  canvas.rect(x,y,z,t);
+  canvas.rect(x, y, z, t);
 
-  // ------------------------------------------------------------------------------------------------------------------- 
+  // -------------------------------------------------------------------------------------------------------------------
   // 👁👁
-  // OBSERVAR EL COMPORTAMIENTO CUANDO TS TIENDE A SER EL DIVISOR. LO QUE SE VE EN EL DIBUJO ES QUE TIENDE A DAR UNA 
+  // OBSERVAR EL COMPORTAMIENTO CUANDO TS TIENDE A SER EL DIVISOR. LO QUE SE VE EN EL DIBUJO ES QUE TIENDE A DAR UNA
   // MEDIA VUELTA PUES ROTAMOS PI
   // 👁👁
   // -------------------------------------------------------------------------------------------------------------------
 
-  canvas.rotate( sin( ts * 3 * PI / 2) * cos(ts * 3 * PI / 2) );
+  canvas.rotate(sin((ts * 3 * PI) / 2) * cos((ts * 3 * PI) / 2));
 };
 
 export default preset;

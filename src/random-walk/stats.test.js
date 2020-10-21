@@ -3,13 +3,13 @@
 import { accum } from "./stats";
 
 test("accum 2", () => {
-  const distribution = [.5,.5];
+  const distribution = [0.5, 0.5];
 
-  expect(accum(distribution)).toEqual([.5, 1]);
+  expect(accum(distribution)).toEqual([0.5, 1]);
 });
 
 test("accum 3", () => {
-  const distribution = [.3,.4,.3];
+  const distribution = [0.3, 0.4, 0.3];
 
-  expect(accum(distribution)).toEqual([.3, .7, 1]);
+  expect(accum(distribution)).toEqual([0.3, 0.7, 1]);
 });

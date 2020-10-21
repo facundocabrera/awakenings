@@ -27,6 +27,5 @@ haria la construcción del dibujo, algo mas armonico para la vista.
 
 No tiene sentido intentar manejar la escala a nivel canvas pensando en un zoom. Es mejor aplicar la escala como factor que multiplica cada valor que quiero dibujar.
 
-( x, y ) => ( x * 1 / 2, y * 1 / 2 ) <=> Zoom in
-( x, y ) => ( x * 2, y * 2 ) <=> Zoom out
-
+( x, y ) => ( x _ 1 / 2, y _ 1 / 2 ) <=> Zoom in
+( x, y ) => ( x _ 2, y _ 2 ) <=> Zoom out

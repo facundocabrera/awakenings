@@ -50,7 +50,7 @@ const sketch = (ctx) => {
 
   function setup() {
     const [canvasWidth = 1080, canvasHeight = 1080] = presets.canvasSize;
-    
+
     ctx.createCanvas(canvasWidth, canvasHeight);
     ctx.background(presets.background || 0);
     ctx.frameRate(presets.frameRate || 30);

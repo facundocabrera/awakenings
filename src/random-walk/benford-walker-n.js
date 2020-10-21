@@ -2,14 +2,12 @@ import MersenneTwister from "mersenne-twister";
 import { log } from "mathjs";
 import range from "lodash/range";
 
-import { accum } from './stats';
+import { accum } from "./stats";
 
 const generator = new MersenneTwister();
 
 function create(digits) {
-  const distribution = 
-    range(1, digits)
-      .map(d => log(1 + 1 / d, digits));
+  const distribution = range(1, digits).map((d) => log(1 + 1 / d, digits));
 
   const acc = accum(distribution);
 
