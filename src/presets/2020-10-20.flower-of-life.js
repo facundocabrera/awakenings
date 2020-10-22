@@ -1,11 +1,11 @@
-// Experimento de flor de la vida con solamente 4 vertices.
-
 const { PI, cos, sqrt, pow, atan, abs, round, asin, sin, floor } = Math;
 
 import { stops } from "../geometry/circle";
 import { line_points } from "../geometry/line";
 
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
+
+const borderColor = '#13F4EF'; 
 
 const mapping = [
   "#FFFFFF55",
@@ -17,9 +17,9 @@ const mapping = [
   "#ED000311",
 ];
 
-const unity = 70;
+const unity = 89;
 
-const vertices = stops(7);
+const vertices = stops(6);
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
@@ -83,13 +83,13 @@ preset.center = (width, height) => {
 preset.setup = (canvas, global) => {};
 
 preset.draw = ([[vertex, t]], canvas, global) => {
-  // canvas.clear();
+  if (t > 7) {
+    global.noLoop();
+    return;
+  }
 
-  // 👁👁👁 numero de loops que quiero para dibujar inicialmente.
-  if (t > 14) global.noLoop();
-
-  canvas.fill(mapping[t % mapping.length]);
-  canvas.stroke(mapping[t % mapping.length]);
+  canvas.noFill();
+  canvas.stroke(borderColor);
 
   vertex.map((v) => {
     canvas.ellipse(...v, unity);
