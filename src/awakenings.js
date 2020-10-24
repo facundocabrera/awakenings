@@ -23,7 +23,7 @@ const Painters = {
   XY3,
 };
 
-import presets from "./presets/2020-10-20.flower-of-life";
+import presets from "./presets/2020-10-22.shapes";
 
 const properties = [
   "canvasSize",
