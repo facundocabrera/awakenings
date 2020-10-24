@@ -5,7 +5,7 @@ import { cos, sin, unit } from "mathjs";
  *
  * @param {Integer} n Numero de vertices alrededor de una circunferencia de radio 1.
  *
- * @return Array de puntos en formato [x, y]
+ * @return [ [x, y], [x, y], ... ]
  */
 function stops(N) {
   const step = 360 / N;

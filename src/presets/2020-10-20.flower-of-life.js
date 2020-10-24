@@ -5,7 +5,7 @@ import { line_points } from "../geometry/line";
 
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
 
-const borderColor = '#13F4EF'; 
+const borderColor = "#13F4EF";
 
 const mapping = [
   "#FFFFFF55",

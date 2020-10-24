@@ -22,12 +22,10 @@ function fragment(base, magnifier) {
     ...line_points(
       ...base[base.length - 1].map((v) => v * magnifier),
       ...base[0].map((v) => v * magnifier)
-    ).slice(1, -1)
+    ).slice(1, -1),
   ];
 
   return vertex;
 }
 
-export {
-  fragment
-};
+export { fragment };

@@ -23,7 +23,7 @@ const Painters = {
   XY3,
 };
 
-import presets from "./presets/2020-10-22.shapes";
+import presets from "./presets/2020-10-24.1";
 
 const properties = [
   "canvasSize",

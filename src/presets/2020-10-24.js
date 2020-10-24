@@ -7,12 +7,12 @@ import { fragment } from "../geometry/points";
 const scale = (elements, by) => elements.map(([x, y]) => [x * by, y * by]);
 
 // const borderColor = '#13F4EF11';
-const borderColor = "#E300F711";
-// const lineColor = '#FFFE3711';
-const lineColor = "#FD8EFF33";
+// const borderColor = '#E300F711';
+const lineColor = "#FFFE37";
+// const lineColor = '#FD8EFF33';
 
 const unity = 100;
-const base = stops(6);
+const base = stops(3);
 
 function pointAtom(t) {
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
@@ -27,42 +27,19 @@ const preset = defaults([
   },
 ]);
 
-preset.background = "#5700BB";
+preset.background = "#000";
 preset.frameRate = 1;
 preset.setup = (canvas, global) => {
-  // canvas.rotate(PI / 6);
+  canvas.rotate(PI / -6);
 };
 preset.draw = ([[vertex, t]], canvas, global) => {
-  // if (t > 11) {
-  //   global.noLoop();
-  //   return;
-  // }
-
-  // canvas.clear();
-  // canvas.rotate(PI / 6);
-
-  // if (t % 4 === 0) {
-  //   canvas.clear();
-  //   canvas.rotate(PI / 6);
-  // }
-
-  // canvas.background(0);
-
+  canvas.clear();
   canvas.noFill();
-  canvas.stroke(borderColor);
-  // canvas.strokeWeight(1);
 
-  // canvas.fill(borderColor);
-  // canvas.ellipse(0, 0, unity);
-  // canvas.noFill();
-  // canvas.beginShape();
+  canvas.stroke(lineColor);
+  // canvas.beginShape(global.LINES);
   vertex.map((v, i) => {
-    canvas.stroke(borderColor);
-    // canvas.fill(borderColor);
     canvas.ellipse(...v, unity);
-    canvas.stroke(lineColor);
-    canvas.line(0, 0, ...v);
-    // canvas.noFill();
     // canvas.vertex(...v);
   });
   // canvas.endShape(global.CLOSE);
