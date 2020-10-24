@@ -1,52 +1,90 @@
-const { PI, cos, sqrt, pow, atan, abs, round, asin, sin, floor } = Math;
-
 import { defaults } from "./defaults";
-import { stops } from "../geometry/circle";
-import { fragment } from "../geometry/points";
 
 import { multiByScalar } from "../geometry/scale";
-
 import { polygon } from "../geometry/polygon";
 
-// const borderColor = '#13F4EF11';
-// const borderColor = '#E300F711';
-const lineColor = "#FFFE37";
-// const lineColor = '#FD8EFF33';
+import { polygonit } from "../nit/polygonit";
 
 const unity = 100;
 
 function pointAtom(t) {
+  const {
+    vertices
+  } = this;
+  
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
-  const p = polygon(3, t);
+  const p = polygon(vertices, t);
   const s = multiByScalar(p, unity / 2);
 
-  return [s, t];
+  return s;
 }
 
 const preset = defaults([
   {
-    painter: "XY3",
+    painter: "XY4",
     fn: pointAtom,
+    vertices: 2,
+    color: '#FFFE3777'
   },
+  {
+    painter: "XY4",
+    fn: pointAtom,
+    vertices: 4,
+    color: '#13F4EF77'
+  },
+
+  // {
+  //   painter: "XY4",
+  //   fn: pointAtom,
+  //   vertices: 3,
+  //   color: '#FFFE3777'
+  // },
+  // {
+  //   painter: "XY4",
+  //   fn: pointAtom,
+  //   vertices: 6,
+  //   color: '#13F4EF77'
+  // },
+  // {
+  //   painter: "XY4",
+  //   fn: pointAtom,
+  //   vertices: 12,
+  //   color: '#E300F777'
+  // },
 ]);
 
 preset.background = "#000";
 preset.frameRate = 1;
 preset.setup = (canvas, global) => {
-  canvas.rotate(PI / -6);
+  // canvas.rotate(PI / 3);
 };
-preset.draw = ([[vertex, t]], canvas, global) => {
-  canvas.clear();
-  canvas.noFill();
 
-  canvas.stroke(lineColor);
-  // canvas.beginShape(global.LINES);
-  vertex.map((v, i) => {
-    canvas.ellipse(...v, unity);
-    // canvas.vertex(...v);
+const plot = (vertex, time, context, canvas, global) => {
+  if (time > 9) {
+    global.noLoop();
+    return;
+  }
+
+  canvas.noFill();
+  canvas.stroke(context.color);
+
+  polygonit({
+    global,
+    canvas,
+    vertex,
+    time,
+    unity
   });
-  // canvas.endShape(global.CLOSE);
+};
+
+preset.draw = (context, time, canvas, global) => {
+  canvas.clear();
+
+  context.forEach(local => {
+    plot(local.fn(time), time, local, canvas, global);
+  });
+
 };
 
 export default preset;

@@ -7,6 +7,7 @@ import { PlotterV1 } from "./engine/plotter";
 import { XY } from "./engine/xy";
 import { XY2 } from "./engine/xy2";
 import { XY3 } from "./engine/xy3";
+import { XY4 } from "./engine/xy4";
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -21,6 +22,7 @@ const Painters = {
   XY,
   XY2,
   XY3,
+  XY4
 };
 
 import presets from "./presets/2020-10-24.1";
