@@ -1,12 +1,20 @@
 import { stops } from "../geometry/circle";
 import { fragment } from "../geometry/points";
 
-function polygon(vertex = 3, zoom = 1) {
+/**
+ * Generador de poligonos regulares.
+ *
+ * @param {Number} vertices Numero de vertices que necesito.
+ * @param {Number} orbita Orbita que me interesa ver.
+ *
+ * @returns [[x,y], ...]
+ */
+function polygon(vertices = 3, orbita = 1) {
   // Set of base points
-  const base = stops(vertex);
+  const base = stops(vertices);
 
-  // Expanded set of points given the zoom
-  const expanded = fragment(base, zoom);
+  // Expanded set of points given the orbita
+  const expanded = orbita > 1 ? fragment(base, orbita) : base;
 
   return expanded;
 }
