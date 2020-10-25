@@ -24,7 +24,7 @@ const preset = defaults([
   {
     painter: "XY4",
     fn: pointAtom,
-    vertices: 2,
+    vertices: 3,
     color: '#FFFE3777'
   },
   {
@@ -33,7 +33,12 @@ const preset = defaults([
     vertices: 4,
     color: '#13F4EF77'
   },
-
+  {
+    painter: "XY4",
+    fn: pointAtom,
+    vertices: 5,
+    color: '#E300F777'
+  },
   // {
   //   painter: "XY4",
   //   fn: pointAtom,
