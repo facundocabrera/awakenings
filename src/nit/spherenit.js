@@ -23,16 +23,6 @@ function spherenit({
 
     canvas.fill(context.color);
     canvas.stroke(context.color);
-    // canvas.ellipse(...v1, 10);
-    // canvas.ellipse(...v2, 10);
-    // canvas.line(0,0, ...v1);
-    // canvas.line(0,0, ...v2);
-
-    // canvas.fill(context.centroid);
-    // canvas.stroke(context.centroid);
-    // canvas.ellipse(...m, 10);
-    
-    // canvas.stroke('yellow');
     canvas.arc( ...m, 2 * d, 2 * d, last - elgna, angle + last + elgna);
 
     last = angle + last;

@@ -27,8 +27,7 @@ const preset = defaults([
     painter: "XY4",
     fn: pointAtom,
     vertices: 3,
-    color: '#FFFE37DD',
-    centroid: '#13F4EF11',
+    color: '#FFFE37DD'
   },
 ]);
 
