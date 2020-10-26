@@ -25,7 +25,7 @@ const Painters = {
   XY4
 };
 
-import presets from "./presets/2020-10-24.1";
+import presets from "./presets/2020-10-25.sphere-tiling";
 
 const properties = [
   "canvasSize",
