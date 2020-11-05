@@ -1,15 +1,9 @@
 import MersenneTwister from "mersenne-twister";
-import { log } from "mathjs";
-import range from "lodash/range";
+import { cumulative } from "../math/benford";
 
-import { accum } from "./stats";
-
-const generator = new MersenneTwister();
-
-function create(digits) {
-  const distribution = range(1, digits).map((d) => log(1 + 1 / d, digits));
-
-  const acc = accum(distribution);
+function BenfordWalkerN(base) {
+  const acc = cumulative(base);
+  const generator = new MersenneTwister();
 
   function walker() {
     const n = generator.random();
@@ -20,10 +14,12 @@ function create(digits) {
       }
     }
 
-    return n;
+    return base - 1;
   }
 
   return walker;
 }
 
-export { create as benfordWalkerN };
+export { 
+  BenfordWalkerN 
+};

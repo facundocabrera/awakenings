@@ -1,14 +1,22 @@
 // https://en.wikipedia.org/wiki/Benford's_law
 
+import { Benford } from "../engine/benford";
 import { walker } from "./benford-walker";
 
-test("Benford walker", () => {
-  let counter = 0;
+test("random-walk/benford", () => {
+  const b = Benford();
 
-  while (counter < 100) {
-    console.log(walker());
+  let counter = 0;
+  
+  // Un dato interesante, el numero de trials que genero, necesita ser un numero
+  // mayor a 2500, esta conclusion la saco luego de probar varias veces. Puede
+  // que con un numero menor de iteraciones pase, pero no siempre sucede.
+  while (counter < 3000) {
+    b.add(walker());
     counter++;
   }
 
-  expect(true).toBe(false);
+  b.plot('random-walk/benford');
+
+  expect(b.obeyTheLaw()).toBe(true);
 });
