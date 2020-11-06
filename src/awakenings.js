@@ -8,6 +8,7 @@ import { XY } from "./engine/xy";
 import { XY2 } from "./engine/xy2";
 import { XY3 } from "./engine/xy3";
 import { XY4 } from "./engine/xy4";
+import { Machine } from "./engine/machine";
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -22,10 +23,11 @@ const Painters = {
   XY,
   XY2,
   XY3,
-  XY4
+  XY4,
+  Machine
 };
 
-import presets from "./presets/2020-10-27.mer-ka-ba";
+import presets from "./presets/2020-11-05-machine-first-baby";
 
 const properties = [
   "canvasSize",
