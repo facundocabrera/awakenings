@@ -1,10 +1,5 @@
 import range from "lodash/range";
-
-const {
-  log10 
-} = Math;
-
-const log = (a, b) => log10(a) / log10(b);
+import log from "./log";
 
 const cumulative = base => [
   ...range(2, base).map(v => log(v, base)),

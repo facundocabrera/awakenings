@@ -12,7 +12,7 @@ test("line_points: (0, -5) => (5, 0)", () => {
   // console.log('expected', result);
   // console.log('current', current);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points: (-4, 0) => (0, -4)", () => {
@@ -26,7 +26,7 @@ test("line_points: (-4, 0) => (0, -4)", () => {
   // console.log('expected', result);
   // console.log('current', current);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points: (-3, 0) => (0, 3)", () => {
@@ -40,7 +40,7 @@ test("line_points: (-3, 0) => (0, 3)", () => {
   // console.log('expected', result);
   // console.log('current', current);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points: (0, 2) => (2, 0)", () => {
@@ -54,7 +54,7 @@ test("line_points: (0, 2) => (2, 0)", () => {
   // console.log('expected', result);
   // console.log('current', current);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points: (0.5, 0.866) => (-0.5, 0.866)", () => {
@@ -67,7 +67,7 @@ test("line_points: (0.5, 0.866) => (-0.5, 0.866)", () => {
   // console.log(current);
   // console.log(result);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points: (0.5 * 2, 0.866 * 2) => (-0.5 * 2, 0.866 * 2)", () => {
@@ -80,7 +80,7 @@ test("line_points: (0.5 * 2, 0.866 * 2) => (-0.5 * 2, 0.866 * 2)", () => {
   // console.log(current);
   // console.log(result);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_points + stops(6)", () => {
@@ -89,10 +89,10 @@ test("line_points + stops(6)", () => {
   const current = line_points(...p1, ...p2);
   const result = [p1, p2];
 
-  console.log(current);
-  console.log(result);
+  // console.log(current);
+  // console.log(result);
 
-  expect(current).toEqual(result);
+  expect(current).toMatchSnapshot();
 });
 
 test("line_equation_builder", () => {

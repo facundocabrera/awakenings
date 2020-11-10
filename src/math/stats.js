@@ -10,4 +10,4 @@ function cumulative(distribution) {
   return [...accum, 1];
 }
 
-export { cumulative as accum };
+export { cumulative };

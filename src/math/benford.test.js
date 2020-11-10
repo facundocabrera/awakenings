@@ -1,6 +1,6 @@
 // https://en.wikipedia.org/wiki/Benford's_law
 
-import { accum } from "../random-walk/stats";
+import { cumulative as accum } from "./stats";
 import { cumulative, distribution } from "./benford";
 
 // 
