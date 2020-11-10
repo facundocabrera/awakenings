@@ -1,14 +1,5 @@
-//
-// WIP - still looking for an easy way to create an integer walker.
-//
-//
-// https://en.wikipedia.org/wiki/Binomial_distribution
-//
-
 import MersenneTwister from "mersenne-twister";
-import { pow, combinations } from "mathjs";
-
-import { BenfordWalkerN } from "./benford-walker-n";
+import { distribution, cumulative } from "../math/binomial";
 
 const generator = new MersenneTwister();
 
@@ -19,25 +10,24 @@ const generator = new MersenneTwister();
  * @param {Number} k k successes
  * @param {Number} p successes probability
  */
-function create(n, k, p) {
-  // genero un walker para ir alterando los success 
-  const wb = BenfordWalkerN(k);
-
-  const 
+function Binomial(n, k, p) {
+  const d = distribution(n, p);
+  const acc = cumulative(d);
+  const len = acc.length;
 
   function walker() {
-    const value = f(n, k);
+    const rand = generator.random();
 
-    for (let i = 0; i < acc.length; i++) {
-      if (n < acc[i]) {
+    for (let i = 0; i < len; i++) {
+      if (rand < acc[i]) {
         return i + 1;
       }
     }
 
-    return n;
+    return len;
   }
 
   return walker;
 }
 
-export { create as benfordWalkerN };
+export { Binomial };

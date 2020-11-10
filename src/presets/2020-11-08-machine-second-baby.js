@@ -1,18 +1,18 @@
 const { PI } = Math;
 
-import { Sequencer } from "../machines/2020-11-05/sequencer";
+import { Sequencer } from "../machines/2020-11-10/sequencer";
 import { stops } from "../geometry/circle";
 import { multiByScalar } from "../geometry/scale";
 
 import { defaults } from "./defaults";
 
-const length = 20;
+const length = 10;
 const base = 6;
-const sequencer = Sequencer(base);
-const points = stops(base - 1);
+const sequencer = Sequencer(100, 5, 5 / 100, base);
+const points = stops(base);
 
 const painter = 'Machine';
-const color = '#FFFF3355';
+const color = '#FFFF3311';
 
 const preset = defaults([
   {
@@ -40,7 +40,7 @@ preset.draw = (context, time, canvas, global) => {
     let current = sequencer.next().value;
 
     const [ from, to ] = multiByScalar(
-      [ points[last - 1], points[current - 1] ],
+      [ points[last], points[current] ],
       length
     );
 
@@ -48,7 +48,7 @@ preset.draw = (context, time, canvas, global) => {
     canvas.line(...from, ...to);
     
     canvas.translate(...to);
-    canvas.rotate( current * (2 * PI / (base - 1)) );
+    canvas.rotate( current * (2 * PI / base) );
 
     last = current;
   });

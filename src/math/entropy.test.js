@@ -68,4 +68,3 @@ test("math/entropy/coin", () => {
 
   expect(h).toEqual(1);
 });
-
