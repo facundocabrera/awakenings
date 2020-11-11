@@ -1,3 +1,5 @@
+const { PI } = Math;
+
 import { Sequencer } from "../machines/2020-11-10/sequencer";
 import { stops } from "../geometry/circle";
 import { multiByScalar } from "../geometry/scale";
@@ -9,15 +11,13 @@ const length = 10;
 // Divido el circulo en 6 puntos que son los movimientos que puedo hacer
 const base = 6;
 const points = stops(base);
-// Elijo EL movimiento
-const success = 1;
 // La probabilidad de elegir la correcta es
-const prob = 1 / base;
+const prob = 0.1;
 
-const sequencer = Sequencer(base, success, prob, base);
+const sequencer = Sequencer(base, prob);
 
 const painter = "Machine";
-const color = "#FFFF3333";
+const color = "#FFFF33";
 
 const preset = defaults([
   {
@@ -44,12 +44,16 @@ preset.draw = (context, time, canvas, global) => {
     }
     let current = sequencer.next().value;
 
-    const [from, to] = multiByScalar([points[last], points[current]], length);
+    if (last != current) {
+      const [from, to] = multiByScalar([points[last], points[current]], length);
 
-    canvas.stroke(color);
-    canvas.line(...from, ...to);
+      canvas.stroke(color);
+      canvas.line(...from, ...to);
 
-    canvas.translate(...to);
+      canvas.translate(...to);
+    } else {
+      canvas.rotate((2 * PI) / base);
+    }
 
     last = current;
   });

@@ -1,12 +1,10 @@
 import { Binomial } from "../../random-walk/binomial-walker";
 
-function* Sequencer(n, k, p, base) {
-  const walker = Binomial(n, k, p);
+function* Sequencer(n, p) {
+  const walker = Binomial(n, p);
 
   while (true) {
-    const v = walker() % base;
-
-    console.log(v);
+    const v = walker();
 
     yield v;
   }
