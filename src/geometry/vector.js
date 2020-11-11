@@ -19,14 +19,14 @@ const modulo = (x, y) => {
   const d = distance(0, 0, x, y);
 
   return d;
-}
+};
 
 // angulo entre 2 vectores
 const angle_between = (x1, y1, x2, y2) => {
   const dp = dot_product(x1, y1, x2, y2);
   const m1 = modulo(x1, y1);
   const m2 = modulo(x2, y2);
-  
+
   return acos(dp / (m1 * m2));
 };
 
@@ -35,7 +35,7 @@ const angle_between = (x1, y1, x2, y2) => {
 const direction = (x1, y1, x2, y2) => {
   const dy = y2 - y1;
   const dx = x2 - x1;
-  
+
   return atan(dy / dx);
 };
 
@@ -48,9 +48,7 @@ const unit_vector = (x, y) => {
 };
 
 const middle_vector = (x1, y1, x2, y2) => {
-  return [
-    (x1 + x2) / 2, (y1 + y2) / 2
-  ];
+  return [(x1 + x2) / 2, (y1 + y2) / 2];
 };
 
 export {

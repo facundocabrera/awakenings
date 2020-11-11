@@ -24,7 +24,7 @@ const Painters = {
   XY2,
   XY3,
   XY4,
-  Machine
+  Machine,
 };
 
 import presets from "./presets/2020-11-08-machine-second-baby";

@@ -20,6 +20,4 @@ function BenfordWalkerN(base) {
   return walker;
 }
 
-export { 
-  BenfordWalkerN 
-};
+export { BenfordWalkerN };

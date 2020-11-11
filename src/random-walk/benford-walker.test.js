@@ -7,7 +7,7 @@ test("random-walk/benford", () => {
   const b = Benford();
 
   let counter = 0;
-  
+
   // Un dato interesante, el numero de trials que genero, necesita ser un numero
   // mayor a 2500, esta conclusion la saco luego de probar varias veces. Puede
   // que con un numero menor de iteraciones pase, pero no siempre sucede.
@@ -16,7 +16,7 @@ test("random-walk/benford", () => {
     counter++;
   }
 
-  b.plot('random-walk/benford');
+  b.plot("random-walk/benford");
 
   expect(b.obeyTheLaw()).toBe(true);
 });

@@ -4,7 +4,6 @@ import { Benford } from "./benford";
 import { fibonacci } from "./clock";
 
 describe("engine/benford/base", () => {
-  
   test("Lets play a game with benford", () => {
     const b = Benford();
 
@@ -49,7 +48,8 @@ describe("engine/benford/base", () => {
     const x = 2;
     const b = Benford();
 
-    let v = 1, i = 1;
+    let v = 1,
+      i = 1;
 
     while (Number.isFinite(v)) {
       b.add(v);
@@ -91,7 +91,9 @@ describe("engine/benford/experiments", () => {
       b.add(fn(time));
     }
 
-    b.plot("A * Math.pow(Math.sin( t * Math.PI ), 2) / Math.sqrt(t) benfordable?");
+    b.plot(
+      "A * Math.pow(Math.sin( t * Math.PI ), 2) / Math.sqrt(t) benfordable?"
+    );
 
     // parcialmente verdadero, si aumento las iteracion no se mantiene positivo el resultado.
     expect(b.obeyTheLaw()).toBe(true);
@@ -146,7 +148,7 @@ describe("engine/benford/p-adic", () => {
 
     const b = Benford({
       errorMargin: 0.01,
-      base
+      base,
     });
 
     const it = fibonacci();
@@ -154,8 +156,8 @@ describe("engine/benford/p-adic", () => {
 
     let breaker = 0;
 
-    for (const n of it) {     
-      b.add(n % (base - 1) + 1);
+    for (const n of it) {
+      b.add((n % (base - 1)) + 1);
       breaker++;
 
       if (breaker == 1000) break;

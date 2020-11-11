@@ -1,11 +1,6 @@
 const { sqrt, cos, sin, round } = Math;
 
-import {  
-  angle_between,
-  unit_vector,
-  distance,
-  direction
-} from './vector';
+import { angle_between, unit_vector, distance, direction } from "./vector";
 
 /**
  * Dado un segmento definido por `(x1, y1)` => `(x2, y2)` computar los puntos
@@ -20,7 +15,7 @@ const line_points = (x1, y1, x2, y2) => {
 
   const angle = angle_between(ux1, uy1, ux2, uy2);
   // teorema del coseno simplificado por el uso de vectores unitarios
-  const step = sqrt(2 - 2 * cos(angle)); 
+  const step = sqrt(2 - 2 * cos(angle));
 
   const dx = x2 - x1 < 0 ? -1 : 1;
   const dy = y2 - y1 < 0 ? -1 : 1;

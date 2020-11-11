@@ -1,15 +1,9 @@
-function regularnit({
-  global,
-  canvas,
-  vertex,
-}) {
+function regularnit({ global, canvas, vertex }) {
   canvas.beginShape();
-  vertex.map(v => {
+  vertex.map((v) => {
     canvas.vertex(...v);
   });
   canvas.endShape(global.CLOSE);
 }
 
-export {
-  regularnit
-};
+export { regularnit };

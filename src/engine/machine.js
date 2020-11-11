@@ -39,12 +39,7 @@ const Machine = (preset) => {
   }
 
   function draw() {
-    preset.draw(
-      preset,
-      time,
-      canvas,
-      global
-    );
+    preset.draw(preset, time, canvas, global);
 
     time += 1;
 

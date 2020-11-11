@@ -5,13 +5,13 @@ import range from "lodash/range";
 import { plot as plop } from "../console/plot";
 import { distribution as gdist } from "../math/benford";
 
-const digits = base => ((base - 1) + '').length;
+const digits = (base) => (base - 1 + "").length;
 const extract = (n, base) => Number((n + "").substr(0, digits(base)));
-const buckets = base => new Array(base - 1);
+const buckets = (base) => new Array(base - 1);
 
 const Benford = ({
   errorMargin = 0.01, // 1% of error
-  base = 10
+  base = 10,
 } = {}) => {
   // Expected Distribution
   const ideal = gdist(base);
@@ -36,7 +36,9 @@ const Benford = ({
       // Si tengo base 16 y le paso un 16, el extract devuelve un 16, y rompe
       // el arreglo de stats.
       if (digit > base - 1) {
-        throw `double check input because we are overflowing the base => ${digit} > ${base - 1}`;
+        throw `double check input because we are overflowing the base => ${digit} > ${
+          base - 1
+        }`;
       }
 
       stats[digit - 1]++;
@@ -47,7 +49,7 @@ const Benford = ({
   };
 
   const distribution = () => {
-    return stats.map(s => s / counter);
+    return stats.map((s) => s / counter);
   };
 
   const diff = () => {
@@ -82,7 +84,7 @@ const Benford = ({
     return obey;
   };
 
-  const plot = title => plop(title, ideal, distribution());
+  const plot = (title) => plop(title, ideal, distribution());
 
   return {
     add,

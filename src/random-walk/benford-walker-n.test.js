@@ -7,17 +7,17 @@ test("random-walk/benford-walker-n", () => {
   const base = 6;
   const walker = BenfordWalkerN(base);
   const b = Benford({
-    base
+    base,
   });
 
   let counter = 0;
-  
+
   while (counter < 3000) {
     b.add(walker());
     counter++;
   }
 
-  b.plot('random-walk/benford-walker-n');
+  b.plot("random-walk/benford-walker-n");
 
   expect(b.obeyTheLaw()).toBe(true);
 });

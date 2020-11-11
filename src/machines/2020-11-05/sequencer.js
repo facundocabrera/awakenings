@@ -3,7 +3,7 @@ import { BenfordWalkerN } from "../../random-walk/benford-walker-n";
 function* Sequencer(numericBase) {
   const walker = BenfordWalkerN(numericBase);
 
-  while ( true ) {
+  while (true) {
     const v = walker();
 
     // console.log(v);
@@ -12,6 +12,4 @@ function* Sequencer(numericBase) {
   }
 }
 
-export {
-  Sequencer
-};
+export { Sequencer };

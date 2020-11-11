@@ -10,10 +10,8 @@ import { spherenit } from "../nit/spherenit2";
 const unity = 144;
 
 function pointAtom(t) {
-  const {
-    vertices
-  } = this;
-  
+  const { vertices } = this;
+
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
   const p = polygon(vertices, t);
@@ -27,13 +25,13 @@ const preset = defaults([
     painter: "XY4",
     fn: pointAtom,
     vertices: 4,
-    color: '#FFFE37DD'
+    color: "#FFFE37DD",
   },
   {
     painter: "XY4",
     fn: pointAtom,
     vertices: 2,
-    color: '#01FE01DD'
+    color: "#01FE01DD",
   },
 ]);
 
@@ -62,17 +60,16 @@ const plot = (vertex, time, context, canvas, global) => {
     context,
     canvas,
     vertex,
-    unity
+    unity,
   });
 };
 
 preset.draw = (context, time, canvas, global) => {
   canvas.clear();
 
-  context.forEach(local => {
+  context.forEach((local) => {
     plot(local.fn(time), time, local, canvas, global);
   });
-
 };
 
 export default preset;

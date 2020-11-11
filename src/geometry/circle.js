@@ -15,8 +15,8 @@ function stops(N) {
 
   while (arc < 360) {
     points.push([
-      1 * cos(unit(arc, "deg")).toFixed(3),
-      1 * sin(unit(arc, "deg")).toFixed(3),
+      Number(cos(unit(arc, "deg")).toFixed(3)),
+      Number(sin(unit(arc, "deg")).toFixed(3)),
     ]);
     arc += step;
   }

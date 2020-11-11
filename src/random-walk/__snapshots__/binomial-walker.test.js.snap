@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`random-walk/binomial 1`] = `
+Array [
+  29,
+  154,
+  315,
+  304,
+  198,
+]
+`;

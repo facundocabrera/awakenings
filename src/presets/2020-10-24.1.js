@@ -8,10 +8,8 @@ import { polygonit } from "../nit/polygonit";
 const unity = 100;
 
 function pointAtom(t) {
-  const {
-    vertices
-  } = this;
-  
+  const { vertices } = this;
+
   if (!Number.isFinite(t)) throw "fn.pointAtom / Invalid time parameters";
 
   const p = polygon(vertices, t);
@@ -25,19 +23,19 @@ const preset = defaults([
     painter: "XY4",
     fn: pointAtom,
     vertices: 3,
-    color: '#FFFE3777'
+    color: "#FFFE3777",
   },
   {
     painter: "XY4",
     fn: pointAtom,
     vertices: 4,
-    color: '#13F4EF77'
+    color: "#13F4EF77",
   },
   {
     painter: "XY4",
     fn: pointAtom,
     vertices: 5,
-    color: '#E300F777'
+    color: "#E300F777",
   },
   // {
   //   painter: "XY4",
@@ -79,17 +77,16 @@ const plot = (vertex, time, context, canvas, global) => {
     canvas,
     vertex,
     time,
-    unity
+    unity,
   });
 };
 
 preset.draw = (context, time, canvas, global) => {
   canvas.clear();
 
-  context.forEach(local => {
+  context.forEach((local) => {
     plot(local.fn(time), time, local, canvas, global);
   });
-
 };
 
 export default preset;

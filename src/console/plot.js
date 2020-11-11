@@ -13,6 +13,4 @@ const plot = (title, ideal, distribution) => {
   );
 };
 
-export {
-  plot
-};
+export { plot };
