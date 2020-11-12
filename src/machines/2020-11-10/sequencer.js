@@ -6,6 +6,8 @@ function* Sequencer(n, p) {
   while (true) {
     const v = walker();
 
+    console.log(v);
+
     yield v;
   }
 }

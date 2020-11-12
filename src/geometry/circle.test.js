@@ -1,5 +1,3 @@
-const { abs, sqrt, pow, atan } = Math;
-
 import { stops } from "./circle";
 
 test("stops", () => {
