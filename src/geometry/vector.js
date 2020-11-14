@@ -1,7 +1,5 @@
 const { sqrt, pow, atan, acos } = Math;
 
-import { multiByScalar } from "./scale";
-
 // distancia entre 2 puntos en el plano
 const distance = (x1, y1, x2, y2) => {
   const d = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
