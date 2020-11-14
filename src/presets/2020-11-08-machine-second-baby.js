@@ -64,12 +64,12 @@ preset.draw = (context, time, canvas, global) => {
 
   canvas.bezier(
     ...from, 
-    ...[cx, cy].map(v => (1 - distances[2])), 
-    ...[mx, my].map(v => (1 - distances[2])), 
+    ...[cx, cy].map(v => v * (1 - distances[2])),
+    ...[mx, my].map(v => v * (1 - distances[2])),
     ...to
   );
 
-  canvas.rotate( PI * distances[ 0 ] );
+  canvas.rotate( PI * distances[ time % distances.length ] );
   // cx, cy, mx, my
   // canvas.bezier(...from, cx, cy, mx, my, ...to);
   // mx, my, cx, cy,
