@@ -1,28 +1,29 @@
-const { PI } = Math;
-
+import { Sequencer as BenfordSequencer } from "../machines/2020-11-05/sequencer";
 import { Sequencer as FibonacciSequencer } from "../machines/fibonacci-machine";
+
 import { stops } from "../geometry/circle";
 import { multiByScalar } from "../geometry/scale";
-import { centroid } from "../geometry/vector";
+import { centroid, distance } from "../geometry/vector";
 import { ratios } from "../math/fibonacci";
 
 import { defaults } from "./defaults";
 
 const painter = "Machine";
-const color = "#FFFF3311";
+
+const mapping = ["#FFFF3311", "#F400FF11", "#74E2FE11", "#7E3FFD11"];
 
 const distances = ratios();
 
-const A = 5;
+const A = 27;
 const RA = 500;
 
-const B = 5;
-const RB = 300;
+const B = 51;
+const RB = 150;
 
 const preset = defaults([
   {
     painter,
-    sequencer: FibonacciSequencer(A),
+    sequencer: BenfordSequencer(A),
     points: stops(A),
   },
   {
@@ -33,11 +34,7 @@ const preset = defaults([
 ]);
 
 preset.background = "#000";
-preset.frameRate = 30;
-
-preset.setup = (canvas, global) => {
-  // canvas.rotate(PI / -2);
-};
+preset.frameRate = 60;
 
 preset.draw = (context, time, canvas, global) => {
   canvas.clear();
@@ -56,17 +53,15 @@ preset.draw = (context, time, canvas, global) => {
   const [mx, my] = [cx, cy].map((v) => -1 * v);
 
   canvas.noFill();
-  canvas.stroke(color);
-
-  canvas.bezier(
+  canvas.stroke(mapping[time % mapping.length]);
+  canvas.ellipse(
     ...from,
-    ...[cx, cy, mx, my].map(
-      (v) => v * (1 - distances[time % distances.length])
-    ),
-    ...to
+    distance(...from, ...to) * (1 - distances[time % distances.length])
   );
-
-  // canvas.rotate( PI * distances[ 0 ] );
+  canvas.ellipse(
+    ...to,
+    distance(...from, ...to) * (1 - distances[time % distances.length])
+  );
 };
 
 export default preset;

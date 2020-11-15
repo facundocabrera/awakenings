@@ -3,11 +3,29 @@ const { PI } = Math;
 import { fibonacci, sequenceOf, ratios } from "./fibonacci";
 
 test("math/fibonacci", () => {
-  const expected = [1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597];
+  const expected = [
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144,
+    233,
+    377,
+    610,
+    987,
+    1597,
+  ];
   const sequence = [];
   const gen = fibonacci(17);
 
-  for(let v of gen) {
+  for (let v of gen) {
     sequence.push(v);
   }
 
@@ -15,7 +33,25 @@ test("math/fibonacci", () => {
 });
 
 test("math/fibonacci/sequenceOf", () => {
-  const expected = [1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597];
+  const expected = [
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144,
+    233,
+    377,
+    610,
+    987,
+    1597,
+  ];
   expect(sequenceOf(17)).toEqual(expected);
 });
 
@@ -30,8 +66,8 @@ test("math/fibonacci/ratios", () => {
     0.055728090000841224,
     0.03444185374863303,
     0.02128623625220819,
-    0.01315561749642484
-  ]
+    0.01315561749642484,
+  ];
 
   expect(r).toEqual(precalculated);
 });
@@ -43,7 +79,7 @@ test("math/fibonacci/distances", () => {
   // Ejemplo de uso de las distancia como proporsiones, lo pense como la
   // distancia que roto desde el 0 y que voy a repertir como parte de un modelo
   // de capas.
-  console.log(fr.map(v => 360 * v ));
-  console.log(fr.map(v => PI * v ));
-  console.log(fr.map(v => 1 - v ));
-})
+  console.log(fr.map((v) => 360 * v));
+  console.log(fr.map((v) => PI * v));
+  console.log(fr.map((v) => 1 - v));
+});

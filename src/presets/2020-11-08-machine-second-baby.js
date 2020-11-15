@@ -51,25 +51,25 @@ preset.draw = (context, time, canvas, global) => {
     const elPoint = points[index];
 
     return elPoint;
-  }); 
-  
+  });
+
   const [from] = multiByScalar([p1], RA);
   const [to] = multiByScalar([p2], RB);
 
   const [cx, cy] = centroid([from, to]);
-  const [mx, my] = [cx, cy].map(v => -1 * v);
+  const [mx, my] = [cx, cy].map((v) => -1 * v);
 
   canvas.noFill();
   canvas.stroke(color);
 
   canvas.bezier(
-    ...from, 
-    ...[cx, cy].map(v => v * (1 - distances[2])),
-    ...[mx, my].map(v => v * (1 - distances[2])),
+    ...from,
+    ...[cx, cy].map((v) => v * (1 - distances[2])),
+    ...[mx, my].map((v) => v * (1 - distances[2])),
     ...to
   );
 
-  canvas.rotate( PI * distances[ time % distances.length ] );
+  canvas.rotate(PI * distances[time % distances.length]);
   // cx, cy, mx, my
   // canvas.bezier(...from, cx, cy, mx, my, ...to);
   // mx, my, cx, cy,

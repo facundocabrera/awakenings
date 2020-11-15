@@ -51,10 +51,10 @@ const middle_vector = (x1, y1, x2, y2) => {
   return [(x1 + x2) / 2, (y1 + y2) / 2];
 };
 
-const centroid = points => points.reduce(
-  ([ x, y ], [ z, t ]) => [ x + z, y + t ], 
-  [0, 0]
-).map( v => v / points.length );
+const centroid = (points) =>
+  points
+    .reduce(([x, y], [z, t]) => [x + z, y + t], [0, 0])
+    .map((v) => v / points.length);
 
 export {
   distance,
@@ -64,5 +64,5 @@ export {
   direction,
   unit_vector,
   middle_vector,
-  centroid
+  centroid,
 };
