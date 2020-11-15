@@ -27,7 +27,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-11-08-machine-second-baby";
+import presets from "./presets/2020-11-14-let-make-it-happen";
 
 const properties = [
   "canvasSize",

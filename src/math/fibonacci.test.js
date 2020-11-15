@@ -37,7 +37,7 @@ test("math/fibonacci/ratios", () => {
 });
 
 test("math/fibonacci/distances", () => {
-  const base = 6;
+  const base = 9;
   const fr = ratios(144, base);
 
   // Ejemplo de uso de las distancia como proporsiones, lo pense como la
@@ -45,4 +45,5 @@ test("math/fibonacci/distances", () => {
   // de capas.
   console.log(fr.map(v => 360 * v ));
   console.log(fr.map(v => PI * v ));
+  console.log(fr.map(v => 1 - v ));
 })
