@@ -27,7 +27,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-11-14-round-2";
+import presets from "./presets/2020-11-15";
 
 const properties = [
   "canvasSize",
