@@ -1,5 +1,3 @@
-const { PI } = Math;
-
 import { Sequencer as FibonacciSequencer } from "../machines/fibonacci-machine";
 
 import { stops } from "../geometry/circle";
