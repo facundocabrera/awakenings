@@ -24,7 +24,7 @@ const builder = (α, β, base, color, radius) => ({
 });
 
 const preset = defaults([
-  builder(0.1, 2, 5, "#FFFF33", 300),
+  builder(0.1, 2, 3, "#FFFF33", 300),
   builder(0.5, 8, 6, "#FFFF33", 500),
 ]);
 
