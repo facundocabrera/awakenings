@@ -1,3 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`math/binomial/cumulative-for-6-trials 1`] = `
+Array [
+  0.3348979766803842,
+  0.401877572016461,
+  0.20093878600823048,
+  0.053583676268861444,
+  0.008037551440329218,
+  0.0006430041152263372,
+]
+`;
+
+exports[`math/binomial/cumulative-for-6-trials 2`] = `
+Array [
+  0.3348979766803842,
+  0.7367755486968453,
+  0.9377143347050757,
+  0.9912980109739371,
+  0.9993355624142664,
+  1,
+]
+`;
+
 exports[`math/binomial/entropy 1`] = `0.9169558133643613`;

@@ -13,4 +13,13 @@ const plot = (title, ideal, distribution) => {
   );
 };
 
-export { plot };
+const justPlot = (title, distribution, scale = 100) => {
+  console.log(title);
+  console.log(
+    asciichart.plot([distribution.map((v) => v * scale)], {
+      colors: [asciichart.green],
+    })
+  );
+};
+
+export { plot, justPlot };
