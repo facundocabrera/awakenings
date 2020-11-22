@@ -1,4 +1,4 @@
-const { PI } = Math;
+const { PI, sqrt } = Math;
 
 import { Sequencer } from "../machines/log-logistic-machine";
 import { stops } from "../geometry/circle";
@@ -30,8 +30,8 @@ const preset = defaults([
   // builder(0.5, 0.2, 8, "#FFFF33", 500),
   // builder(1/7, 1/21, 3, "#FFFF33", 300),
   // builder(1/3, 1/23, 5, "#FFFF33", 500),
-  builder(1/7, 1/21, 3, "#FFFF33", 300),
-  builder(1/3, 1/23, 4, "#FFFF33", 500),
+  builder(1, sqrt(3), 3, "#FFFF33", 300),
+  builder(1, sqrt(5), 5, "#FFFF33", 500),
 ]);
 
 preset.background = "#000";
