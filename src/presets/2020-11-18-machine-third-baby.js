@@ -1,6 +1,7 @@
 const { PI, sqrt } = Math;
 
-import { Sequencer } from "../machines/log-logistic-machine";
+import { Sequencer as BenfordWalkerN } from "../machines/2020-11-05/sequencer";
+import { Sequencer as LogLogisticWalker } from "../machines/log-logistic-machine";
 import { stops } from "../geometry/circle";
 import { multiByScalar } from "../geometry/scale";
 import { angle_between } from "../geometry/vector";
@@ -14,12 +15,10 @@ const mapping = [
   "#F400FF11",
 ];
 
-const builder = (α, β, base, color, radius) => ({
+const builder = (base, radius, sequencer) => ({
   painter: "Machine",
-  base,
-  sequencer: Sequencer(α, β, base),
+  sequencer,
   points: stops(base),
-  color,
   radius
 });
 
@@ -30,8 +29,8 @@ const preset = defaults([
   // builder(0.5, 0.2, 8, "#FFFF33", 500),
   // builder(1/7, 1/21, 3, "#FFFF33", 300),
   // builder(1/3, 1/23, 5, "#FFFF33", 500),
-  builder(1, sqrt(3), 3, "#FFFF33", 300),
-  builder(1, sqrt(5), 5, "#FFFF33", 500),
+  builder(7, 300, BenfordWalkerN(7)),
+  builder(7, 500, LogLogisticWalker(1, sqrt(5), 7)),
 ]);
 
 preset.background = "#000";
