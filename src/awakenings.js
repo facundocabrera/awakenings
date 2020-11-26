@@ -27,7 +27,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-11-18-machine-third-baby";
+import presets from "./presets/2020-11-22-escalera-experiment";
 
 const properties = [
   "canvasSize",
