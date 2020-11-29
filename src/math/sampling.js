@@ -6,22 +6,21 @@ const segments = (sample, inSegments) => {
   const resample = [];
 
   // indexes se manejan desde el 0
-  for (let i = (increment - 1); i < sample.length; i += increment) {
+  for (let i = increment - 1; i < sample.length; i += increment) {
     resample.push(sample[i]);
   }
 
-  if (resample.length < inSegments)
-    resample.push(sample[sample.length - 1]);
+  if (resample.length < inSegments) resample.push(sample[sample.length - 1]);
 
   return resample;
-}
+};
 
 const downsample = (sample, buckets) => {
   const perBucket = Math.round(sample.length / buckets);
   const chunks = chunk(sample, perBucket);
 
-  return chunks.map(c => sum(c));
-}
+  return chunks.map((c) => sum(c));
+};
 
 const sample = (fn, xStart, xEnd, dx) => {
   const samples = [];

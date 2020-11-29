@@ -20,23 +20,16 @@ test("math/downsample", () => {
 });
 
 test("math/downsample/rounded-grouping", () => {
-  const input = downsample(
-    [ 
-      1, 1, 1, 1, 1, 
-      1, 1, 1, 1, 1, 
-      1
-    ],
-    3
-  );
+  const input = downsample([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 3);
 
-  expect(input).toEqual([4,4,3]);
+  expect(input).toEqual([4, 4, 3]);
 });
 
 test("math/downsample/half-half", () => {
   const sample = range(1, 5);
   const input = downsample(sample, 2);
 
-  expect(input).toEqual([ 1 + 2, 3 + 4]);
+  expect(input).toEqual([1 + 2, 3 + 4]);
 });
 
 test("math/segments", () => {

@@ -9,17 +9,13 @@ import { ratios } from "../math/fibonacci";
 
 import { defaults } from "./defaults";
 
-const mapping = [
-  "#FFFF3311",
-  "#D7C0C411",
-  "#F400FF11",
-];
+const mapping = ["#FFFF3311", "#D7C0C411", "#F400FF11"];
 
 const builder = (base, radius, sequencer) => ({
   painter: "Machine",
   sequencer,
   points: stops(base),
-  radius
+  radius,
 });
 
 const preset = defaults([
@@ -43,19 +39,21 @@ preset.setup = (canvas, global) => {
 preset.draw = (context, time, canvas, global) => {
   canvas.clear();
 
-  canvas.stroke(mapping[ time % mapping.length ]);
+  canvas.stroke(mapping[time % mapping.length]);
   // canvas.fill(context[0].color);
 
-  const [p1, p2] = context.map(({ sequencer, points, radius }) => {
-    const index = sequencer.next().value;
-    const elPoint = points[index];
+  const [p1, p2] = context
+    .map(({ sequencer, points, radius }) => {
+      const index = sequencer.next().value;
+      const elPoint = points[index];
 
-    return [elPoint, radius];
-  }).map(([ p, radius ]) => {
-    const [scaled] = multiByScalar([p], radius);
+      return [elPoint, radius];
+    })
+    .map(([p, radius]) => {
+      const [scaled] = multiByScalar([p], radius);
 
-    return scaled;
-  });
+      return scaled;
+    });
 
   const γ = angle_between(...p1, ...p2);
 

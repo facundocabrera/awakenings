@@ -1,6 +1,10 @@
 import { defaults } from "./defaults";
 
-import { build, prob as toProbabilities, angles as toAngles } from "../models/binomial/model-binomial";
+import {
+  build,
+  prob as toProbabilities,
+  angles as toAngles,
+} from "../models/binomial/model-binomial";
 
 import { pick } from "../utils/array";
 import { sin, cos } from "mathjs";
@@ -27,12 +31,12 @@ const entry = (setSize, w, h) => {
     bell,
     prob,
     angles,
-    w, 
-    h
-  }
-}
+    w,
+    h,
+  };
+};
 
-const fn = (radius, steps, f) => time => radius * f(PI / steps * time);
+const fn = (radius, steps, f) => (time) => radius * f((PI / steps) * time);
 const fnConstant = (radius) => () => radius;
 
 const preset = defaults([
@@ -54,10 +58,10 @@ const plot = (canvas, angles, time, w, h, color) => {
   canvas.noFill();
   canvas.stroke(color);
   canvas.strokeWeight(10);
-  
+
   canvas.rotate(PI / 16);
   canvas.arc(0, 0, w(time), h(time), 2 * PI - α, 0);
-}
+};
 
 preset.draw = (context, time, canvas, global) => {
   global.clear();
@@ -69,9 +73,15 @@ preset.draw = (context, time, canvas, global) => {
     return col;
   };
 
-  context.forEach(({ angles, w, h }) => plot(canvas, angles, time, w, h, c(235)));
-  context.forEach(({ angles, w, h }) => plot(canvas, angles, time + 1, w, h, c(175)));
-  context.forEach(({ angles, w, h }) => plot(canvas, angles, time + 2, w, h, c(90)));
+  context.forEach(({ angles, w, h }) =>
+    plot(canvas, angles, time, w, h, c(235))
+  );
+  context.forEach(({ angles, w, h }) =>
+    plot(canvas, angles, time + 1, w, h, c(175))
+  );
+  context.forEach(({ angles, w, h }) =>
+    plot(canvas, angles, time + 2, w, h, c(90))
+  );
 };
 
 export default preset;
