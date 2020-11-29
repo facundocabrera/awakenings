@@ -8,7 +8,7 @@ import { XY } from "./engine/xy";
 import { XY2 } from "./engine/xy2";
 import { XY3 } from "./engine/xy3";
 import { XY4 } from "./engine/xy4";
-import { Machine } from "./engine/machine";
+import { Machine } from "./engine/machine"; // @TODO deprecated use XY4 instead
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -27,7 +27,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-11-22-escalera-experiment";
+import presets from "./presets/2020-11-27.binomial-modeling";
 
 const properties = [
   "canvasSize",

@@ -1,59 +1,61 @@
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      :root {
-        --main-nav-height: 50px;
-        --main-nav-background: white;
 
-        font-family: "Roboto";
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1.5;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --main-nav-height: 50px;
+      --main-nav-background: white;
 
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        margin: 0;
-        background: #333;
-      }
+      font-family: "Roboto";
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-      canvas {
-        border: 2px solid white;
-        border-style: dashed;
-      }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      background: #000;
+    }
 
-      .nav {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: var(--main-nav-height);
-        color: white;
-      }
+    canvas {
+      border: 2px solid white;
+      border-style: dashed;
+    }
 
-      .badge {
-        display: inline-block;
-        border-radius: 5px;
-        padding: 5px;
-        margin: 5px;
-        background-color: aliceblue;
-        color: #333;
-      }
-    </style>
-  </head>
+    .nav {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: var(--main-nav-height);
+      color: white;
+    }
 
-  <body>
-    <nav id="help" class="nav">
-      <div class="badge">[h] show/hide help</div>
-      <div class="badge">[r] reload</div>
-      <div class="badge">[s] start / stop</div>
-      <div class="badge">[space] take screenshot</div>
-      <div class="badge">[a] enable mic</div>
-    </nav>
-  </body>
+    .badge {
+      display: inline-block;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      background-color: aliceblue;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="help" class="nav">
+    <div class="badge">[h] show/hide help</div>
+    <div class="badge">[r] reload</div>
+    <div class="badge">[s] start / stop</div>
+    <div class="badge">[space] take screenshot</div>
+    <div class="badge">[a] enable mic</div>
+  </nav>
+</body>
+
 </html>

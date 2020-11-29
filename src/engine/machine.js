@@ -1,3 +1,5 @@
+// @TODO remove this code, use XY4 instead give this is a duplication
+
 const Machine = (preset) => {
   let global;
   let canvas;
