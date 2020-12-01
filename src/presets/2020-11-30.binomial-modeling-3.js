@@ -40,7 +40,7 @@ const fnConstant = (radius) => () => radius;
 const chidrens = 12;
 
 const preset = defaults(
-  range(chidrens).map((i) => entry(8, fn(i * 200, 10, tan), fn(i * 200, 7, tan)))
+  range(chidrens).map((i) => entry(12, fn(i * 200, 10, tan), fn(i * 200, 7, tan)))
 );
 
 const tm = TimeMachine(1, 1 / 4, 12);
