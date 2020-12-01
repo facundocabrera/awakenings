@@ -55,7 +55,7 @@ const tmNext = () => {
 };
 
 preset.background = "#000";
-preset.frameRate = 1;
+preset.frameRate = 15;
 
 preset.setup = (canvas, global) => {};
 
