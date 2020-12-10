@@ -27,7 +27,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-11-30.binomial-modeling-3";
+import presets from "./presets/2020-12-07";
 
 const properties = [
   "canvasSize",
