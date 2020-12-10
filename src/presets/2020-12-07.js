@@ -12,9 +12,21 @@ const { PI } = Math;
 
 const mapping = ["#7FFF00", "#FF1493", "#8A2BE2", "#C0C0C0", "#FFD700", "#C42035"];
 
-const gmetry = () => {
+function* recursion(seed, width) {
+  let points = multiByScalar(seed, width);
+
+  while (true) {
+    yield gmetry(points);
+
+    points = multiByScalar(points, 0.618);
+
+    console.log(points);
+  }
+};
+
+const gmetry = (points) => {
   const s = stops(6);
-  const points = multiByScalar(s, 500);
+  // const points = multiByScalar(s, 500);
 
   const center = centroid(points);
 
@@ -72,13 +84,14 @@ const gmetry = () => {
   };
 }
 
+
 const preset = defaults([{
   painter: "XY4",
-  ...gmetry()
+  next: ((iterator) => () => iterator.next().value)(recursion(stops(6), 500))
 }]);
 
 preset.background = "#000";
-preset.frameRate = 15;
+preset.frameRate = 1;
 
 preset.setup = (canvas, global) => {
   canvas.rotate(PI / 6);
@@ -86,64 +99,73 @@ preset.setup = (canvas, global) => {
 
 preset.draw = (context, time, canvas, global) => {
   // global.clear();
-  // canvas.clear();
+  canvas.clear();
 
   context.forEach(local => {
-    const { points, center, middles, internal, lines, axis, crystals, heart, hexagons } = local;
-
-    canvas.fill('white');
-    canvas.stroke('white');
-    canvas.ellipse(...center, 10);
-
-    points.forEach((p, i) => {
-      canvas.fill(mapping[i]);
-      canvas.stroke(mapping[i]);
-      canvas.ellipse(...p, 10);
-    })
-    middles.forEach((p, i) => {
-      canvas.fill(mapping[i]);
-      canvas.stroke(mapping[i]);
-      canvas.ellipse(...p, 10);
-    });
-    internal.forEach((p, i) => {
-      canvas.fill(mapping[i]);
-      canvas.stroke(mapping[i]);
-      canvas.ellipse(...p, 10);
-    });
+    const { points, center, middles, internal, lines, axis, crystals, heart, hexagons } = local.next();
+  
+    if (time > 5) global.noLoop();
 
     canvas.noFill();
+
+    canvas.stroke(pick(mapping, time));
+    canvas.strokeWeight(2);
     lines.forEach(line => { 
       canvas.beginShape();
       line.forEach(p => canvas.vertex(...p));
       canvas.endShape(global.CLOSE);
     });
     
-    canvas.noFill();
-    axis.forEach(line => { 
-      canvas.beginShape();
-      line.forEach(p => canvas.vertex(...p));
-      canvas.endShape();
-    });
+    // canvas.noFill();
+    // axis.forEach(line => { 
+    //   canvas.beginShape();
+    //   line.forEach(p => canvas.vertex(...p));
+    //   canvas.endShape();
+    // });
 
-    crystals.forEach(p => {
-      canvas.fill(mapping[3]);
-      canvas.stroke(mapping[3]);
-      canvas.ellipse(...p, 10);
-    });
+    // crystals.forEach(p => {
+    //   canvas.fill(mapping[3]);
+    //   canvas.stroke(mapping[3]);
+    //   canvas.ellipse(...p, 10);
+    // });
+    
+    // canvas.noFill();
+    // canvas.beginShape();
+    // crystals.forEach(p => canvas.vertex(...p));
+    // canvas.endShape(global.CLOSE);
+
+    // canvas.stroke(mapping[0]);
+    // canvas.ellipse(...heart, 20);
     
     canvas.noFill();
-    canvas.beginShape();
-    crystals.forEach(p => canvas.vertex(...p));
-    canvas.endShape(global.CLOSE);
-
-    canvas.stroke(mapping[0]);
-    canvas.ellipse(...heart, 20);
-
+    canvas.stroke('#FFD70077');
+    canvas.strokeWeight(2);
     hexagons.forEach(hexa => { 
       canvas.beginShape();
       hexa.forEach(p => canvas.vertex(...p));
-      canvas.endShape();
+      canvas.endShape(global.CLOSE);
     });
+
+    // // los puntos van al final para debugging
+    // canvas.fill('white');
+    // canvas.stroke('white');
+    // canvas.ellipse(...center, 10);
+
+    // points.forEach((p, i) => {
+    //   canvas.fill(mapping[i]);
+    //   canvas.stroke(mapping[i]);
+    //   canvas.ellipse(...p, 10);
+    // })
+    // middles.forEach((p, i) => {
+    //   canvas.fill(mapping[i]);
+    //   canvas.stroke(mapping[i]);
+    //   canvas.ellipse(...p, 10);
+    // });
+    // internal.forEach((p, i) => {
+    //   canvas.fill(mapping[i]);
+    //   canvas.stroke(mapping[i]);
+    //   canvas.ellipse(...p, 10);
+    // });
   });
 
 };
