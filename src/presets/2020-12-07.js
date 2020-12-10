@@ -14,20 +14,22 @@ const mapping = ["#7FFF00", "#FF1493", "#8A2BE2", "#C0C0C0", "#FFD700", "#C42035
 
 function* recursion(seed, width) {
   let points = multiByScalar(seed, width);
+  let g = [gmetry(points)];
+  let countG = 0;
 
   while (true) {
-    yield gmetry(points);
+    yield g[countG];
 
-    points = multiByScalar(points, 0.618);
+    // calculo los gmetry en base a todos los hexagonos
+    g[countG].hexagons.forEach(h => {
+      g.push(gmetry(h));
+    });
 
-    console.log(points);
+    countG++;
   }
 };
 
 const gmetry = (points) => {
-  const s = stops(6);
-  // const points = multiByScalar(s, 500);
-
   const center = centroid(points);
 
   const middles = [
@@ -87,7 +89,7 @@ const gmetry = (points) => {
 
 const preset = defaults([{
   painter: "XY4",
-  next: ((iterator) => () => iterator.next().value)(recursion(stops(6), 500))
+  next: ((iterator) => (time) => iterator.next(time).value)(recursion(stops(6), 500))
 }]);
 
 preset.background = "#000";
@@ -102,9 +104,9 @@ preset.draw = (context, time, canvas, global) => {
   canvas.clear();
 
   context.forEach(local => {
-    const { points, center, middles, internal, lines, axis, crystals, heart, hexagons } = local.next();
+    const { lines, hexagons, points, middles, internal } = local.next(time);
   
-    if (time > 5) global.noLoop();
+    // if (time > 5) global.noLoop();
 
     canvas.noFill();
 
