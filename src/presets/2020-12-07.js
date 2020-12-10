@@ -1,7 +1,7 @@
 import { defaults } from "./defaults";
 
 import { pick } from "../utils/array";
-import { sin, cos, sqrt, tan } from "mathjs";
+import { sin, cos, sqrt, tan, pow } from "mathjs";
 import { camelCase, range } from "lodash";
 
 import { stops } from "../geometry/circle";
@@ -10,7 +10,7 @@ import { centroid, middle_vector } from "../geometry/vector";
 
 const { PI } = Math;
 
-const mapping = ["#7FFF00", "#FF1493", "#8A2BE2", "#C0C0C0", "#FFD700", "#C42035"];
+const mapping = ["#7FFF00", "#FF149355", "#8A2BE2", "#C0C0C0", "#FFD70055", "#C42035"];
 
 function* recursion(seed, width) {
   let points = multiByScalar(seed, width);
@@ -93,7 +93,7 @@ const preset = defaults([{
 }]);
 
 preset.background = "#000";
-preset.frameRate = 1;
+preset.frameRate = 15;
 
 preset.setup = (canvas, global) => {
   canvas.rotate(PI / 6);
@@ -106,11 +106,19 @@ preset.draw = (context, time, canvas, global) => {
   context.forEach(local => {
     const { lines, hexagons, points, middles, internal } = local.next(time);
   
-    // if (time > 5) global.noLoop();
+    // if (time > pow(3, 3)) global.noLoop();
 
     canvas.noFill();
 
-    canvas.stroke(pick(mapping, time));
+    canvas.stroke('#FF149311');
+    canvas.strokeWeight(2);
+    hexagons.forEach(hexa => { 
+      canvas.beginShape();
+      hexa.forEach(p => canvas.vertex(...p));
+      canvas.endShape(global.CLOSE);
+    });
+
+    canvas.stroke('#FF149399');
     canvas.strokeWeight(2);
     lines.forEach(line => { 
       canvas.beginShape();
@@ -139,14 +147,6 @@ preset.draw = (context, time, canvas, global) => {
     // canvas.stroke(mapping[0]);
     // canvas.ellipse(...heart, 20);
     
-    canvas.noFill();
-    canvas.stroke('#FFD70077');
-    canvas.strokeWeight(2);
-    hexagons.forEach(hexa => { 
-      canvas.beginShape();
-      hexa.forEach(p => canvas.vertex(...p));
-      canvas.endShape(global.CLOSE);
-    });
 
     // // los puntos van al final para debugging
     // canvas.fill('white');
