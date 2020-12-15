@@ -1,6 +1,3 @@
-require("p5");
-require("p5/lib/addons/p5.sound");
-
 import { SpiralV1 } from "./engine/spiral";
 import { SoundV1 } from "./engine/sound";
 import { PlotterV1 } from "./engine/plotter";
@@ -27,7 +24,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-12-07";
+import presets from "./presets/2020-12-07.hexagon";
 
 const properties = [
   "canvasSize",
