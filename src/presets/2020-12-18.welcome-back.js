@@ -19,10 +19,10 @@ const mapping = [
   "#FFB02977",
 ];
 
-const yin = circularStops(12);
-const yang = circularStops(12);
+const yin = circularStops(6);
+const yang = circularStops(6);
 
-const width = time => 500 * pow(-1, time) * sin(PI * time / 144);
+const width = time => 1000 * pow(-1, time) * sin(PI * time / 144);
 
 const next = time => {
   const points = multiByScalar(
@@ -51,13 +51,19 @@ preset.draw = (context, time, canvas, global) => {
 //   if (time % 7 === 0) global.clear();
   
   canvas.clear();
+  canvas.noStroke();
+  canvas.colorMode(global.HSB, 360, 100, 100, 1);
+
+  const hue = v => v % 360;
+  const saturation = v => v % 100;
+  // const lightness = v => global.map(v, -250, 250, 0, 100);
 
   context.forEach(local => {
     const { points } = local.next(time);
   
     canvas.noFill();
-    canvas.stroke(pick(mapping, time));
-    canvas.strokeWeight(2);
+    // canvas.stroke(pick(mapping, time));
+    canvas.strokeWeight(1);
     
     // canvas.beginShape();
     // points.forEach(p => { 
@@ -65,10 +71,13 @@ preset.draw = (context, time, canvas, global) => {
     // });
     // canvas.endShape();
 
-    points.forEach(p => { 
+    points.forEach(p => {
+      canvas.stroke(hue(time), saturation(time), 77, .4);
       canvas.ellipse(...p, width(time));
     });
   });
+
+  canvas.rotate(PI / -144);
 
 };
 
