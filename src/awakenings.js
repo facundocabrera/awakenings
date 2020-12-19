@@ -24,7 +24,7 @@ const Painters = {
   Machine,
 };
 
-import presets from "./presets/2020-12-15.triangle";
+import presets from "./presets/2020-12-18.welcome-back";
 
 const properties = [
   "canvasSize",
