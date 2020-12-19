@@ -3,22 +3,26 @@ import { defaults } from "./defaults";
 import { pick } from "../utils/array";
 
 import { stops as circularStops } from "../geometry/circle";
+import { stops as ellipticalStops } from "../geometry/ellipse";
+
 import { omnitrix } from "../geometry/omnitrix";
 
 import { multiByScalar } from "../geometry/scale";
 
-const { PI, sin } = Math;
+const { PI, sin, cos, pow } = Math;
 
 const mapping = [
-  "#E32DD377",
-  "#BF3EFA77",
-  "#672DE377",
+  "#80FB2B77",
+  "#CCE32777",
+  "#FAE83777",
+  "#E3B72777",
+  "#FFB02977",
 ];
 
-const yin = circularStops(3);
-const yang = circularStops(3);
+const yin = circularStops(12);
+const yang = circularStops(12);
 
-const width = time => 500 * sin(PI / 8 * time / 12);
+const width = time => 500 * pow(-1, time) * sin(PI * time / 144);
 
 const next = time => {
   const points = multiByScalar(
@@ -40,10 +44,12 @@ preset.background = "#000";
 preset.frameRate = 15;
 
 preset.setup = (canvas, global) => {
-  canvas.rotate(PI / -2);
+//   canvas.rotate(PI / -2);
 };
 
 preset.draw = (context, time, canvas, global) => {
+//   if (time % 7 === 0) global.clear();
+  
   canvas.clear();
 
   context.forEach(local => {
@@ -51,13 +57,17 @@ preset.draw = (context, time, canvas, global) => {
   
     canvas.noFill();
     canvas.stroke(pick(mapping, time));
-    canvas.strokeWeight(1);
+    canvas.strokeWeight(2);
     
-    canvas.beginShape();
+    // canvas.beginShape();
+    // points.forEach(p => { 
+    //   canvas.vertex(...p);
+    // });
+    // canvas.endShape();
+
     points.forEach(p => { 
-      canvas.vertex(...p);      
+      canvas.ellipse(...p, width(time));
     });
-    canvas.endShape(global.CLOSE);
   });
 
 };
