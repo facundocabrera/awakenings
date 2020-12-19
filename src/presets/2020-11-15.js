@@ -7,7 +7,7 @@ import { dot_product } from "../geometry/vector";
 
 import { defaults } from "./defaults";
 
-const painter = "Machine";
+const painter = "XY4";
 
 const mapping = ["#FFFF3311", "#F400FF11", "#74E2FE11", "#7E3FFD11"];
 

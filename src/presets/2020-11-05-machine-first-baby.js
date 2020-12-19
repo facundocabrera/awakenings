@@ -11,7 +11,7 @@ const base = 6;
 const sequencer = Sequencer(base);
 const points = stops(base - 1);
 
-const painter = "Machine";
+const painter = "XY4";
 const color = "#FFFF3355";
 
 const preset = defaults([

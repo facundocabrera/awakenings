@@ -8,7 +8,7 @@ import { ratios } from "../math/fibonacci";
 
 import { defaults } from "./defaults";
 
-const painter = "Machine";
+const painter = "XY4";
 const color = "#FFFF3311";
 
 const distances = ratios();

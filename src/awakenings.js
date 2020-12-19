@@ -5,7 +5,6 @@ import { XY } from "./engine/xy";
 import { XY2 } from "./engine/xy2";
 import { XY3 } from "./engine/xy3";
 import { XY4 } from "./engine/xy4";
-import { Machine } from "./engine/machine"; // @TODO deprecated use XY4 instead
 
 import map from "lodash/map";
 import filter from "lodash/filter";
@@ -20,8 +19,7 @@ const Painters = {
   XY,
   XY2,
   XY3,
-  XY4,
-  Machine,
+  XY4
 };
 
 import presets from "./presets/2020-12-18.welcome-back";

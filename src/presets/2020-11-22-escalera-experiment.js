@@ -12,7 +12,7 @@ import { defaults } from "./defaults";
 const mapping = ["#FFFF33", "#D7C0C4", "#F400FF"];
 
 const builder = (base, radius, sequencer) => ({
-  painter: "Machine",
+  painter: "XY4",
   sequencer,
   points: stops(base),
   radius,
