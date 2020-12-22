@@ -9,7 +9,7 @@ import { omnitrix, omniBuilder } from "../geometry/omnitrix";
 
 import { multiByScalar } from "../geometry/scale";
 
-const { PI, sin, cos, pow } = Math;
+const { PI, sin, cos, pow, sqrt } = Math;
 
 const mapping = [
   "#80FB2B77",
@@ -20,7 +20,7 @@ const mapping = [
 ];
 
 const input = omniBuilder(
-  [circularStops(9), circularStops(12), circularStops(24), circularStops(14)]
+  [circularStops(5), circularStops(7), circularStops(11), circularStops(13)]
 );
 
 const width = (time) => 500 * pow(-1, time) * sin((PI * time) / 144);
@@ -51,15 +51,12 @@ preset.setup = (canvas, global) => {
 };
 
 preset.draw = (context, time, canvas, global) => {
-  //   if (time % 7 === 0) global.clear();
-
   canvas.clear();
   canvas.noStroke();
   canvas.colorMode(global.HSB, 360, 100, 100, 1);
 
-  const hue = (v) => v % 360;
-  const saturation = (v) => v % 100;
-  // const lightness = v => global.map(v, -250, 250, 0, 100);
+  const hue = (v) => sqrt(v) % 360;
+  const saturation = (v) => sqrt(v) % 100;
 
   context.forEach((local) => {
     const { points } = local.next(time);
@@ -68,7 +65,7 @@ preset.draw = (context, time, canvas, global) => {
     // canvas.stroke(pick(mapping, time));
     canvas.strokeWeight(1);
 
-    canvas.stroke(hue(time), saturation(time), colorSlider.value(), 0.4);
+    canvas.stroke(hue(time), saturation(time), colorSlider.value(), 0.7);
     canvas.beginShape();
     points.forEach((p) => {
       canvas.curveVertex(...p);
