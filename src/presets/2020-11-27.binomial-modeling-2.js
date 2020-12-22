@@ -40,15 +40,17 @@ const fnConstant = (radius) => () => radius;
 const chidrens = 12;
 
 const preset = defaults(
-  range(chidrens).map((i) => entry(8, fn(i * 200, 10, cos), fn(i * 200, 7, sin)))
+  range(chidrens).map((i) =>
+    entry(8, fn(i * 200, 10, cos), fn(i * 200, 7, sin))
+  )
 );
 
 const tm = TimeMachine(1, 1 / 4, 12);
 // const tm = BenfordTimeMachine(chidrens + 1);
-const tmNext = () => { 
+const tmNext = () => {
   // const v = tm.next().value - 1;
   const v = tm.next().value;
-  
+
   // console.log(v);
 
   return v;
@@ -76,7 +78,7 @@ const plot = (canvas, angles, time, w, h, color) => {
 
 preset.draw = (context, time, canvas, global) => {
   // if (time % 6 > 0) return;
-  
+
   global.clear();
   canvas.clear();
 

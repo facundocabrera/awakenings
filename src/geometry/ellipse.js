@@ -1,9 +1,9 @@
 // https://es.wikipedia.org/wiki/Elipse
 
-import { stops } from './circle';
-import { multiByScalar } from './scale';
+import { stops } from "./circle";
+import { multiByScalar } from "./scale";
 
-import { omnitrix } from './omnitrix';
+import { omnitrix } from "./omnitrix";
 
 function ellipticStops(N, height = 1) {
   const outerStops = stops(N);
@@ -12,6 +12,4 @@ function ellipticStops(N, height = 1) {
   return omnitrix(outerStops, innerStops);
 }
 
-export {
-  ellipticStops as stops
-};
+export { ellipticStops as stops };

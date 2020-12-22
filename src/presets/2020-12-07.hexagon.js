@@ -10,7 +10,14 @@ import { centroid, middle_vector } from "../geometry/vector";
 
 const { PI } = Math;
 
-const mapping = ["#7FFF00", "#FF149355", "#8A2BE2", "#C0C0C0", "#FFD70055", "#C42035"];
+const mapping = [
+  "#7FFF00",
+  "#FF149355",
+  "#8A2BE2",
+  "#C0C0C0",
+  "#FFD70055",
+  "#C42035",
+];
 
 function* recursion(seed, width) {
   let points = multiByScalar(seed, width);
@@ -21,13 +28,13 @@ function* recursion(seed, width) {
     yield g[countG];
 
     // calculo los gmetry en base a todos los hexagonos
-    g[countG].hexagons.forEach(h => {
+    g[countG].hexagons.forEach((h) => {
       g.push(gmetry(h));
     });
 
     countG++;
   }
-};
+}
 
 const gmetry = (points) => {
   const center = centroid(points);
@@ -41,28 +48,28 @@ const gmetry = (points) => {
     middle_vector(...points[5], ...points[0]),
   ];
 
-  const internal = points.map(p => middle_vector(...center, ...p));
+  const internal = points.map((p) => middle_vector(...center, ...p));
 
   const lines = [
-    [ middles[2], internal[3], middles[3], points[3] ],
-    [ middles[4], internal[5], middles[5], points[5] ],
-    [ middles[0], internal[1], middles[1], points[1] ],
+    [middles[2], internal[3], middles[3], points[3]],
+    [middles[4], internal[5], middles[5], points[5]],
+    [middles[0], internal[1], middles[1], points[1]],
   ];
 
   const axis = [
-    [ center, internal[0], points[0] ],
-    [ center, internal[2], points[2] ],
-    [ center, internal[4], points[4] ],
+    [center, internal[0], points[0]],
+    [center, internal[2], points[2]],
+    [center, internal[4], points[4]],
   ];
 
-  const faceCentroids = lines.map(l => centroid(l)); 
+  const faceCentroids = lines.map((l) => centroid(l));
   const crystals = [
     faceCentroids[1],
     faceCentroids[2],
     faceCentroids[0],
-    middles[3], 
-    points[4], 
-    middles[4]
+    middles[3],
+    points[4],
+    middles[4],
   ];
 
   const heart = centroid(crystals);
@@ -70,7 +77,7 @@ const gmetry = (points) => {
   const hexagons = [
     [points[4], middles[4], internal[5], center, internal[3], middles[3]],
     [internal[5], middles[5], points[0], middles[0], internal[1], center],
-    [center, internal[1], middles[1], points[2], middles[2], internal[3]]
+    [center, internal[1], middles[1], points[2], middles[2], internal[3]],
   ];
 
   return {
@@ -78,19 +85,22 @@ const gmetry = (points) => {
     center,
     middles,
     internal,
-    lines, 
+    lines,
     axis,
     crystals,
     heart,
-    hexagons
+    hexagons,
   };
-}
+};
 
-
-const preset = defaults([{
-  painter: "XY4",
-  next: ((iterator) => (time) => iterator.next(time).value)(recursion(stops(6), 500))
-}]);
+const preset = defaults([
+  {
+    painter: "XY4",
+    next: ((iterator) => (time) => iterator.next(time).value)(
+      recursion(stops(6), 500)
+    ),
+  },
+]);
 
 preset.background = "#000";
 preset.frameRate = 15;
@@ -103,31 +113,31 @@ preset.draw = (context, time, canvas, global) => {
   // global.clear();
   canvas.clear();
 
-  context.forEach(local => {
+  context.forEach((local) => {
     const { lines, hexagons, points, middles, internal } = local.next(time);
-  
+
     // if (time > pow(3, 3)) global.noLoop();
 
     canvas.noFill();
 
-    canvas.stroke('#FF149311');
+    canvas.stroke("#FF149311");
     canvas.strokeWeight(2);
-    hexagons.forEach(hexa => { 
+    hexagons.forEach((hexa) => {
       canvas.beginShape();
-      hexa.forEach(p => canvas.vertex(...p));
+      hexa.forEach((p) => canvas.vertex(...p));
       canvas.endShape(global.CLOSE);
     });
 
-    canvas.stroke('#FF149399');
+    canvas.stroke("#FF149399");
     canvas.strokeWeight(2);
-    lines.forEach(line => { 
+    lines.forEach((line) => {
       canvas.beginShape();
-      line.forEach(p => canvas.vertex(...p));
+      line.forEach((p) => canvas.vertex(...p));
       canvas.endShape(global.CLOSE);
     });
-    
+
     // canvas.noFill();
-    // axis.forEach(line => { 
+    // axis.forEach(line => {
     //   canvas.beginShape();
     //   line.forEach(p => canvas.vertex(...p));
     //   canvas.endShape();
@@ -138,7 +148,7 @@ preset.draw = (context, time, canvas, global) => {
     //   canvas.stroke(mapping[3]);
     //   canvas.ellipse(...p, 10);
     // });
-    
+
     // canvas.noFill();
     // canvas.beginShape();
     // crystals.forEach(p => canvas.vertex(...p));
@@ -146,7 +156,6 @@ preset.draw = (context, time, canvas, global) => {
 
     // canvas.stroke(mapping[0]);
     // canvas.ellipse(...heart, 20);
-    
 
     // // los puntos van al final para debugging
     // canvas.fill('white');
@@ -169,7 +178,6 @@ preset.draw = (context, time, canvas, global) => {
     //   canvas.ellipse(...p, 10);
     // });
   });
-
 };
 
 export default preset;

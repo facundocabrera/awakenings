@@ -9,11 +9,7 @@ import { centroid } from "../geometry/vector";
 
 const { PI } = Math;
 
-const mapping = [
-  "#E32DD355",
-  "#BF3EFA55",
-  "#672DE355",
-];
+const mapping = ["#E32DD355", "#BF3EFA55", "#672DE355"];
 
 function* pointsGenerator(seed, width) {
   let points = multiByScalar(seed, width);
@@ -24,13 +20,13 @@ function* pointsGenerator(seed, width) {
     yield g[countG];
 
     // calculo los gmetry en base a todos los hexagonos
-    g[countG].triangles.forEach(trinity => {
+    g[countG].triangles.forEach((trinity) => {
       g.push(gmetry(trinity));
     });
 
     countG++;
   }
-};
+}
 
 const gmetry = (points) => {
   // console.log('gmetry points', points);
@@ -39,12 +35,10 @@ const gmetry = (points) => {
 
   const triangles = [];
 
-  for(let start = 0; start < (points.length - 1); start++) {
+  for (let start = 0; start < points.length - 1; start++) {
     triangles.push([...points.slice(start, start + 2), center]);
   }
-  triangles.push(
-    [ points[points.length - 1], points[0], center ]
-  );
+  triangles.push([points[points.length - 1], points[0], center]);
 
   // debugger;
 
@@ -59,18 +53,20 @@ const gmetry = (points) => {
   return {
     points,
     center,
-    triangles
+    triangles,
   };
-}
+};
 
-const next = (
-  (iterator) => (time) => iterator.next(time).value
-)(pointsGenerator(circularStops(12, 0.8), 500));
+const next = ((iterator) => (time) => iterator.next(time).value)(
+  pointsGenerator(circularStops(12, 0.8), 500)
+);
 
-const preset = defaults([{
-  painter: "XY4",
-  next
-}]);
+const preset = defaults([
+  {
+    painter: "XY4",
+    next,
+  },
+]);
 
 preset.background = "#000";
 preset.frameRate = 30;
@@ -85,20 +81,20 @@ preset.draw = (context, time, canvas, global) => {
 
   // if (time > 1) global.noLoop();
 
-  context.forEach(local => {
+  context.forEach((local) => {
     const { points, triangles } = local.next(time);
-  
+
     canvas.noFill();
     canvas.strokeWeight(1);
-    
-    triangles.forEach((hexa, index) => { 
+
+    triangles.forEach((hexa, index) => {
       canvas.stroke(pick(mapping, index));
-      
+
       canvas.beginShape();
-      hexa.forEach(p => canvas.vertex(...p));
+      hexa.forEach((p) => canvas.vertex(...p));
       canvas.endShape();
     });
-  
+
     // // los puntos van al final para debugging
     // canvas.fill('white');
     // canvas.stroke('white');
@@ -120,7 +116,6 @@ preset.draw = (context, time, canvas, global) => {
     //   canvas.ellipse(...p, 10);
     // });
   });
-
 };
 
 export default preset;

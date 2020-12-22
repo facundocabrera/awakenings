@@ -19,7 +19,7 @@ const Painters = {
   XY,
   XY2,
   XY3,
-  XY4
+  XY4,
 };
 
 import presets from "./presets/2020-12-20.podemos";
