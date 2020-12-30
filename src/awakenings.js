@@ -22,7 +22,7 @@ const Painters = {
   XY4,
 };
 
-import presets from "./presets/2020-12-20.podemos";
+import presets from "./presets/2020-12-25";
 
 const properties = [
   "canvasSize",

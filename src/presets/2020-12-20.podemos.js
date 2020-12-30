@@ -44,8 +44,8 @@ preset.draw = (context, time, canvas, global) => {
   canvas.noStroke();
   canvas.colorMode(global.HSB, 360, 100, 100, 1);
 
-  const hue = v => floor(sqrt(v)) % 360;
-  const saturation = v => v % 100;
+  const hue = (v) => floor(sqrt(v)) % 360;
+  const saturation = (v) => v % 100;
 
   context.forEach((local) => {
     const { points } = local.next(time);

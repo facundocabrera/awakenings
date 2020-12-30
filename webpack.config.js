@@ -24,7 +24,7 @@ module.exports = {
       template: "./src/index.html",
     }),
     new webpack.ProvidePlugin({
-      p5: "p5",
+      p5: "p5/lib/p5",
       "p5.sound": "p5/lib/addons/sound",
     }),
   ],
