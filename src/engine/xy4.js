@@ -4,10 +4,21 @@ const XY4 = (preset) => {
   let width, height;
   let time;
 
-  function setup({ ctx, canvasWidth, canvasHeight }) {
+  const _setup = preset.setup;
+  const _draw = preset.draw;
+
+  function setup({ ctx, canvasWidth, canvasHeight, useOwnCanvas }) {
     global = ctx;
     width = canvasWidth;
     height = canvasHeight;
+
+    // 2020-12-30
+    // Para que la cosa tenga performance, es necesario no usar varios canvas
+    // sino hacer las abstracciones numericamente y renderizar todo de una, pero
+    // dejo el fallback para las implementaciones anteriores.
+    canvas = useOwnCanvas ? 
+      global.createGraphics(width, height) : 
+      global;
 
     console.log("Setup XY4.");
     console.log(`Canvas ${width}x${height}.`);
@@ -18,8 +29,6 @@ const XY4 = (preset) => {
       [center[0], 0, center[0], height],
       [0, center[1], width, center[1]],
     ];
-
-    canvas = global.createGraphics(width, height);
 
     // draw axis
     if (preset.axis) {
@@ -33,23 +42,23 @@ const XY4 = (preset) => {
     // remember it's rotate 180 deg given the canvas is draw from 0,0 point.
     canvas.translate(...center);
 
-    preset.setup(canvas, global);
-
     time = preset.time;
+
+    _setup(canvas, global);
   }
 
   function draw() {
-    preset.draw(preset, time, canvas, global);
+    _draw(preset, time, canvas, global);
 
     time += 1;
 
     return canvas;
   }
 
-  return {
-    setup,
-    draw,
-  };
+  preset.setup = setup;
+  preset.draw = draw;
+
+  return preset;
 };
 
 export { XY4 };

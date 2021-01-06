@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   entry: {
     p5: "./node_modules/p5/lib/p5.min.js",
-    app: ["@babel/polyfill", "./src/awakenings.js"],
+    app: ["@babel/polyfill", "./src/main.js"],
   },
   devtool: "inline-source-map",
   devServer: {
@@ -19,12 +19,12 @@ module.exports = {
     // the incremental build triggered by watch.
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Hot 🔥❤️",
+      title: "Awakening",
       // Use my custom template instead
       template: "./src/index.html",
     }),
     new webpack.ProvidePlugin({
-      p5: "p5/lib/p5",
+      p5: "p5",
       "p5.sound": "p5/lib/addons/sound",
     }),
   ],

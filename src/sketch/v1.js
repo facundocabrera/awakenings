@@ -1,16 +1,16 @@
-import { SpiralV1 } from "./engine/spiral";
-import { SoundV1 } from "./engine/sound";
-import { PlotterV1 } from "./engine/plotter";
-import { XY } from "./engine/xy";
-import { XY2 } from "./engine/xy2";
-import { XY3 } from "./engine/xy3";
-import { XY4 } from "./engine/xy4";
-
 import map from "lodash/map";
 import filter from "lodash/filter";
 import groupBy from "lodash/groupBy";
 import pick from "lodash/pick";
 import assign from "lodash/assign";
+
+import { SpiralV1 } from "../engine/spiral";
+import { SoundV1 } from "../engine/sound";
+import { PlotterV1 } from "../engine/plotter";
+import { XY } from "../engine/xy";
+import { XY2 } from "../engine/xy2";
+import { XY3 } from "../engine/xy3";
+import { XY4 } from "../engine/xy4";
 
 const Painters = {
   SpiralV1,
@@ -22,7 +22,8 @@ const Painters = {
   XY4,
 };
 
-import presets from "./presets/2020-12-25";
+import { events } from "./events";
+import presets from "../presets/2020-12-25";
 
 const properties = [
   "canvasSize",
@@ -60,6 +61,7 @@ const sketch = (ctx) => {
         ctx,
         canvasWidth,
         canvasHeight,
+        useOwnCanvas: true
       })
     );
   }
@@ -76,30 +78,4 @@ const sketch = (ctx) => {
 
 const runtime = new p5(sketch);
 
-onkeypress = ({ key }) => {
-  switch (key) {
-    case "a": {
-      runtime.userStartAudio();
-      break;
-    }
-    case "h": {
-      const help = runtime.select("#help").elt;
-      help.style.display = help.style.display === "" ? "block" : "";
-      break;
-    }
-    case "s": {
-      runtime[runtime.isLooping() ? "noLoop" : "loop"]();
-      break;
-    }
-    case "r": {
-      window.location.reload();
-      break;
-    }
-    default: {
-      const now = new Date().toISOString();
-      const name = "out" + now;
-
-      runtime.saveCanvas(runtime.canvas, name, "png");
-    }
-  }
-};
+events(runtime);

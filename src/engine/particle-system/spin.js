@@ -9,7 +9,7 @@ function Spin(mass, steps) {
   const rotation = multiByScalar(stops(steps), mass);
   let i = 0;
 
-  const mutation = (particles) => {
+  const mutation = particles => {
     const [m, n] = pick(rotation, i);
 
     for (let idx = 0; idx < particles.length; idx++) {
@@ -30,15 +30,14 @@ function RelativeSpin(centroid, mass, steps, direction = 1) {
     .map(([x, y]) => [y, -1 * x]);
   let current = 0;
 
-  const mutation = (particles) => {
+  const mutation = particles => {
     const [m, n] = pick(vectorField, current);
 
     for (let idx = 0; idx < particles.length; idx++) {
       const [x, y] = particles[idx].position;
-
       const d = distance(x, y, m, n);
 
-      particles[idx].position = sum([x, y], [(m * 1) / d, (n * 1) / d]);
+      particles[idx].position = sum([x, y], [m / d, n / d]);
     }
 
     current += direction;
