@@ -8,7 +8,7 @@ import { cos, sin, unit } from "mathjs";
  *
  * @return [ [x, y], [x, y], ... ]
  */
-function stops(N, shift = 0) {
+export function stops(N, shift = 0) {
   const step = 360 / N;
   let arc = 0;
 
@@ -26,5 +26,3 @@ function stops(N, shift = 0) {
 
   return points;
 }
-
-export { stops };
