@@ -1,7 +1,12 @@
-const XY = painter => {
+import { checkDrawable, checkCanvas } from "./interfaces";
+
+export const BaseLayer = painter => {
   let global;
   let width, height;
   let time;
+
+  checkDrawable(painter);
+  checkCanvas(painter);
 
   const _setup = painter.setup;
   const _draw = painter.draw;
@@ -11,30 +16,23 @@ const XY = painter => {
     width = canvasWidth;
     height = canvasHeight;
 
-    console.log(`QI / XY / ${width}x${height}`);
-
     time = painter.time;
 
-    _setup(global);
+    _setup({ ctx, canvasWidth, canvasHeight });
   }
 
-  function draw() {   
+  function draw() {
     global.push();
     
-    const center = painter.center(width, height);
-    global.translate(...center);
-
-    const rotation = painter.rotate();
-    global.rotate(rotation);
-
-    const renderedCanvas = _draw(time, global);
+    _draw({
+      ui: global,
+      time
+    });
 
     global.pop();
 
     // move time forward
     time += 1;
-
-    return renderedCanvas;
   }
 
   painter.setup = setup;
@@ -42,5 +40,3 @@ const XY = painter => {
 
   return painter;
 };
-
-export { XY };
