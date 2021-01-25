@@ -12,8 +12,8 @@ function defaults(preset) {
   };
 
   // tengo que ver como armo la propagación aún
-  preset.setup = (...args) => this.forEach(p => p.setup(...args));
-  preset.draw = (...args) => this.forEach(p => p.draw(...args));
+  preset.setup = (...args) => this.forEach((p) => p.setup(...args));
+  preset.draw = (...args) => this.forEach((p) => p.draw(...args));
 
   return preset;
 }

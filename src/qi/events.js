@@ -1,7 +1,20 @@
+import { Recoder } from "./video-recorder";
+
+let recorder;
+
 function events(runtime) {
-  
   window.onkeypress = ({ key }) => {
     switch (key) {
+      case "k": {
+        recorder = recorder || Recoder();
+        recorder.start();
+        break;
+      }
+      case "l": {
+        recorder.stop();
+        break;
+      }
+
       case "a": {
         runtime.userStartAudio();
         break;
@@ -27,7 +40,6 @@ function events(runtime) {
       }
     }
   };
-
 }
 
 export { events };

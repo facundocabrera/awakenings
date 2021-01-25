@@ -15,12 +15,12 @@ world.addElement(multiByScalar(stops(2000), 33));
 
 const fields = [
   // [ [0, 100] , 50, 4 ],
-  [ [0, -100], 144, 4 ],
-  [ [100, 0] , 144, 4 ],
-  [ [-100, 0], 144, 4 ]
+  [[0, -100], 144, 4],
+  [[100, 0], 144, 4],
+  [[-100, 0], 144, 4],
 ];
 
-fields.forEach(args => world.addField(RelativeSpin(...args)));
+fields.forEach((args) => world.addField(RelativeSpin(...args)));
 
 const next = (time) => {
   world.tick(time);
@@ -38,7 +38,7 @@ let lightSlider;
 let alphaSlider;
 
 const preset = {
-  frameRate: 30
+  frameRate: 30,
 };
 
 preset.setup = (global) => {
@@ -57,8 +57,8 @@ preset.draw = (time, global) => {
   global.noFill();
   global.stroke(100);
 
-  fields.forEach(([ point, radius ]) => {
-    global.ellipse(...point, radius);  
+  fields.forEach(([point, radius]) => {
+    global.ellipse(...point, radius);
   });
 
   const { points } = next(time);
@@ -84,8 +84,4 @@ preset.draw = (time, global) => {
   });
 };
 
-export default Environment(
-  XY(
-    Painter([ preset ])
-  )
-);
+export default Environment(XY(Painter([preset])));

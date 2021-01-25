@@ -16,9 +16,7 @@ const XY4 = (preset) => {
     // Para que la cosa tenga performance, es necesario no usar varios canvas
     // sino hacer las abstracciones numericamente y renderizar todo de una, pero
     // dejo el fallback para las implementaciones anteriores.
-    canvas = useOwnCanvas ? 
-      global.createGraphics(width, height) : 
-      global;
+    canvas = useOwnCanvas ? global.createGraphics(width, height) : global;
 
     console.log("Setup XY4.");
     console.log(`Canvas ${width}x${height}.`);

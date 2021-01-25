@@ -2,7 +2,7 @@ import { Canvas, ComposePainter, Painter } from "../qi/interfaces";
 import { BaseLayer } from "../qi/base-layer";
 import { Environment } from "../qi/sketch";
 
-const GenericPainter = xy => {
+const GenericPainter = (xy) => {
   let ui;
 
   function setup({ ctx }) {
@@ -13,7 +13,7 @@ const GenericPainter = xy => {
     ui.push();
 
     ui.translate(...xy);
-    ui.stroke('red');
+    ui.stroke("red");
     ui.ellipse(0, 0, time % 100);
 
     ui.pop();
@@ -21,7 +21,7 @@ const GenericPainter = xy => {
 
   return Painter({
     setup,
-    draw
+    draw,
   });
 };
 
@@ -29,11 +29,13 @@ const GenericPainter = xy => {
 export const skeleton = ComposePainter([
   GenericPainter([100, 100]),
   GenericPainter([300, 600]),
-  GenericPainter([150, 600])
+  GenericPainter([150, 600]),
 ]);
 
 // Instanciation to be able to render the painters as a demo.
-export const sketch = Environment(BaseLayer({
-  ...Canvas(skeleton),
-  frameRate: 15,
-}));
+export const sketch = Environment(
+  BaseLayer({
+    ...Canvas(skeleton),
+    frameRate: 15,
+  })
+);

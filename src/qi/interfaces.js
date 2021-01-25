@@ -1,24 +1,26 @@
-import isFunction from 'lodash/isFunction';
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
+import isFunction from "lodash/isFunction";
+import isArray from "lodash/isArray";
+import isNumber from "lodash/isNumber";
 
-export const isDrawable = spec => {
+export const isDrawable = (spec) => {
   return isFunction(spec.setup) && isFunction(spec.draw);
 };
 
-export const checkDrawable = spec => {
-  if (!isDrawable(spec)) throw 'Implement Drawable interface';
+export const checkDrawable = (spec) => {
+  if (!isDrawable(spec)) throw "Implement Drawable interface";
 };
 
-export const isCanvas = spec => {
-  return isArray(spec.canvasSize) && isNumber(spec.frameRate) && isNumber(spec.time);
+export const isCanvas = (spec) => {
+  return (
+    isArray(spec.canvasSize) && isNumber(spec.frameRate) && isNumber(spec.time)
+  );
 };
 
-export const checkCanvas = spec => {
-  if (!isCanvas(spec)) throw 'Implement Canvas interface';
+export const checkCanvas = (spec) => {
+  if (!isCanvas(spec)) throw "Implement Canvas interface";
 };
 
-export const Canvas = spec => {
+export const Canvas = (spec) => {
   checkDrawable(spec);
 
   spec.canvasSize = [1080, 1080];
@@ -32,7 +34,7 @@ export const Canvas = spec => {
   return spec;
 };
 
-export const Painter = spec => {
+export const Painter = (spec) => {
   checkDrawable(spec);
 
   spec.center = (width, height) => {
@@ -46,16 +48,16 @@ export const Painter = spec => {
 
 /**
  * Loop over an Array of Painter.
- * 
+ *
  * @param {Array<Painter>} painters pieces to be draw into the canvas.
- * 
+ *
  * @returns Array<Painter>
  */
-export const ComposePainter = pieces => {
-  if (!isArray(pieces)) throw 'pieces should be an Array';
+export const ComposePainter = (pieces) => {
+  if (!isArray(pieces)) throw "pieces should be an Array";
 
-  pieces.setup = (...args) => pieces.forEach(p => p.setup(...args));
-  pieces.draw = (...args) => pieces.forEach(p => p.draw(...args));
+  pieces.setup = (...args) => pieces.forEach((p) => p.setup(...args));
+  pieces.draw = (...args) => pieces.forEach((p) => p.draw(...args));
 
   checkDrawable(pieces);
 

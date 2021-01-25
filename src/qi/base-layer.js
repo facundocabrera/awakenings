@@ -1,6 +1,6 @@
 import { checkDrawable, checkCanvas } from "./interfaces";
 
-export const BaseLayer = painter => {
+export const BaseLayer = (painter) => {
   let global;
   let width, height;
   let time;
@@ -23,10 +23,10 @@ export const BaseLayer = painter => {
 
   function draw() {
     global.push();
-    
+
     _draw({
       ui: global,
-      time
+      time,
     });
 
     global.pop();

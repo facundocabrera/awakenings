@@ -9,12 +9,14 @@ const ClearPainter = () => {
   function setup() {}
 
   function draw({ ui, time }) {
-    if (time % 400 === 0) { ui.background('#000'); }
+    if (time % 300 === 0) {
+      ui.background("#000");
+    }
   }
 
   return Painter({
     setup,
-    draw
+    draw,
   });
 };
 
@@ -34,29 +36,31 @@ const GenericPainter = (xy, steps, shift, color) => {
     ui.stroke(color);
     ui.noFill();
 
-    vertex.forEach(p => {
+    vertex.forEach((p) => {
       ui.ellipse(...p, time % 600);
-    })
+    });
 
     ui.pop();
   }
 
   return Painter({
     setup,
-    draw
+    draw,
   });
 };
 
 // Composable painters
 export const skeleton = ComposePainter([
   ClearPainter(),
-  GenericPainter([1080 / 2, 1080 / 2], 6, 0, '#FAE83733'),
-  GenericPainter([1080 / 2, 1080 / 2], 3, 0, '#FFB02933'),
+  GenericPainter([1080 / 2, 1080 / 2], 6, 0, "#FAE83733"),
+  GenericPainter([1080 / 2, 1080 / 2], 3, 0, "#FFB02933"),
   // GenericPainter([1080 / 2, 1080 / 2], 9, 0, '#CCE32733')
 ]);
 
 // Instanciation to be able to render the painters as a demo.
-export const sketch = Environment(BaseLayer({
-  ...Canvas(skeleton),
-  frameRate: 60,
-}));
+export const sketch = Environment(
+  BaseLayer({
+    ...Canvas(skeleton),
+    frameRate: 60,
+  })
+);

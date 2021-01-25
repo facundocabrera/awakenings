@@ -3,8 +3,7 @@ import { checkCanvas, checkDrawable } from "./interfaces";
 /**
  * Hook p5 sketch API with the painters.
  */
-const Environment = painters => ctx => {
-
+const Environment = (painters) => (ctx) => {
   checkCanvas(painters);
   checkDrawable(painters);
 
@@ -16,7 +15,9 @@ const Environment = painters => ctx => {
     ctx.frameRate(painters.frameRate || 30);
 
     painters.setup({
-      ctx, canvasWidth, canvasHeight
+      ctx,
+      canvasWidth,
+      canvasHeight,
     });
   }
 
@@ -25,6 +26,4 @@ const Environment = painters => ctx => {
   ctx.draw = painters.draw;
 };
 
-export {
-  Environment
-};
+export { Environment };
