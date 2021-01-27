@@ -5,14 +5,14 @@ import { Environment } from "../qi/sketch";
 const { PI, cos, sin } = Math;
 
 // polar coordinates
-const polar = (arc, r) => [ r * cos(arc), r * sin(arc) ];
+const polar = (arc, r) => [r * cos(arc), r * sin(arc)];
 
 // frequency mapping
 const fm = ({ time, freq, radius = 0 }) => polar(2 * PI * freq * time, radius);
 
-const color = '#FF550033';
+const color = "#FF550033";
 
-const GenericPainter = beArgs => {
+const GenericPainter = (beArgs) => {
   let ui;
   let w, h;
 
@@ -24,7 +24,7 @@ const GenericPainter = beArgs => {
 
   function draw({ time }) {
     // translate to the center of the canvas
-    ui.translate(...[ w / 2, h / 2 ]);
+    ui.translate(...[w / 2, h / 2]);
     // rotate
     ui.rotate(PI / 2);
 
@@ -41,16 +41,14 @@ const GenericPainter = beArgs => {
 };
 
 // Bezier curve arguments (4 pairs [x, y])
-const points = time => [
-  ...fm({ time, freq: 1/8, radius: 350 }),
-  ...fm({ time, freq: 1/32, radius: 350 }),
-  ...fm({ time, freq: 1/54, radius: 350 }),
-  ...fm({ time, freq: 1/16, radius: 350 }),
+const points = (time) => [
+  ...fm({ time, freq: 1 / 8, radius: 350 }),
+  ...fm({ time, freq: 1 / 32, radius: 350 }),
+  ...fm({ time, freq: 1 / 54, radius: 350 }),
+  ...fm({ time, freq: 1 / 16, radius: 350 }),
 ];
 
-export const skeleton = ComposePainter([
-  GenericPainter(points),
-]);
+export const skeleton = ComposePainter([GenericPainter(points)]);
 
 export const sketch = Environment(
   BaseLayer({
