@@ -2,7 +2,6 @@ import { checkDrawable, checkCanvas } from "./interfaces";
 
 export const BaseLayer = (painter) => {
   let global;
-  let width, height;
   let time;
 
   checkDrawable(painter);
@@ -11,14 +10,12 @@ export const BaseLayer = (painter) => {
   const _setup = painter.setup;
   const _draw = painter.draw;
 
-  function setup({ ctx, canvasWidth, canvasHeight }) {
+  function setup({ ctx, ...props }) {
     global = ctx;
-    width = canvasWidth;
-    height = canvasHeight;
 
     time = painter.time;
 
-    _setup({ ctx, canvasWidth, canvasHeight });
+    _setup({ ctx, ...props });
   }
 
   function draw() {

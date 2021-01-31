@@ -16,8 +16,10 @@ const Environment = (painters) => (ctx) => {
 
     painters.setup({
       ctx,
-      canvasWidth,
-      canvasHeight,
+      dimensions: {
+        from: [0, 0],
+        to: [canvasWidth, canvasHeight]
+      }
     });
   }
 

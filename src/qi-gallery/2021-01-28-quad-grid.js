@@ -4,15 +4,13 @@ import { Environment } from "../qi/sketch";
 
 import { Sequencer } from "../qi-quad-grid/sequencer";
 
-const color = "#FF550033";
-
-const GenericPainter = () => {
+export const GenericPainter = (color) => {
   let ui;
   let w, h;
 
   let quad;
 
-  function setup({ ctx, canvasWidth, canvasHeight }) {
+  function setup({ ctx, dimensions: { to: [ canvasWidth, canvasHeight ] } }) {
     ui = ctx;
     w = canvasWidth;
     h = canvasHeight;
@@ -38,7 +36,7 @@ const GenericPainter = () => {
   });
 };
 
-export const skeleton = ComposePainter([GenericPainter()]);
+export const skeleton = ComposePainter([GenericPainter("#FF550033")]);
 
 export const sketch = Environment(
   BaseLayer({
