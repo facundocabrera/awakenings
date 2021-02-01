@@ -1,3 +1,5 @@
+// parcialmente migrado, aun no logre exactamente el mismo dibujo.
+
 /* SERIE INSECTOS LA REINA */
 
 export default [
