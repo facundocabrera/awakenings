@@ -97,16 +97,16 @@ const hq = 20;
 
 const c1 = [
   { freq: 10 * hq, radius: 100 },
-  { freq: -30 * hq, radius: 150 },
-  { freq: 30 * hq, radius: 100 },
-  { freq: -30 * hq, radius: 150 }
+  { freq: -31 * hq, radius: 150 },
+  { freq: 31 * hq, radius: 100 },
+  { freq: -31 * hq, radius: 150 }
 ];
 
 const c2 = [
   { freq: -10 * hq, radius: 100 },
-  { freq: -30 * hq, radius: 150 },
-  { freq: 30 * hq, radius: 100 },
-  { freq: -30 * hq, radius: 150 }
+  { freq: -31 * hq, radius: 150 },
+  { freq: 31 * hq, radius: 100 },
+  { freq: -31 * hq, radius: 150 }
 ];
 
 export const skeleton = ComposePainter([
