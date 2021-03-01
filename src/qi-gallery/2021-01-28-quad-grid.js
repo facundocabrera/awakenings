@@ -10,7 +10,12 @@ export const GenericPainter = (color) => {
 
   let quad;
 
-  function setup({ ctx, dimensions: { to: [ canvasWidth, canvasHeight ] } }) {
+  function setup({
+    ctx,
+    dimensions: {
+      to: [canvasWidth, canvasHeight],
+    },
+  }) {
     ui = ctx;
     w = canvasWidth;
     h = canvasHeight;

@@ -16,7 +16,12 @@ const GenericPainter = (beArgs) => {
   let ui;
   let w, h;
 
-  function setup({ ctx, dimensions: { to: [ canvasWidth, canvasHeight ] } }) {
+  function setup({
+    ctx,
+    dimensions: {
+      to: [canvasWidth, canvasHeight],
+    },
+  }) {
     ui = ctx;
     w = canvasWidth;
     h = canvasHeight;

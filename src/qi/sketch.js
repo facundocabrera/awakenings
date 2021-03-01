@@ -18,8 +18,8 @@ const Environment = (painters) => (ctx) => {
       ctx,
       dimensions: {
         from: [0, 0],
-        to: [canvasWidth, canvasHeight]
-      }
+        to: [canvasWidth, canvasHeight],
+      },
     });
   }
 

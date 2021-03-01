@@ -16,7 +16,12 @@ const GenericPainter = (beArgs, colors) => {
   let ui;
   let w, h;
 
-  function setup({ ctx, dimensions: { to: [ canvasWidth, canvasHeight ] } }) {
+  function setup({
+    ctx,
+    dimensions: {
+      to: [canvasWidth, canvasHeight],
+    },
+  }) {
     ui = ctx;
     w = canvasWidth;
     h = canvasHeight;
@@ -31,7 +36,7 @@ const GenericPainter = (beArgs, colors) => {
     // draw a bezier curve using the calculated frequency points
     ui.noFill();
 
-    chunk(beArgs(time), 8).forEach((args, index) => { 
+    chunk(beArgs(time), 8).forEach((args, index) => {
       ui.stroke(colors[index]);
       ui.bezier(...args);
     });
@@ -56,10 +61,7 @@ const points = (time) => [
   ...fm({ time, freq: 1 / 8, radius: 350 }),
 ];
 
-export const skeleton = GenericPainter(points, [ 
-  "#F5F50055",
-  "#00F5F533"
- ]);
+export const skeleton = GenericPainter(points, ["#F5F50055", "#00F5F533"]);
 
 export const sketch = Environment(
   BaseLayer({

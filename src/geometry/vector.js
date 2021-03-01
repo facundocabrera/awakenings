@@ -56,8 +56,9 @@ const centroid = (points) =>
     .reduce(([x, y], [z, t]) => [x + z, y + t], [0, 0])
     .map((v) => v / points.length);
 
-// 🧠 puedo hacerlo mas generico para sumar una lista de vectores
 const sum = ([x, y], [z, t]) => [x + z, y + t];
+
+const sumAll = (center, all) => all.map((v) => sum(v, center));
 
 export {
   distance,
@@ -69,4 +70,5 @@ export {
   middle_vector,
   centroid,
   sum,
+  sumAll,
 };

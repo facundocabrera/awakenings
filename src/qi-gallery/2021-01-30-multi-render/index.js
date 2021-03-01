@@ -11,7 +11,7 @@ import { builder } from "./2020-08-26-reusable";
 export const GridLayout = (drawable, currentSlot) => {
   checkDrawable(drawable);
 
-  switch(currentSlot) {
+  switch (currentSlot) {
     case 0:
     case 1:
     case 2:
@@ -25,17 +25,20 @@ export const GridLayout = (drawable, currentSlot) => {
   let center;
 
   const calculateCenterOfCurrentSlot = (from, to) => {
-    let [ topLeftCorner, , bottomRightCorner ] = grid(from, to)[currentSlot];
+    let [topLeftCorner, , bottomRightCorner] = grid(from, to)[currentSlot];
 
     return centroid([topLeftCorner, bottomRightCorner]);
-  }
+  };
 
   const setup = (props) => {
-    const { ctx, dimensions: { from, to } } = props;
-    
-    ui = ctx;   
+    const {
+      ctx,
+      dimensions: { from, to },
+    } = props;
+
+    ui = ctx;
     center = calculateCenterOfCurrentSlot(from, to);
-    
+
     drawable.setup(props);
   };
 
@@ -46,12 +49,12 @@ export const GridLayout = (drawable, currentSlot) => {
     drawable.draw(props);
 
     ui.pop();
-  };  
+  };
 
   return {
     ...drawable,
     setup,
-    draw
+    draw,
   };
 };
 
