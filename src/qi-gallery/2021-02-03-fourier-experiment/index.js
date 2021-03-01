@@ -63,7 +63,7 @@ export const GenericPainter = (circles, color) => {
 
     ui.noFill();
     ui.stroke(color);
-    ui.strokeWeight(2);
+    ui.strokeWeight(4);
 
     ui.line(...last, ...current);
     ui.pop();
@@ -90,10 +90,10 @@ export const GenericPainter = (circles, color) => {
 // Me falta pensar un poco:
 //     Disminuyo el radio y aumento la frecuencia.
 //
-const FRAME_RATE = 15;
+const FRAME_RATE = 60;
 
 // subir o bajar la calidad del dibujo.
-const hq = 6;
+const hq = 20;
 
 const c1 = [
   { freq: 10 * hq, radius: 100 },
@@ -102,8 +102,16 @@ const c1 = [
   { freq: -30 * hq, radius: 150 }
 ];
 
+const c2 = [
+  { freq: -10 * hq, radius: 100 },
+  { freq: -30 * hq, radius: 150 },
+  { freq: 30 * hq, radius: 100 },
+  { freq: -30 * hq, radius: 150 }
+];
+
 export const skeleton = ComposePainter([
   GenericPainter(c1, "#F500F577"),
+  GenericPainter(c2, "#7500F577"),
 ]);
 
 export const sketch = Environment(
