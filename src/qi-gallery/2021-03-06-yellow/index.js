@@ -17,14 +17,14 @@ const generator = (multipler, amplifier, seed) => ([
   { freq: multipler * amplifier * hq, radius: 100 },
 ]);
 
-const multipler = 3;
+const multipler = 7;
 const amplifier = 10;
-const seed = amplifier * 33;
+const seed = amplifier * 15;
 
 export const skeleton = ComposePainter([
   // GenericPainter(generator(multipler, amplifier, 10 * 9), "#7500F577"),
-  GenericPainter(generator(multipler, amplifier, seed), "#F0EE1D77", 1),
-  GenericPainter(generator(-1 * multipler, amplifier, seed), "#F0EE1D77", 1),
+  GenericPainter(generator(multipler, amplifier, seed), "#F0EE1D77"),
+  GenericPainter(generator(-1 * multipler, amplifier, seed), "#F0EE1D77"),
 ]);
 
 export const sketch = Environment(
