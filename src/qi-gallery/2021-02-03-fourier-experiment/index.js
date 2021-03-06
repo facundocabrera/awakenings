@@ -22,7 +22,7 @@ const circlePoint = ({freq, radius, center, time}) => {
   return recentered;
 }
 
-export const GenericPainter = (circles, color) => {
+export const GenericPainter = (circles, color, strokeWeight = 4) => {
   let ui;
   let w, h;
   let last;
@@ -63,7 +63,7 @@ export const GenericPainter = (circles, color) => {
 
     ui.noFill();
     ui.stroke(color);
-    ui.strokeWeight(4);
+    ui.strokeWeight(strokeWeight);
 
     ui.line(...last, ...current);
     ui.pop();
