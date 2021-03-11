@@ -2,7 +2,7 @@ import { BaseLayer } from "../../qi/base-layer";
 import { Environment } from "../../qi/sketch";
 import { Painter, Canvas, ComposePainter } from "../../qi/interfaces";
 
-import { GenericPainter } from '../2021-02-03-fourier-experiment';
+import { GenericPainter } from "../2021-02-03-fourier-experiment";
 
 const FRAME_RATE = 60;
 
@@ -10,12 +10,12 @@ const FRAME_RATE = 60;
 const hq = 5;
 
 // mirar el patron de frecuencias
-const generator = (multipler, amplifier, seed) => ([
+const generator = (multipler, amplifier, seed) => [
   { freq: multipler * seed * hq, radius: 100 },
   { freq: seed * hq, radius: 100 },
   { freq: -seed * hq, radius: 100 },
   { freq: multipler * amplifier * hq, radius: 100 },
-]);
+];
 
 const multipler = 7;
 const amplifier = 10;
