@@ -26,7 +26,6 @@ const circlePoint = ({ freq, radius, center, time }) => {
 
 export const GenericPainter = (circles, color, strokeWeight = 4) => {
   let ui;
-  let w, h;
   let last;
   const oids = [];
 
@@ -46,14 +45,9 @@ export const GenericPainter = (circles, color, strokeWeight = 4) => {
   };
 
   function setup({
-    ctx,
-    dimensions: {
-      to: [canvasWidth, canvasHeight],
-    },
+    ctx
   }) {
     ui = ctx;
-    w = canvasWidth;
-    h = canvasHeight;
   }
 
   function draw({ time }) {
