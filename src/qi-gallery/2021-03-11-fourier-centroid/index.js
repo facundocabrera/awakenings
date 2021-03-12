@@ -4,45 +4,15 @@ import { Painter, Canvas, ComposePainter } from "../../qi/interfaces";
 
 import { SplitLayout } from "../../qi-horizontal-split/layout";
 
-import { sum, centroid } from "../../geometry/vector";
+import { XY } from "../../qi-axis";
 
-const { PI, cos, sin } = Math;
-const DPI = 2 * PI;
+import { DataProvider } from './data';
 
-const polar = (arc, r) => [r * cos(arc), r * sin(arc)];
+import { centroid } from "../../geometry/vector";
 
-const circlePoint = ({ freq, radius, center, time }) => {
-  // ΛΘ / Λt => variacion del angulo con respecto al tiempo.
-  const arc = (DPI / freq) * time;
-
-  // con el angulo, calculo donde esta el punto
-  const point = polar(arc, radius);
-
-  // muevo el centro de al definido como parametro
-  const recentered = sum(center, point);
-
-  return recentered;
-};
-
-export const GenericPainter = (circles, color, strokeWeight = 4) => {
+export const Painter16 = (color, strokeWeight = 4) => {
   let ui;
   let last;
-  const oids = [];
-
-  const loop = (time) => {
-    let center = [0, 0];
-    const points = [];
-
-    circles.forEach((circleProps) => {
-      const currentPoint = circlePoint({ ...circleProps, center, time });
-
-      points.push(currentPoint);
-
-      center = currentPoint;
-    });
-
-    return points;
-  };
 
   function setup({
     ctx
@@ -50,16 +20,8 @@ export const GenericPainter = (circles, color, strokeWeight = 4) => {
     ui = ctx;
   }
 
-  function draw({ time }) {
-    const points = loop(time);
+  function draw({ points }) {
     const current = points.slice(-1)[0];
-
-    // calculo el centro de todos los puntos que se estan teniendo en cuenta para calcular current.
-    const oid = centroid(points);
-    oids.push(oid);
-
-    // calculo el centro de los centros acumulados
-    const c = centroid(oids);
 
     if (!last) {
       last = current;
@@ -73,17 +35,6 @@ export const GenericPainter = (circles, color, strokeWeight = 4) => {
 
     ui.line(...last, ...current);
 
-    ui.noFill();
-    ui.stroke("white");
-    ui.strokeWeight(1);
-    ui.ellipse(...oid, 2);
-
-    ui.stroke("red");
-    ui.strokeWeight(1);
-    ui.ellipse(...c, 2);
-
-    console.log(c);
-
     ui.pop();
 
     last = current;
@@ -95,38 +46,73 @@ export const GenericPainter = (circles, color, strokeWeight = 4) => {
   });
 };
 
-//
-// Reglas generales.
-//
-// 1. Circulos grandes al principio para darle altura al dibujo.
-// 2. Ademas, giran lentamente para darle tiempo a los demas para que dibujen
-//    tranquilos.
-// 3. A medida que voy agregando mas, disminuyo el radio y aumento la
-//    frecuencia.
-// 4. Utilizando el concepto de engranajes, los giros deben ser alternados.
-//
-// Me falta pensar un poco:
-//     Disminuyo el radio y aumento la frecuencia.
-//
-const FRAME_RATE = 10;
+export const PainterCentroid = () => {
+  let ui;
+  let oids = [];
+  let screen;
 
-// subir o bajar la calidad del dibujo.
-const hq = 100;
+  function setup({
+    ctx,
+    dimensions
+  }) {
+    ui = ctx;
+    screen = dimensions;
+  }
 
-const c1 = [
-  { freq: 2 * hq, radius: 150 },
-  { freq: 3 * hq, radius: 150 },
+  function draw({ time, points }) {
+    // calculo el centro de todos los puntos que se estan teniendo en cuenta 
+    // para calcular current.
+    oids.push(centroid(points));
+
+    // calculo el x-coordinate del centro de los centros acumulados
+    const xCoordinateCentroid = [time, -centroid(oids)[0]];
+
+    ui.push();
+    ui.translate(-(screen.center[0] - screen.from[0]), 0);
+
+    ui.stroke("red");
+    ui.strokeWeight(1);
+    ui.ellipse(...xCoordinateCentroid, 2);
+    
+    ui.pop();
+  }
+
+  return {
+    setup,
+    draw
+  };
+};
+
+// Settings del viewport
+const frameRate = 60;
+const canvasSize = [2 * 1080, 1080];
+
+// Subir o bajar la calidad del dibujo.
+const hq = 10;
+
+const circles = [
+  { freq: 7 * hq,  radius: 100 },
+  { freq: -7 * hq, radius: 100 },
+  // { freq: 857 * hq, radius: 100 },
 ];
 
-export const skeleton = ComposePainter([
-  SplitLayout(GenericPainter(c1, "#F500F577"), 0),
-  SplitLayout(GenericPainter(c1, "#F5000077"), 1),
-]);
+export const skeleton = 
+  // Hago el computo de los numeros y lo paso al resto del arbol.
+  DataProvider(
+    // Abstraer colleccion que debe recibir la misma información.
+    ComposePainter([
+      // Hoja Izquierda
+      SplitLayout(Painter16("#F500F577", 8), 0),
+      // Hoja Derecha
+      SplitLayout(XY(PainterCentroid("#F5000077")), 1),
+    ]), 
+    circles
+  );
 
 export const sketch = Environment(
   BaseLayer({
     ...Canvas(skeleton),
-    frameRate: FRAME_RATE,
-    canvasSize: [2 * 1080, 1080],
+    frameRate,
+    canvasSize,
   })
 );
