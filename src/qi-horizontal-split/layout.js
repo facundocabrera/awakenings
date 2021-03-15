@@ -34,19 +34,21 @@ export const SplitLayout = (drawable, currentSlot) => {
 
     // expose globally
     ui = ctx;
-    
+
     // redefine dimensions
     const [_from, , _to] = split(from, to)[currentSlot];
 
     // lo estoy agregando a la API, no estaba
     center = centroid([_from, _to]);
 
-    drawable.setup({ 
-      ctx, 
+    drawable.setup({
+      ctx,
       dimensions: {
-        from: _from, to: _to, center
-      }, 
-      ...other
+        from: _from,
+        to: _to,
+        center,
+      },
+      ...other,
     });
   };
 

@@ -6,7 +6,7 @@ import { SplitLayout } from "../../qi-horizontal-split/layout";
 
 import { XY } from "../../qi-axis";
 
-import { DataProvider } from './data';
+import { DataProvider } from "./data";
 
 import { centroid } from "../../geometry/vector";
 
@@ -14,9 +14,7 @@ export const Painter16 = (color, strokeWeight = 4) => {
   let ui;
   let last;
 
-  function setup({
-    ctx
-  }) {
+  function setup({ ctx }) {
     ui = ctx;
   }
 
@@ -51,16 +49,13 @@ export const PainterCentroid = () => {
   let oids = [];
   let screen;
 
-  function setup({
-    ctx,
-    dimensions
-  }) {
+  function setup({ ctx, dimensions }) {
     ui = ctx;
     screen = dimensions;
   }
 
   function draw({ time, points }) {
-    // calculo el centro de todos los puntos que se estan teniendo en cuenta 
+    // calculo el centro de todos los puntos que se estan teniendo en cuenta
     // para calcular current.
     oids.push(centroid(points));
 
@@ -73,13 +68,13 @@ export const PainterCentroid = () => {
     ui.stroke("red");
     ui.strokeWeight(1);
     ui.ellipse(...xCoordinateCentroid, 2);
-    
+
     ui.pop();
   }
 
   return {
     setup,
-    draw
+    draw,
   };
 };
 
@@ -91,12 +86,12 @@ const canvasSize = [2 * 1080, 1080];
 const hq = 10;
 
 const circles = [
-  { freq: 7 * hq,  radius: 100 },
+  { freq: 7 * hq, radius: 100 },
   { freq: -7 * hq, radius: 100 },
   // { freq: 857 * hq, radius: 100 },
 ];
 
-export const skeleton = 
+export const skeleton =
   // Hago el computo de los numeros y lo paso al resto del arbol.
   DataProvider(
     // Abstraer colleccion que debe recibir la misma información.
@@ -105,7 +100,7 @@ export const skeleton =
       SplitLayout(Painter16("#F500F577", 8), 0),
       // Hoja Derecha
       SplitLayout(XY(PainterCentroid("#F5000077")), 1),
-    ]), 
+    ]),
     circles
   );
 

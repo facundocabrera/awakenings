@@ -6,7 +6,8 @@
  *
  * @returns {[ [x * z, y * t], ... ]}
  */
-const multi = (elements, [z, t]) => elements.map(([x, y]) => [x * z, y * t]);
+export const multi = (elements, [z, t]) =>
+  elements.map(([x, y]) => [x * z, y * t]);
 
 /**
  * Multiple by scalar.
@@ -16,6 +17,4 @@ const multi = (elements, [z, t]) => elements.map(([x, y]) => [x * z, y * t]);
  *
  * @returns {[ [x * by, y * by], ... ]}
  */
-const multiByScalar = (elements, by) => multi(elements, [by, by]);
-
-export { multi, multiByScalar };
+export const multiByScalar = (elements, by) => multi(elements, [by, by]);
