@@ -60,6 +60,8 @@ const sum = ([x, y], [z, t]) => [x + z, y + t];
 
 const sumAll = (center, all) => all.map((v) => sum(v, center));
 
+const by = (vector, v) => vector.map((component) => component * v);
+
 export {
   distance,
   dot_product,
@@ -71,4 +73,5 @@ export {
   centroid,
   sum,
   sumAll,
+  by,
 };
