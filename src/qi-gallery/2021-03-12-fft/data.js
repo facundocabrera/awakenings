@@ -8,7 +8,9 @@ const DPI = 2 * PI;
 const sinwave = (amplitude, freq, time, phase = 0) =>
   amplitude * sin(DPI * freq * time + phase);
 
-const input = 1 / 7;
+// usé inputs 144 / 3, 4, 5, 6
+// usé inputs 144 / 1.618
+const input = 1 / 88.9;
 const mapped = 1 / 144;
 
 const radius = 250;
