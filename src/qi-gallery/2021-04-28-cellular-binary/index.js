@@ -4,7 +4,7 @@ import { Canvas, ComposePainter } from "../../qi/interfaces";
 
 import { DataProvider } from "./data";
 
-const Plot = (color) => {
+const Plot = (color, color2) => {
   let ui;
   let width;
   let heigth;
@@ -41,6 +41,8 @@ const Plot = (color) => {
       (wf * hf) / (wf + hf)
     );
 
+    ui.stroke(color2);
+
     ui.ellipse(
       width - wf,
       hf,
@@ -60,11 +62,11 @@ const Plot = (color) => {
   };
 };
 
-const frameRate = 15;
+const frameRate = 60 ;
 const canvasSize = [1080, 1080];
 
 export const skeleton = DataProvider(ComposePainter([
-  Plot("#F500F533")
+  Plot("#F500F533", "#00FFFF33")
 ]));
 
 export const sketch = Environment(
