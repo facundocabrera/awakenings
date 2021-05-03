@@ -13,7 +13,7 @@ import MersenneTwister from "mersenne-twister";
 function MonteCarlo(probabilities, outputs) {
   const generator = new MersenneTwister();
 
-  function walker() {
+  return () => {
     // Genero un número aleatorio que va entre [0, 1]
     const rand = generator.random();
     
@@ -24,9 +24,7 @@ function MonteCarlo(probabilities, outputs) {
     }
 
     return outputs[index];
-  }
-
-  return walker;
+  };
 }
 
 export { MonteCarlo };

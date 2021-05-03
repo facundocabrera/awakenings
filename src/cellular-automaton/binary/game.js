@@ -7,32 +7,62 @@
 
 import { MonteCarlo } from '../../monte-carlo';
 
-const automata = () => {
+// no deterministico
+const expansion = (walker, currentState) => {
+  const len = currentState.length;
+  const nextState = new Array(len + 2).fill(-1);
+
+  for (let i = 0; i < len; i++) {
+    // no todos los nodos son necesarios de ser calculados aleatoriamente
+    if (nextState[i] === -1) {
+      nextState[i] = walker(); // 0 o 1 con 50% de probabilidad
+    }
+
+    nextState[i + 2] = currentState[i] === 1 ? (nextState[i] ^ 1): nextState[i];
+  }
+
+  return nextState;
+};
+
+// deterministico
+const contraction = (currentState) => {
+  const len = currentState.length - 2;
+  const nextState = new Array(len).fill(-1);
+
+  // la reduccion se hace a xor como lo aprendimos
+  for (let i = 0; i < len; i++) {
+    nextState[i] = currentState[i] ^ currentState[i+2];
+  }
+
+  return nextState;
+};
+
+const automata = (max = 54) => {
   const probabilities = [0.5, 1];
-  let initial = [0, 1];
-  let lastNode = null;
-  const walker = MonteCarlo(probabilities, initial);
+  let initialState = [0, 1];
+  let lastState = null;
+  const walker = MonteCarlo(probabilities, initialState);
+  
+  // wave behavior simulation
+  let cursor = 1;
+  let direction = 1;
+  const up = () => direction === 1;
+  const down = () => direction === -1;
 
   return () => {
-    if (lastNode === null) {
-      lastNode = initial;
-      return initial;
-    }
-
-    const node = new Array(lastNode.length + 2).fill(-1);
-
-    for (let i = 0; i < lastNode.length; i++) {
-      // no todos los nodos son necesarios de ser calculados aleatoriamente
-      if (node[i] === -1) {
-        node[i] = walker(); // 0 o 1 con 50% de probabilidad
+    if (lastState === null) {
+      lastState = initialState;
+    } else {
+      if (!((up() && cursor <= max) || (down() && cursor > 2))) {
+        direction = up() ? -1 : 1;   
       }
-
-      node[i + 2] = lastNode[i] === 1 ? (node[i] ^ 1): node[i];
+      
+      lastState = up() ? expansion(walker, lastState) : contraction(lastState);
     }
+    
+    cursor += direction;
 
-    lastNode = node;
-
-    return node;
+    return lastState;
   };
 };
 

@@ -19,12 +19,6 @@ export const SplitLayout = (drawable, currentSlot) => {
   let ui;
   let center;
 
-  const calculateCenterOfCurrentSlot = (from, to) => {
-    let [topLeftCorner, , bottomRightCorner] = split(from, to)[currentSlot];
-
-    return centroid([topLeftCorner, bottomRightCorner]);
-  };
-
   const setup = (props) => {
     const {
       ctx,

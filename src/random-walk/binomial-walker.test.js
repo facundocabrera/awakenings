@@ -18,7 +18,7 @@ test("random-walk/binomial", () => {
 
   // Observar la campana que se genera en la distribucion de las ocurrencias
   // la joda viene por acá
-  // console.log(occurences);
+  console.log(occurences);
 
   expect(sum(occurences)).toBe(end);
   expect(occurences).toMatchSnapshot();
