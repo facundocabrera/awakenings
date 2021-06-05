@@ -37,7 +37,7 @@ const contraction = (currentState) => {
   return nextState;
 };
 
-const automata = (max = 54) => {
+const automata = (max = 54, direction = 1) => {
   const probabilities = [0.5, 1];
   let initialState = [0, 1];
   let lastState = null;
@@ -45,7 +45,6 @@ const automata = (max = 54) => {
   
   // wave behavior simulation
   let cursor = 1;
-  let direction = 1;
   const up = () => direction === 1;
   const down = () => direction === -1;
 

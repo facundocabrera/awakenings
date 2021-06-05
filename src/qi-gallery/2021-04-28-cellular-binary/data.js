@@ -11,8 +11,8 @@ export const DataProvider = (drawable) => {
   const setup = (props) => {
     const { dimensions: { to: [ width ] }} = props;
 
-    yin = automata( 32 / 2 );
-    yan = automata( 32 / 2 );
+    yin = automata( 64 / 2 );
+    yan = automata( 64 / 2 , -1);
 
     drawable.setup(props);
   };

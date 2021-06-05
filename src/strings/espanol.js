@@ -5828,7 +5828,6 @@ ampelógrafo
 ampelología
 amperaje
 ampere
-ampère
 amperímetro
 amperio
 ampervuelta

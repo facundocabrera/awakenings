@@ -53,3 +53,8 @@ console.log(toNumber('tomar'), toNumber('quitar'), toNumber('robar'));
 
 console.log(toNumber('amar'), toNumber('ver'));
 console.log(toNumber('amar es ver'));
+
+console.log(toNumber('a c g t'));
+console.log('acgt'.split('').map(toNumber));
+
+console.log(toNumber('tautologia'));
