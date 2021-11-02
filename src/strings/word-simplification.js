@@ -1,6 +1,4 @@
-export const simplify = (char) => {
-  char = char.toLowerCase();
-  
+export const transformToConsumableChar = (char) => { 
   switch (char) {
     case 'á': return 'a';
     case 'é': return 'b';

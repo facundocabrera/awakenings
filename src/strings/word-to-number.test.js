@@ -58,3 +58,5 @@ console.log(toNumber('a c g t'));
 console.log('acgt'.split('').map(toNumber));
 
 console.log(toNumber('tautologia'));
+
+console.log(toNumber('dune'))

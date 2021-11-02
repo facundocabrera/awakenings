@@ -1,9 +1,10 @@
-import { simplify, removeVocals } from "./word-simplification";
+import { transformToConsumableChar, removeVocals } from "./word-simplification";
 
-it('should simplify words', () => {
-  expect('díos'.split('').map(simplify).join('')).toBe('dios');
-  expect('aguañón'.split('').map(simplify).join('')).toBe('aguanon');
-  expect('aguará'.split('').map(simplify).join('')).toBe('aguara');
+it('should transform special characters', () => {
+  expect('díos'.split('').map(transformToConsumableChar).join('')).toBe('dios');
+  expect('aguañón'.split('').map(transformToConsumableChar).join('')).toBe('aguanon');
+  expect('aguará'.split('').map(transformToConsumableChar).join('')).toBe('aguara');
+  expect('propósito'.split('').map(transformToConsumableChar).join('')).toBe('proposito');
 });
 
 it('should remove vocals', () => {

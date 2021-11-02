@@ -1,8 +1,22 @@
 import { justPlot } from '../console/plot';
 import { sequenceOf } from '../math/fibonacci';
 
-import { words as espanol } from './espanol-simplified';
+import { words as espanol, toSimplified } from './espanol-simplified';
 import { groupBySum, toGroupLength } from './group-by-sum';
+
+it('problematic words', () => {
+  expect(espanol.some(palabra => palabra == 'proposito')).toBe(true);
+  expect(espanol.some(palabra => palabra == 'como')).toBe(true);
+  
+  expect(espanol.some(palabra => palabra == 'espermatozoide')).toBe(true);
+  expect(espanol.some(palabra => palabra == 'ovulo')).toBe(true);
+});
+
+describe('toSimplified', () => {
+  expect( 
+    toSimplified(['propósito']) == 'proposito'
+  ).toBe(true);
+});
 
 it('estas son las sumas que no estan presentes en el espanol simplified', () => {
   const entries = toGroupLength(
@@ -19,12 +33,13 @@ it('estas son las sumas que no estan presentes en el espanol simplified', () => 
   }
 
   expect(outputs).toEqual([
-    230,
-    231,
-    233,
     241,
-    250,
     251,
+    256,
+    257,
+    258,
+    261,
+    263,
   ]);
 });
 
