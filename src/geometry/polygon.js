@@ -9,9 +9,9 @@ import { fragment } from "../geometry/points";
  *
  * @returns [[x,y], ...]
  */
-function polygon(vertices = 3, orbita = 1) {
+function polygon(vertices = 3, orbita = 1, shift = 0) {
   // Set of base points
-  const base = stops(vertices);
+  const base = stops(vertices, shift);
 
   // Expanded set of points given the orbita
   const expanded = orbita > 1 ? fragment(base, orbita) : base;

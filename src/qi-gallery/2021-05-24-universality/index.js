@@ -12,26 +12,30 @@ const Plot = () => {
 
   const setup = ({ ctx, dimensions: { to } }) => {
     ui = ctx;
-    width = to[0];
-    heigth = to[1];
+    width = to[0] - 20;
+    heigth = to[1] - 20;
 
     bg = [
       ui.random(255), // r is a random number between 0 - 255
-      ui.random(100,200), // g is a random number betwen 100 - 200
+      ui.random(100, 200), // g is a random number betwen 100 - 200
       ui.random(100), // b is a random number between 0 - 100
-      ui.random(200,255), // a is a random number between 200 - 255
+      ui.random(200, 255), // a is a random number between 200 - 255
     ];
   };
 
   const draw = ({ x, y }) => {
+    console.log(x, y);
+
     ui.noFill();
-    ui.stroke(bg[0], bg[1], bg[2], bg[3] * y);
+
+    ui.stroke(bg[0], bg[1], bg[2], bg[3]);
     ui.strokeWeight(1);
 
-    ui.ellipse(x * width, y * heigth, 15);
+    ui.ellipse(x * width + 10, y * heigth + 10, 10);
   };
 
   return {
+    name: "Plot",
     setup,
     draw,
   };
@@ -40,21 +44,10 @@ const Plot = () => {
 const frameRate = 60;
 const canvasSize = [1080, 1080];
 
-// ----
-// const paints = [];
-// for(let i = 1; i < 10; i++) {
-//   paints.push(
-//     DataProvider(Plot(), i, .7)
-//   );
-// }
-
-// export const skeleton = ComposePainter(paints);
-// ----
-
 export const skeleton = ComposePainter([
-  DataProvider1(Plot(), 4, 0.60),
-  DataProvider2(Plot(), 1, 0.60),
-  DataProvider3(Plot(), 1, 0.60),
+  DataProvider1(Plot(), 4, 0.54),
+  DataProvider2(Plot(), 1, 0.54),
+  DataProvider3(Plot(), 1, 0.54),
 ]);
 
 export const sketch = Environment(

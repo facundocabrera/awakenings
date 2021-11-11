@@ -19,6 +19,7 @@ const Environment = (painters) => (ctx) => {
       dimensions: {
         from: [0, 0],
         to: [canvasWidth, canvasHeight],
+        center: [canvasWidth / 2, canvasHeight / 2]
       },
     });
   }
