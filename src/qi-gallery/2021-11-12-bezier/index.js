@@ -47,6 +47,7 @@ const BezierPlot = () => {
   let ui;
   let width;
   let heigth;
+  let last;
 
   const setup = ({ ctx, dimensions: { to, center } }) => {
     ui = ctx;
@@ -56,7 +57,11 @@ const BezierPlot = () => {
   };
 
   const draw = ({ x, y, t }) => {
-    const color = ui.lerpColor(ui.color(204, 0, 0), ui.color(240, 197, 68), t);
+    const color = ui.lerpColor(
+      ui.color(204, 0, 0, 50),
+      ui.color(240, 197, 68, 50),
+      t
+    );
 
     ui.push();
 
@@ -67,7 +72,13 @@ const BezierPlot = () => {
     ui.stroke(color);
     ui.strokeWeight(1);
 
-    ui.ellipse(x, -y, 5);
+    ui.ellipse(x, -y, 1);
+
+    if (last) {
+      ui.line(...last, x, -y);
+    }
+
+    last = [x, -y];
 
     ui.pop();
   };
@@ -80,7 +91,7 @@ const BezierPlot = () => {
 };
 
 const frameRate = 15;
-const canvasSize = [1080, 1080];
+const canvasSize = [1080 * 2, 1080 * 2];
 
 export const skeleton = XY(
   ComposePainter([PoolPlot(pool), DataProvider(BezierPlot(), pool)])
