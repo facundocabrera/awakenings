@@ -25,14 +25,14 @@ const PoolPlot = () => {
   };
 
   const draw = () => {
-    const c = ui.color(...bg);
+    const c = ui.color("white");
 
+    ui.noFill();
     ui.stroke(c);
-    ui.fill(c);
     ui.strokeWeight(1);
 
     for (let i = 0; i < pool.length; i++) {
-      ui.ellipse(...pool[i], 1);
+      ui.ellipse(...pool[i], 10);
     }
   };
 
@@ -91,7 +91,7 @@ const BezierPlot = () => {
 };
 
 const frameRate = 15;
-const canvasSize = [1080 * 2, 1080 * 2];
+const canvasSize = [1080, 1080];
 
 export const skeleton = XY(
   ComposePainter([PoolPlot(pool), DataProvider(BezierPlot(), pool)])
