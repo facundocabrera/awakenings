@@ -1,6 +1,6 @@
 import { checkDrawable } from "../../qi/interfaces";
 
-import { centroid, by } from "../../geometry/vector";
+import { centroid, mult } from "../../geometry/vector";
 
 const { PI, sin, cos } = Math;
 const DPI = 2 * PI;
@@ -70,7 +70,7 @@ export const ComputeCentroid = (drawable) => {
   const draw = (props) => {
     buffer.push(props.current);
 
-    const oid = by(centroid(buffer), 250);
+    const oid = mult(centroid(buffer), 250);
 
     drawable.draw({ ...props, oid });
   };

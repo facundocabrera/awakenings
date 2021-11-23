@@ -51,16 +51,20 @@ const middle_vector = (x1, y1, x2, y2) => {
   return [(x1 + x2) / 2, (y1 + y2) / 2];
 };
 
-const centroid = (points) =>
-  points
-    .reduce(([x, y], [z, t]) => [x + z, y + t], [0, 0])
-    .map((v) => v / points.length);
-
 const sum = ([x, y], [z, t]) => [x + z, y + t];
 
 const sumAll = (center, all) => all.map((v) => sum(v, center));
 
-const by = (vector, v) => vector.map((component) => component * v);
+const mult = (vector, v) => vector.map((scalar) => scalar * v);
+
+const mult_vector = (space2d, scalar) =>
+  space2d.map(([x, y]) => [x * scalar, y * scalar]);
+
+const sum_vector = (vector, init = [0, 0]) => vector.reduce(sum, init);
+
+const div = (vector, by) => vector.map((v) => v / by);
+
+const centroid = (points) => div(sum_vector(points), points.length);
 
 export {
   distance,
@@ -73,5 +77,6 @@ export {
   centroid,
   sum,
   sumAll,
-  by,
+  mult,
+  mult_vector,
 };

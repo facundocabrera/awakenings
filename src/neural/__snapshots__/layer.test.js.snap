@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cluster build from array 1`] = `
+Array [
+  1.3107780329145603e-14,
+  1.3107780329145603e-14,
+]
+`;
+
+exports[`Layer create a group of neurons with the expected amount of inputs 1`] = `
+Array [
+  28.07171801582511,
+  28.07171801582511,
+]
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Neuron should calculate min and max 1`] = `
+Array [
+  -0.5,
+  -0.2886666666666666,
+]
+`;
+
+exports[`apply should scale the input by the weights 1`] = `
+Array [
+  Array [
+    0.3,
+    0.6,
+  ],
+  Array [
+    2.0999999999999996,
+    2.8,
+  ],
+]
+`;

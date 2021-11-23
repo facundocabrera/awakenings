@@ -1,4 +1,8 @@
-import { centroid } from "./vector";
+import { centroid, sum } from "./vector";
+
+test("geometry/vector/sum", () => {
+  expect(sum([1, 1], [2, 2])).toEqual([3, 3]);
+});
 
 test("geometry/vector/centroid", () => {
   const points = [

@@ -19,4 +19,5 @@ export const multi = (elements, [z, t]) =>
  */
 export const multiByScalar = (elements, by) => multi(elements, [by, by]);
 
+// @deprecated use code from vector
 export const scale = (vector, by) => vector.map((x) => x * by);

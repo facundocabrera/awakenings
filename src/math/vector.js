@@ -7,7 +7,8 @@ export const random_vector = (size) => {
   const vector = [];
 
   for (let i = 0; i < size; i++) {
-    vector.push(generator.random());
+    // le saco precision porque no la necesito para lo que estoy simulando
+    vector.push(generator.random().toFixed(3));
   }
 
   return vector;
