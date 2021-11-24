@@ -4,21 +4,20 @@ import MersenneTwister from "mersenne-twister";
 const generator = new MersenneTwister();
 
 export const random_vector = (size) => {
-  const vector = [];
+  const vector = Array(size);
 
   for (let i = 0; i < size; i++) {
-    // le saco precision porque no la necesito para lo que estoy simulando
-    vector.push(generator.random().toFixed(3));
+    vector[i] = generator.random();
   }
 
   return vector;
 };
 
 export const fixed_vector = (size, value) => {
-  const vector = [];
+  const vector = Array(size);
 
   for (let i = 0; i < size; i++) {
-    vector.push(value);
+    vector[i] = value;
   }
 
   return vector;

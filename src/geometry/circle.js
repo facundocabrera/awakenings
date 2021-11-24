@@ -1,5 +1,3 @@
-import { cos, sin, unit } from "mathjs";
-
 /**
  * Calculos los puntos (x,y) para armar un poligono que tenga N vertices equidistantes.
  *
@@ -8,21 +6,54 @@ import { cos, sin, unit } from "mathjs";
  *
  * @return [ [x, y], [x, y], ... ]
  */
-export function stops(N, shift = 0) {
-  const step = 360 / N;
-  let arc = 0;
+// export function stops(N, shift = 0) {
+//   const step = 360 / N;
+//   let arc = 0;
 
-  const points = [];
+//   const points = [];
 
-  while (arc < 360) {
-    const shifted = arc + shift;
+//   while (arc < 360) {
+//     const shifted = arc + shift;
 
-    points.push([
-      Number(cos(unit(shifted, "deg")).toFixed(3)),
-      Number(sin(unit(shifted, "deg")).toFixed(3)),
-    ]);
-    arc += step;
+//     points.push([
+//       Number(cos(unit(shifted, "deg"))),
+//       Number(sin(unit(shifted, "deg"))),
+//     ]);
+//     arc += step;
+//   }
+
+//   return points;
+// }
+
+export function stops(numberOfPoints, shift = 0) {
+  const vector = Array(numberOfPoints);
+  const start = shift;
+  const step = (2 * Math.PI) / numberOfPoints;
+
+  let angle = start;
+  for (let i = 0; i < numberOfPoints; i++) {
+    vector[i] = [Math.cos(angle), Math.sin(angle)];
+    angle += step;
   }
 
-  return points;
+  return vector;
+}
+
+export function vector_around(
+  radius = 1,
+  perimeter = 2 * Math.PI,
+  numberOfPoints,
+  shift = 0
+) {
+  const vector = Array(numberOfPoints);
+  const start = shift;
+  const step = perimeter / numberOfPoints;
+
+  let angle = start;
+  for (let i = 0; i < numberOfPoints; i++) {
+    vector[i] = [radius * Math.cos(angle), radius * Math.sin(angle)];
+    angle += step;
+  }
+
+  return vector;
 }

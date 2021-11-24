@@ -1,26 +1,28 @@
 import { range } from "lodash";
+
 import { Neuron } from "./neuron";
 import { modulo } from "../geometry/vector";
 
 export const Layer = ({ name = "LAYER_NAME", inputs = 10, neurons = 10 }) => {
+  // Neuron tiene que ser parametro
   const cluster = range(neurons).map(() => Neuron({ connections: inputs }));
 
   const activate = (inputs) =>
-    cluster.reduce((outputs, neuron) => {
-      outputs.push(
-        // como estoy usando un centroid, necesito aplicar una transformación
-        // mas, porque solo propago valores 1D.
-        modulo(
-          // esto puede ser un metodo o `neuron(inputs)`
-          ...neuron.activate(inputs)
-        ) * 33 // magic number
-      );
+    cluster.reduce((outputs, neuron, index) => {
+      const activation = neuron.activate(inputs);
+      const output = modulo(...activation);
+
+      outputs.push(output);
+
       return outputs;
     }, []);
 
   return {
-    name,
-    activate,
+    name, // nombre del layer para debugging
+    activate, // evaluar vector de outputs dado un vector input
+    internals: {
+      layer: cluster, // expongo el vector de neuronas
+    },
   };
 };
 

@@ -13,6 +13,15 @@ describe("Layer", () => {
 
     expect(l.activate([1, 2, 3, 4, 5])).toMatchSnapshot();
   });
+
+  it("should handle a large number of inputs", () => {
+    const inputs = 300;
+    const input = random_vector(inputs);
+
+    const l = Layer({ name: "TestingLayer", inputs, neurons: 1 });
+
+    expect(l.activate(input)).toMatchSnapshot();
+  });
 });
 
 describe("Cluster", () => {
@@ -22,10 +31,15 @@ describe("Cluster", () => {
     expect(c.compute([1, 2, 1])).toMatchSnapshot();
   });
 
-  it("should work", () => {
-    const c = Cluster.fromArray([300, 16, 16, 6]);
+  it("should work with large number of inputs", () => {
+    // 300 inputs, 1 output
+    const c = Cluster.fromArray([300, 1, 1]);
     const input = random_vector(300);
 
-    console.log(c.compute(input));
+    expect(input).toMatchSnapshot();
+
+    const [output] = c.compute(input);
+
+    expect(Number.isNaN(output)).toBe(false);
   });
 });

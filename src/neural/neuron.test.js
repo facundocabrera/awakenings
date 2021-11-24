@@ -8,10 +8,17 @@ beforeEach(() => {
 });
 
 describe("Neuron", () => {
-  it("should calculate min and max", () => {
+  it("should activate", () => {
     const n = Neuron({ connections: 3 });
 
+    expect(n.activate([1, 2, 3])).toBeDefined();
     expect(n.activate([1, 2, 3])).toMatchSnapshot();
+  });
+
+  it("should expose internals", () => {
+    const n = Neuron({ connections: 5 });
+
+    expect(n.internals).toMatchSnapshot();
   });
 });
 
