@@ -60,7 +60,7 @@ const mult = (vector, v) => vector.map((scalar) => scalar * v);
 const mult_vector = (space2d, scalar) =>
   space2d.map(([x, y]) => [x * scalar, y * scalar]);
 
-const sum_vector = (vector, init = [0, 0]) => vector.reduce(sum, [0, 0]);
+const sum_vector = (vector, init = [0, 0]) => vector.reduce(sum, init);
 
 const div = (vector, by) => vector.map((v) => v / by);
 
@@ -79,4 +79,5 @@ export {
   sumAll,
   mult,
   mult_vector,
+  sum_vector,
 };
