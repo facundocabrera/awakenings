@@ -1,11 +1,8 @@
-/**
- * Calculos los puntos (x,y) para armar un poligono que tenga N vertices equidistantes.
- *
- * @param {Integer} N Vertices alrededor de una circunferencia de radio 1.
- * @param {Integer} shift Angulo de desplazamiento.
- *
- * @return [ [x, y], [x, y], ... ]
- */
+//
+// @TODO remove this code the current impl is better and
+//       and prevent rounding problems found when I defined
+//       stops > 300.
+//
 // export function stops(N, shift = 0) {
 //   const step = 360 / N;
 //   let arc = 0;
@@ -25,6 +22,14 @@
 //   return points;
 // }
 
+/**
+ * Calculos los puntos (x,y) para armar un poligono que tenga N vertices equidistantes.
+ *
+ * @param {Integer} N Vertices alrededor de una circunferencia de radio 1.
+ * @param {Integer} shift Angulo de desplazamiento.
+ *
+ * @return [ [x, y], [x, y], ... ]
+ */
 export function stops(numberOfPoints, shift = 0) {
   const vector = Array(numberOfPoints);
   const start = shift;

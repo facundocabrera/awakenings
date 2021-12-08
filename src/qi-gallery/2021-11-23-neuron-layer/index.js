@@ -22,7 +22,7 @@ const NetPlot = () => {
     const [x, y, z] = cloud_vector;
     const { min: vMin, max: vMax } = cloud_boxes;
 
-    console.log(vMin, vMax);
+    // console.log(vMin, vMax);
 
     ui.noFill();
     ui.stroke(121, 34, (255 * z) / max(z), 50);

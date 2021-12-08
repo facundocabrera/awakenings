@@ -1,4 +1,5 @@
 import { line_points } from "./line";
+import { middle_vector } from "./vector";
 
 /**
  * Dado un conjunto de puntos, calcular todos los puntos intermedios de todas las lineas
@@ -37,4 +38,23 @@ function fragment(base, orbita) {
   return vertex;
 }
 
-export { fragment };
+function middle(points) {
+  const m = [];
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const origin = points[i];
+    const target = points[i + 1];
+
+    m.push(middle_vector(...origin, ...target));
+  }
+
+  m.push(middle_vector(...points.slice(-1), ...points[0]));
+
+  return m;
+}
+
+function middle_from(center, points) {
+  return points.map((p) => middle_vector(...center, ...p));
+}
+
+export { fragment, middle, middle_from };
