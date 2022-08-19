@@ -1,7 +1,7 @@
 import { events } from "./qi/events";
 import { pointer } from "./qi/pointer";
 
-import { sketch } from "./qi-gallery/2021-12-08-virgen";
+import { sketch } from "./qi-gallery/2022-06-26-build-an-idea";
 
 const runtime = new p5(sketch);
 
