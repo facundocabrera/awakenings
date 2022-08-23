@@ -3,7 +3,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
+const publicPath = path.join(__dirname, 'dist');
+
 module.exports = {
+  // https://webpack.js.org/migrate/5/#make-sure-to-use-mode
   mode: "development",
   entry: {
     p5: "./node_modules/p5/lib/p5.min.js",
@@ -11,12 +14,26 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: "./dist",
+    static: publicPath, 
     hot: true,
+    client: {
+      progress: true,
+    },
+    port: 9000
+  },
+  experiments: {
+    asyncWebAssembly: true,
+    // WebAssembly as async module (Proposal)
+    syncWebAssembly: true,
+    // WebAssembly as sync module (deprecated)
+    outputModule: false,
+    // Allow to output ESM - no funciona con p5, tira error import.meta
+    topLevelAwait: true,
+    // Allow to use await on module evaluation (Proposal)
   },
   plugins: [
-    // Tell CleanWebpackPlugin that we don't want to remove the index.html file after
-    // the incremental build triggered by watch.
+    new webpack.ProgressPlugin(),
+    // https://www.npmjs.com/package/clean-webpack-plugin
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Awakening",
@@ -30,7 +47,7 @@ module.exports = {
   ],
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: publicPath,
   },
   module: {
     rules: [{ test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }],
