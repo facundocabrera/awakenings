@@ -1,5 +1,3 @@
-import nj from "numjs";
-
 import { checkDrawable } from "../../qi/interfaces";
 
 const { log, PI } = Math;
