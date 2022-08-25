@@ -6,7 +6,7 @@ import { grid } from "../../qi-quad-grid";
 
 import { centroid } from "../../geometry/vector";
 
-import { builder } from "./2020-08-26-reusable";
+import { builder } from "./bezier-painter";
 
 export const GridLayout = (drawable, currentSlot) => {
   checkDrawable(drawable);

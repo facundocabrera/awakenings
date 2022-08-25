@@ -3,14 +3,17 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
-const publicPath = path.join(__dirname, 'dist');
+const publicPath = path.join(__dirname, 'public');
+
+console.log(publicPath);
 
 module.exports = {
   // https://webpack.js.org/migrate/5/#make-sure-to-use-mode
   mode: "development",
   entry: {
     p5: "./node_modules/p5/lib/p5.min.js",
-    app: ["@babel/polyfill", "./src/main.js"],
+    // ver que onda con core-js/stable porque "@babel/polyfill" esta deprecated
+    app: "./src/main.js",
   },
   devtool: "inline-source-map",
   devServer: {

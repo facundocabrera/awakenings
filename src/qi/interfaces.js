@@ -56,8 +56,10 @@ export const Painter = (spec) => {
 export const ComposePainter = (pieces) => {
   if (!isArray(pieces)) throw "pieces should be an Array";
 
-  pieces.setup = (...args) => pieces.forEach((p) => p.setup(...args));
-  pieces.draw = (...args) => pieces.forEach((p) => p.draw(...args));
+  const callables = pieces.filter(p => p);
+
+  pieces.setup = (...args) => callables.forEach((p) => p.setup(...args));
+  pieces.draw = (...args) => callables.forEach((p) => p.draw(...args));
 
   checkDrawable(pieces);
 
