@@ -57,11 +57,10 @@ function* computeDistance(limit) {
     previous = current;
     current++;
   }
-
 }
 
 const it = computeDistance(10);
 
-for(let x of it) {
+for (let x of it) {
   console.log(x);
 }

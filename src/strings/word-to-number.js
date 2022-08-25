@@ -1,5 +1,5 @@
 export const mapping = {
-  ' ': 0,
+  " ": 0,
   a: 1, // vocal
   b: 2,
   c: 3,
@@ -26,9 +26,9 @@ export const mapping = {
   w: 24,
   x: 25,
   y: 26,
-  z: 27
+  z: 27,
 };
 
 const sum = (accumulator, char) => accumulator + mapping[char];
 
-export const toNumber = word => word.split('').reduce(sum, 0);
+export const toNumber = (word) => word.split("").reduce(sum, 0);

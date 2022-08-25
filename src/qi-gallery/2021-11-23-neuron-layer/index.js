@@ -3,10 +3,12 @@ import { Environment } from "../../qi/sketch";
 import { Canvas, ComposePainter } from "../../qi/interfaces";
 import { DataProvider } from "./data";
 
-const maxmax = (last = -Infinity) => (n) => {
-  last = Math.max(last, n);
-  return last;
-};
+const maxmax =
+  (last = -Infinity) =>
+  (n) => {
+    last = Math.max(last, n);
+    return last;
+  };
 
 const NetPlot = () => {
   let ui;

@@ -56,7 +56,7 @@ export const Painter = (spec) => {
 export const ComposePainter = (pieces) => {
   if (!isArray(pieces)) throw "pieces should be an Array";
 
-  const callables = pieces.filter(p => p);
+  const callables = pieces.filter((p) => p);
 
   pieces.setup = (...args) => callables.forEach((p) => p.setup(...args));
   pieces.draw = (...args) => callables.forEach((p) => p.draw(...args));

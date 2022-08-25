@@ -3,6 +3,7 @@ import { zip } from "lodash";
 import { BaseLayer } from "../../qi/base-layer";
 import { Environment } from "../../qi/sketch";
 import { Canvas, ComposePainter } from "../../qi/interfaces";
+import { HALF_PI } from "../../utils/waves";
 
 import { DataProvider } from "./data";
 
@@ -97,12 +98,19 @@ const inspect = false;
 const colors = ["#65D46E", "#C55085", "#0000FF"];
 
 export const skeleton = DataProvider(
-  ComposePainter(
-    [
-      inspect && WavesInspector(colors),
-      CircularRenderer(colors)
-    ]
-  )
+  ComposePainter([inspect && WavesInspector(colors), CircularRenderer(colors)]),
+  {
+    curves: [
+      { freq: 1 / 100, radius: 100 },
+      { freq: 1 / 100, radius: 250, phase: HALF_PI / 2 },
+      { freq: 1 / 300, radius: 360 },
+    ],
+    functions: [
+      { freq: 1 / 66, radius: 50 },
+      { freq: 1 / 33, radius: 50 },
+      { freq: 1 / 77, radius: 50 },
+    ],
+  }
 );
 
 export const sketch = Environment(

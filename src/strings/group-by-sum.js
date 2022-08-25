@@ -1,18 +1,19 @@
-import { toNumber } from './word-to-number';
+import { toNumber } from "./word-to-number";
 
-export const groupBySum = words => words.reduce((group, word) => {
-  const n = toNumber(word);
+export const groupBySum = (words) =>
+  words.reduce((group, word) => {
+    const n = toNumber(word);
 
-  try {
-    group[n] = [ ...group[n], word ];
-  } catch (e) {
-    group[n] = [ word ];
-  }
+    try {
+      group[n] = [...group[n], word];
+    } catch (e) {
+      group[n] = [word];
+    }
 
-  return group;
-}, {});
+    return group;
+  }, {});
 
-export const toGroupLength = group => {
+export const toGroupLength = (group) => {
   const g = {};
 
   for (const [key, value] of Object.entries(group)) {

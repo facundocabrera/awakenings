@@ -16,9 +16,12 @@ const plot = (title, ideal, distribution) => {
 const justPlot = (title, distribution, scale = 100) => {
   console.log(title);
   console.log(
-    asciichart.plot(distribution.map((v) => v * scale), {
-      colors: [asciichart.green],
-    })
+    asciichart.plot(
+      distribution.map((v) => v * scale),
+      {
+        colors: [asciichart.green],
+      }
+    )
   );
 };
 

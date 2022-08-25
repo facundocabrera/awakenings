@@ -1,6 +1,6 @@
 import { Painter } from "../../qi/interfaces";
 
-import { freqMapping as fm, PI } from '../../utils/waves';
+import { freqMapping as fm, PI } from "../../utils/waves";
 
 const GenericPainter = (bezierPoints, color) => {
   let ui;
@@ -34,4 +34,5 @@ const defaultPoints = (time) => [
   ...fm({ time, freq: 1 / 16, radius: 150 }),
 ];
 
-export const builder = (color, points = defaultPoints) => GenericPainter(points, color);
+export const builder = (color, points = defaultPoints) =>
+  GenericPainter(points, color);

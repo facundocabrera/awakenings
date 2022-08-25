@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
-const publicPath = path.join(__dirname, 'public');
+const publicPath = path.join(__dirname, "public");
 
 console.log(publicPath);
 
@@ -17,12 +17,12 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
-    static: publicPath, 
+    static: publicPath,
     hot: true,
     client: {
       progress: true,
     },
-    port: 9000
+    port: 9000,
   },
   experiments: {
     asyncWebAssembly: true,

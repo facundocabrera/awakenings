@@ -57,9 +57,10 @@ const gmetry = (points) => {
   };
 };
 
-const next = ((iterator) => (time) => iterator.next(time).value)(
-  pointsGenerator(circularStops(12, 0.8), 500)
-);
+const next = (
+  (iterator) => (time) =>
+    iterator.next(time).value
+)(pointsGenerator(circularStops(12, 0.8), 500));
 
 const preset = defaults([
   {

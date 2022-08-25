@@ -1,4 +1,4 @@
-export const words=`a
+export const words = `a
 a-
 aarónico
 aaronita
@@ -87897,7 +87897,7 @@ zuzar
 zuzo
 zuzón`.split(/\n/);
 
-export const names =`Abel
+export const names = `Abel
 Abigail
 Alan
 Analía

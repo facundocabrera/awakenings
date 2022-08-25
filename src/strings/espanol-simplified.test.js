@@ -1,27 +1,23 @@
-import { justPlot } from '../console/plot';
-import { sequenceOf } from '../math/fibonacci';
+import { justPlot } from "../console/plot";
+import { sequenceOf } from "../math/fibonacci";
 
-import { words as espanol, toSimplified } from './espanol-simplified';
-import { groupBySum, toGroupLength } from './group-by-sum';
+import { words as espanol, toSimplified } from "./espanol-simplified";
+import { groupBySum, toGroupLength } from "./group-by-sum";
 
-it('problematic words', () => {
-  expect(espanol.some(palabra => palabra == 'proposito')).toBe(true);
-  expect(espanol.some(palabra => palabra == 'como')).toBe(true);
-  
-  expect(espanol.some(palabra => palabra == 'espermatozoide')).toBe(true);
-  expect(espanol.some(palabra => palabra == 'ovulo')).toBe(true);
+it("problematic words", () => {
+  expect(espanol.some((palabra) => palabra == "proposito")).toBe(true);
+  expect(espanol.some((palabra) => palabra == "como")).toBe(true);
+
+  expect(espanol.some((palabra) => palabra == "espermatozoide")).toBe(true);
+  expect(espanol.some((palabra) => palabra == "ovulo")).toBe(true);
 });
 
-describe('toSimplified', () => {
-  expect( 
-    toSimplified(['propósito']) == 'proposito'
-  ).toBe(true);
+describe("toSimplified", () => {
+  expect(toSimplified(["propósito"]) == "proposito").toBe(true);
 });
 
-it('estas son las sumas que no estan presentes en el espanol simplified', () => {
-  const entries = toGroupLength(
-    groupBySum(espanol)
-  );
+it("estas son las sumas que no estan presentes en el espanol simplified", () => {
+  const entries = toGroupLength(groupBySum(espanol));
   const len = Object.keys(entries).length;
 
   const outputs = [];
@@ -32,34 +28,26 @@ it('estas son las sumas que no estan presentes en el espanol simplified', () => 
     }
   }
 
-  expect(outputs).toEqual([
-    241,
-    251,
-    256,
-    257,
-    258,
-    261,
-    263,
-  ]);
+  expect(outputs).toEqual([241, 251, 256, 257, 258, 261, 263]);
 });
 
-it('should plot the group', () => {
+it("should plot the group", () => {
   // usar zoom de la consola para que entre el grafico! (ctrl + -)
-  
-  const entries = toGroupLength(
-    groupBySum(espanol)
-  );
-  const keys = Object.keys(entries).map(Number).sort((a, b) => a-b);
+
+  const entries = toGroupLength(groupBySum(espanol));
+  const keys = Object.keys(entries)
+    .map(Number)
+    .sort((a, b) => a - b);
 
   const chart = [];
-  for(let k=0; k < keys.length;k++) {
+  for (let k = 0; k < keys.length; k++) {
     chart[k] = entries[keys[k]];
   }
 
-  justPlot('a ver que hay', chart, 1/20);
+  justPlot("a ver que hay", chart, 1 / 20);
 });
 
-it('que palabras caen en numeros de fib', () => {
+it("que palabras caen en numeros de fib", () => {
   const g = groupBySum(espanol);
   const n = sequenceOf(12).slice(1);
 

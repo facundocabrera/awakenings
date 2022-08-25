@@ -16,19 +16,24 @@ const View = () => {
   };
 
   const draw = ({ square, line, time }) => {
-    const [x, y, arc] = freqMapping({ time, freq: 1/16, radius: 200, phase: 0 });
-    
+    const [x, y, arc] = freqMapping({
+      time,
+      freq: 1 / 16,
+      radius: 200,
+      phase: 0,
+    });
+
     ui.noFill();
     ui.translate(...origin);
-    
+
     // origen
     ui.strokeWeight(10);
-    ui.stroke('white');
+    ui.stroke("white");
     ui.point(0, 0);
 
     // centro que rota
     ui.strokeWeight(10);
-    ui.stroke('yellow');
+    ui.stroke("yellow");
     ui.point(x, y);
 
     // muevo el centro y roto el canvas
@@ -37,7 +42,7 @@ const View = () => {
 
     // linea
     ui.strokeWeight(4);
-    ui.stroke('green');
+    ui.stroke("green");
     ui.beginShape(ui.LINES);
     line.map((v) => {
       ui.vertex(...v);
@@ -62,9 +67,7 @@ const View = () => {
 const frameRate = 10;
 const canvasSize = [1080, 1080];
 
-export const skeleton = ComposePainter([
-  DataProvider(View()),
-]);
+export const skeleton = ComposePainter([DataProvider(View())]);
 
 export const sketch = Environment(
   BaseLayer({

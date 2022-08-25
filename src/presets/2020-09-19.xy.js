@@ -24,9 +24,7 @@ const saturnColorMapping = [
 ];
 
 const angles = [
-  0,
-  22.5,
-  67.5,
+  0, 22.5, 67.5,
   // 0,
   // 45,
   // 90,
