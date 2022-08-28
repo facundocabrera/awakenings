@@ -10,7 +10,7 @@ const sinwave = (amplitude, freq, time, phase = 0) =>
 
 // usé inputs 144 / 3, 4, 5, 6
 // usé inputs 144 / 1.618
-const input = 1 / 88.9;
+const input = 1 / 12;
 const mapped = 1 / 144;
 
 const radius = 250;
@@ -34,14 +34,6 @@ export const DataProvider = (drawable) => {
 export const CircularMapping = (drawable) => {
   checkDrawable(drawable);
 
-  let ui;
-
-  const setup = (props) => {
-    ui = props.ctx;
-
-    drawable.setup(props);
-  };
-
   const draw = (props) => {
     const { current: point } = props;
 
@@ -57,7 +49,6 @@ export const CircularMapping = (drawable) => {
 
   return {
     ...drawable,
-    setup,
     draw,
   };
 };
