@@ -5,6 +5,7 @@
     "asciichart": "^1.5.25",
     "babel-loader": "^8.1.0",
     "browserslist": "^4.21.3",
+    "chroma-js": "^2.4.2",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.24.1",
     "html-webpack-plugin": "^5.5.0",
