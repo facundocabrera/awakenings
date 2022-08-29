@@ -85,15 +85,20 @@ const CircularRenderer = (colors) => {
 
       ui.push();
 
-      ui.translate(cx, cy);
-      // ui.rotate(arc);
+      // ui.translate(cx, cy);
+      ui.rotate(arc);
 
       ui.strokeWeight(1);
       ui.stroke(getColor(time));
       blurEffect(getColor(time+3));
 
+      ui.noise(time/100)
+
       for (let i = 0; i < 1; i++) {
-        ui.line(t_wave[1], 0, 0, t1_wave[1]);
+        ui.line(
+          t_wave[1] * ui.noise(time/100), 0,
+          t1_wave[1] * ui.noise(time/100), 0
+        );
         // ui.line(...t_wave, ...t1_wave);
         // [t_center, t1_center,t_circular,t1_circular].map(p => ui.point(...p));
         // ui.line(...t_circular, ...t1_circular);
@@ -134,8 +139,8 @@ export const skeleton = DataProvider(
       // { freq: 1 / 720, radius: 250 },
     ],
     functions: [
-      { freq: 1 / 560, radius: 300 },
-      { freq: 1 / 680, radius: 300 },
+      { freq: 1 / 5, radius: 600 },
+      { freq: 1 / 7, radius: 600 },
       // { freq: 1 / 108, radius: 100 },
       // { freq: 1 / 144, radius: 100 },
     ],
