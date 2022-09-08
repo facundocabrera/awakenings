@@ -5,11 +5,7 @@ function createStreamFromCanvas() {
   return stream;
 }
 
-function wait(delayInMS) {
-  return new Promise((resolve) => setTimeout(resolve, delayInMS));
-}
-
-function startRecording(stream /*, lengthInMS = 1000 * 60*/) {
+function startRecording(stream) {
   const recorder = new MediaRecorder(stream);
   const data = [];
 
@@ -20,10 +16,6 @@ function startRecording(stream /*, lengthInMS = 1000 * 60*/) {
     recorder.onstop = resolve;
     recorder.onerror = (event) => reject(event.name);
   });
-
-  // const recorded = wait(lengthInMS).then(
-  //   () => recorder.state == "recording" && recorder.stop()
-  // );
 
   return stopped.then(() => data);
 }
@@ -45,16 +37,21 @@ async function recordVideo(stream) {
 
 export const Recoder = () => {
   let stream;
+  let started = false;
 
   return {
     start() {
       document.title = "Recording ...";
       stream = createStreamFromCanvas();
       recordVideo(stream);
+      started = true;
     },
     stop() {
-      document.title = "Drawing...";
-      stop(stream);
+      if (started) {
+        document.title = "Drawing...";
+        stop(stream);
+        started = false;
+      }
     },
   };
 };
