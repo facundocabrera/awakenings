@@ -1,6 +1,6 @@
 import { zip } from "lodash";
 
-import { compose, drawable, hook, pushPop } from "../../qi/flow";
+import { compose, drawable, hook } from "../../qi/flow";
 import { time, pushPop } from "../../qi/drawlets";
 
 import store from "../../qi/store";

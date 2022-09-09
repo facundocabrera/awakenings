@@ -1,6 +1,6 @@
 import { drawable } from "../flow";
 
-const tick = (value = 0, step = 1) => {
+const time = (value = 0, step = 1) => {
   let timer;
 
   const setup = () => {
@@ -18,4 +18,4 @@ const tick = (value = 0, step = 1) => {
   return drawable(setup, draw);
 };
 
-export default tick;
+export { time };
