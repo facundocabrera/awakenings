@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bezier2d sequencial reduce using lerp 2d 1`] = `
+Array [
+  25,
+  125,
+]
+`;

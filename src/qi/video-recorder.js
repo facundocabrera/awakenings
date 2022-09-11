@@ -1,3 +1,5 @@
+/** @REDESIGN */
+
 function createStreamFromCanvas() {
   const canvas = document.querySelector("canvas");
   const stream = canvas.captureStream(25); // video frame rate

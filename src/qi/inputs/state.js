@@ -5,7 +5,6 @@ const aMap = createSlice({
   initialState: {},
   reducers: {
     update: (state, { payload: { name, value } }) => {
-      debugger;
       state[name] = value;
     },
   },

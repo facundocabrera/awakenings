@@ -48,4 +48,13 @@ const p = (points, t) => {
   }
 };
 
-export { lerp, lerp2d, p };
+/**
+ * Bezier 2D
+ *
+ * @param {Array<Array<Number,Number>>} points2d points used as guide for the calculation
+ * @param {Number} time value between [0,1]
+ * @returns [x,y]
+ */
+const bezier2d = (points2d, time) => points2d.reduce((prev, curr) => lerp2d(prev, curr, time));
+
+export { lerp, lerp2d, p, bezier2d };

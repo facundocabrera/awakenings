@@ -1,3 +1,5 @@
+/** @DEPRECATED */
+
 import isFunction from "lodash/isFunction";
 import isArray from "lodash/isArray";
 import isNumber from "lodash/isNumber";

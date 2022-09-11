@@ -1,3 +1,5 @@
+/** @DEPRECATED */
+
 import { checkCanvas, checkDrawable } from "./interfaces";
 
 import store from "./store";

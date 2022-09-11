@@ -1,3 +1,5 @@
+/** @DEPRECATED */
+
 import { checkDrawable } from "../qi/interfaces";
 
 const XY = (drawable) => {

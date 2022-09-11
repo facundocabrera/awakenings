@@ -1,3 +1,5 @@
+/** @DEPRECATED */
+
 import { checkDrawable, checkCanvas } from "./interfaces";
 
 export const BaseLayer = (painter) => {

@@ -10,7 +10,7 @@ import { update } from "./inputs/state";
 
 import { Recoder } from "./video-recorder";
 
-export const getFrameRate = getParameter("frameRate", 15);
+export const getFrameRate = getParameter("frameRate", 60);
 
 export const getCanvasWidth = getParameter("canvasWidth", 1080);
 
@@ -22,8 +22,6 @@ export const getEngineLoop = getParameter("engineLoop", true);
 
 export const getRecording = getParameter("canvasRecording", false);
 
-export const getAudioCapture = getParameter("startAudioCapture", false);
-
 export const getScreenshot = getParameter("screenshot", false);
 
 const BaseControls = ({ runtime }) => {
@@ -32,16 +30,10 @@ const BaseControls = ({ runtime }) => {
   const screenshot = useSelector(getScreenshot);
   const engineLoop = useSelector(getEngineLoop);
   const recording = useSelector(getRecording);
-  const audioCapture = useSelector(getAudioCapture);
 
   useEffect(() => {
     recorder[recording ? "start" : "stop"]();
   }, [recording]);
-
-  useEffect(() => {
-    // @TODO verify why it is not available, probably a browser settings is missing.
-    audioCapture && runtime.userStartAudio?.();
-  }, [audioCapture]);
 
   useEffect(() => {
     runtime[engineLoop ? "loop" : "noLoop"]();
@@ -100,12 +92,6 @@ const BaseControls = ({ runtime }) => {
         name="canvasRecording"
         label="Create Video"
         selector={getRecording}
-        {...{ update }}
-      />
-      <Switch
-        name="startAudioCapture"
-        label="Start Audio Capture"
-        selector={getAudioCapture}
         {...{ update }}
       />
       <Switch
