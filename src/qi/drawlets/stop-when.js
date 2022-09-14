@@ -8,7 +8,7 @@ const stopWhen = (endOfHistory = () => false) => {
   };
 
   const draw = (props) => {
-    if (endOfHistory(props)) p5js.noLoop();
+    if (endOfHistory(props) || props.hasEnded) p5js.noLoop();
   };
 
   return drawable(setup, draw);

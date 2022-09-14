@@ -1,25 +1,32 @@
 import { drawable } from "../flow";
 
 const axis = () => {
+  let ui, from, to, center;
+
   const setup = (props) => {
     const {
       ctx,
-      dimensions: { from, to, center },
+      dimensions: { from : f, to: t, center: c },
     } = props;
 
-    console.log(from, to, center);
+    ui = ctx;
+    from = f;
+    to = t;
+    center = c;
+  };
 
-    ctx.stroke("#FFFFFF55");
-    ctx.strokeWeight(2);
+  const draw = () => {
+    ui.stroke("#FFFFFF55");
+    ui.strokeWeight(2);
 
     // vertical
-    ctx.line(center[0], from[1], center[0], to[1]);
+    ui.line(center[0], from[1], center[0], to[1]);
 
     // horizontal
-    ctx.line(from[0], center[1], to[0], center[1]);
+    ui.line(from[0], center[1], to[0], center[1]);
   }
 
-  return drawable(setup);
+  return drawable(setup, draw);
 };
 
 export { axis };

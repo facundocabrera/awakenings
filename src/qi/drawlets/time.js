@@ -1,6 +1,6 @@
 import { drawable } from "../flow";
 
-const time = (value = 0, step = 1) => {
+const time = (value = 0, step = 1, restart = () => false) => {
   let timer;
 
   const setup = () => {
@@ -10,9 +10,15 @@ const time = (value = 0, step = 1) => {
   };
 
   const draw = () => {
-    timer += step;
+    const hasEnded = restart(timer);
 
-    return { time: timer };
+    if (hasEnded) {
+      timer = value;
+    } else {
+      timer += step;
+    }
+
+    return { time: timer, hasEnded };
   };
 
   return drawable(setup, draw);

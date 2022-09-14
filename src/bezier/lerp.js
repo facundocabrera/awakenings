@@ -1,9 +1,9 @@
 /**
  * LERP
  *
- * @param {number} p0 real value
- * @param {number} p1 real value
- * @param {number} t  value between [0, 1]
+ * @param {Number} p0 real value
+ * @param {Number} p1 real value
+ * @param {Number} t  value between [0, 1]
  *
  * @returns Number
  */
@@ -24,13 +24,14 @@ const lerp2d = ([x1, y1], [x2, y2], t) => [
 ];
 
 /**
- * Compute point p using bezier algorithm.
+ * Bezier 2D.
+ * Compute point p using bezier algorithm on 2D.
  *
  * @param {Array{n}} points points used as guide for the calculation
  * @param {Number}   t      value between [0,1]
  * @returns [x,y]
  */
-const p = (points, t) => {
+const bezier2d = (points, t) => {
   if (points.length === 0) {
     throw Error("No points provided");
   }
@@ -44,17 +45,8 @@ const p = (points, t) => {
       ret.push(lerp2d(points[i], points[i + 1], t));
     }
 
-    return p(ret, t);
+    return bezier2d(ret, t);
   }
 };
 
-/**
- * Bezier 2D
- *
- * @param {Array<Array<Number,Number>>} points2d points used as guide for the calculation
- * @param {Number} time value between [0,1]
- * @returns [x,y]
- */
-const bezier2d = (points2d, time) => points2d.reduce((prev, curr) => lerp2d(prev, curr, time));
-
-export { lerp, lerp2d, p, bezier2d };
+export { lerp, lerp2d, bezier2d };

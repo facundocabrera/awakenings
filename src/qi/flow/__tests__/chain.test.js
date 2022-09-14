@@ -1,14 +1,6 @@
-import { drawable } from "../drawable";
 import { chain } from "../chain";
 
-const createTestableDrawables = () => {
-  const setup = jest.fn();
-  const draw = jest.fn();
-
-  const d = drawable(setup, draw);
-
-  return [setup, draw, d];
-};
+import { createTestableDrawables } from "./utils";
 
 describe("chain", () => {
   it("should work with only 1 drawable instance", () => {

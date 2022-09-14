@@ -1,4 +1,4 @@
-import { lerp, lerp2d, p, bezier2d } from "./lerp";
+import { lerp, lerp2d, bezier2d } from "./lerp";
 
 describe("lerp", () => {
   it("should do the math", () => {
@@ -24,14 +24,14 @@ describe("lerp", () => {
   });
 });
 
-describe("p", () => {
+describe("Bezier 2D", () => {
   const contract = (t, expected) => () => {
     const points = [
       [-10, 0],
       [0, 10],
       [10, 0],
     ];
-    expect(p(points, t)).toEqual(expected);
+    expect(bezier2d(points, t)).toEqual(expected);
   };
 
   it(
@@ -46,12 +46,4 @@ describe("p", () => {
     "should build the bezier point of the curve at time t = 0.5",
     contract(0.5, [0, 5])
   );
-});
-
-describe("bezier2d", () => {
-  test("sequencial reduce using lerp 2d", () => {
-    const point2d = bezier2d([[0, 0], [100,100], [0,200]], 0.5);
-
-    expect(point2d).toMatchSnapshot();
-  });
 });

@@ -1,16 +1,7 @@
 import { drawable } from "../drawable";
 import { compose } from "../compose";
 
-const emptyFn = () => {};
-
-const createTestableDrawables = (s = emptyFn, d = emptyFn) => {
-  const setup = jest.fn(s);
-  const draw = jest.fn(d);
-
-  const obj = drawable(setup, draw);
-
-  return [setup, draw, obj];
-};
+import { createTestableDrawables } from "./utils";
 
 describe("compose", () => {
   it("should pass previous return value as parameter of the next in the chain", () => {
@@ -55,5 +46,11 @@ describe("compose", () => {
 
     expect(s2).toBeCalledWith(d2Args);
     expect(d2Args).toEqual(output);
+  });
+
+  it('should throw on invalid drawable inputs', () => {
+    expect(() => {
+      compose([undefined]);
+    }).toThrow();
   });
 });
