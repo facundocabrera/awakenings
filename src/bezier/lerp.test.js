@@ -1,6 +1,6 @@
 import { lerp, lerp2d, bezier2d } from "./lerp";
 
-describe("lerp", () => {
+describe("LERP", () => {
   it("should do the math", () => {
     const p0 = 10;
     const p1 = 20;
