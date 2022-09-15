@@ -10,11 +10,11 @@ import { update } from "./inputs/state";
 
 import { Recoder } from "./video-recorder";
 
-export const getFrameRate = getParameter("frameRate", 15);
+export const getFrameRate = getParameter("frameRate", 10);
 
-export const getCanvasWidth = getParameter("canvasWidth", 1080 * 2);
+export const getCanvasWidth = getParameter("canvasWidth", 1080);
 
-export const getCanvasHeight = getParameter("canvasHeight", 1080 * 2);
+export const getCanvasHeight = getParameter("canvasHeight", 1080);
 
 export const getDt = getParameter("deltaTime", 1);
 

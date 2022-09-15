@@ -1,10 +1,9 @@
 import { curry } from "lodash";
 import { cos, sin } from "mathjs";
-import { checkDrawable } from "../../qi/interfaces";
 
-const DataProvider = (f, drawable, r, x0) => {
-  checkDrawable(drawable);
+import { drawable } from "../../qi/flow";
 
+const DataProvider = (f, r, x0) => {
   //
   // Primero tomamos valores iniciales de R y X.
   // - R puede ser cualquier numero real.
@@ -32,36 +31,28 @@ const DataProvider = (f, drawable, r, x0) => {
   let current;
   let last;
 
-  const setup = (props) => {
+  const setup = () => {
     current = f(r);
     last = current(x0);
-
-    drawable.setup(props);
   };
 
-  const draw = (props) => {
+  const draw = () => {
     const x = last;
     const y = current(last);
 
     last = y;
 
-    drawable.draw({ ...props, x, y });
+    return { x, y };
   };
 
-  return {
-    ...drawable,
-    setup,
-    draw,
-  };
+  return drawable(setup, draw);
 };
 
 const curried = curry(DataProvider);
 
-// comportamiento de r * x * (1 - x)
-export const DataProvider1 = curried((r) => (x) => r * x * (1 - x));
+// https://en.wikipedia.org/wiki/Logistic_map
+export const RecurrentXn = curried((r) => (x) => r * x * (1 - x));
 
-// comportamiento de r * sin( PI * x )
-export const DataProvider2 = curried((r) => (x) => r * sin(Math.PI * x));
+export const RecurrentSin = curried((r) => (x) => r * sin(x) * sin(1 - x));
 
-// comportamiento de r * cos( PI * x )
-export const DataProvider3 = curried((r) => (x) => r * cos(Math.PI * x));
+export const RecurrentCos = curried((r) => (x) => r * cos(x) * cos(1 - x));

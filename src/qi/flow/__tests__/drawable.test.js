@@ -1,13 +1,13 @@
 import { drawable } from "../drawable";
 
 describe("drawable", () => {
-  test('default return', () => {
+  test("default return", () => {
     const d = drawable();
 
     expect(d.setup()).toEqual({});
     expect(d.draw()).toEqual({});
   });
-  
+
   it("should propagate args as a default implementation", () => {
     const d = drawable();
 
@@ -20,7 +20,7 @@ describe("drawable", () => {
     const draw = jest.fn();
 
     const d = drawable(setup, draw);
-    
+
     d.setup();
     d.draw();
 

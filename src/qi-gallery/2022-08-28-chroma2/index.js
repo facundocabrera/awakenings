@@ -45,7 +45,7 @@ const CircularRenderer = (colors) => {
   let colorScale;
   let last;
 
-  const getColor = (time) => colorScale(ui.noise(time/100)).hex();
+  const getColor = (time) => colorScale(ui.noise(time / 100)).hex();
 
   const blurEffect = (color, size = 10) => {
     ui.drawingContext.shadowBlur = size;
@@ -65,7 +65,7 @@ const CircularRenderer = (colors) => {
 
     if (!last) {
       last = [time, waves, centers, circularWaves];
-      
+
       return;
     }
 
@@ -78,36 +78,44 @@ const CircularRenderer = (colors) => {
 
     zip(
       zip(t_waves, t1_waves),
-      zip(t_centers, t1_centers), 
+      zip(t_centers, t1_centers),
       zip(t_circularWaves, t1_circularWaves)
-    ).map(([[ t_wave, t1_wave ], [t_center, t1_center], [t_circular, t1_circular]]) => {
-      const [cx, cy, arc] = t1_center;
+    ).map(
+      ([
+        [t_wave, t1_wave],
+        [t_center, t1_center],
+        [t_circular, t1_circular],
+      ]) => {
+        const [cx, cy, arc] = t1_center;
 
-      ui.push();
+        ui.push();
 
-      // ui.translate(cx, cy);
-      ui.rotate(arc);
+        // ui.translate(cx, cy);
+        ui.rotate(arc);
 
-      ui.strokeWeight(1);
-      ui.stroke(getColor(time));
-      blurEffect(getColor(time+3));
+        ui.strokeWeight(1);
+        ui.stroke(getColor(time));
+        blurEffect(getColor(time + 3));
 
-      ui.noise(time/100)
+        ui.noise(time / 100);
 
-      for (let i = 0; i < 1; i++) {
-        ui.line(
-          t_wave[1] * ui.noise(time/100), 0,
-          t1_wave[1] * ui.noise(time/100), 0
-        );
-        // ui.line(...t_wave, ...t1_wave);
-        // [t_center, t1_center,t_circular,t1_circular].map(p => ui.point(...p));
-        // ui.line(...t_circular, ...t1_circular);
-        // ui.point(wx, wy);
-        // ui.point(cirx, ciry);
+        for (let i = 0; i < 1; i++) {
+          ui.line(
+            t_wave[1] * ui.noise(time / 100),
+            0,
+            t1_wave[1] * ui.noise(time / 100),
+            0
+          );
+          // ui.line(...t_wave, ...t1_wave);
+          // [t_center, t1_center,t_circular,t1_circular].map(p => ui.point(...p));
+          // ui.line(...t_circular, ...t1_circular);
+          // ui.point(wx, wy);
+          // ui.point(cirx, ciry);
+        }
+
+        ui.pop();
       }
-
-      ui.pop();
-    });
+    );
 
     ui.pop();
 
@@ -127,7 +135,7 @@ const canvasSize = [1080, 1080];
 const inspect = false;
 
 // const colors = ['#FF36FF99', '#36FFFF99'];
-const colors = ['#FF360099', '#FFED0088'];
+const colors = ["#FF360099", "#FFED0088"];
 
 export const skeleton = DataProvider(
   ComposePainter([inspect && WavesInspector(colors), CircularRenderer(colors)]),
@@ -144,7 +152,7 @@ export const skeleton = DataProvider(
       // { freq: 1 / 108, radius: 100 },
       // { freq: 1 / 144, radius: 100 },
     ],
-    circularFreq: 1 / 360
+    circularFreq: 1 / 360,
   }
 );
 

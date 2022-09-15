@@ -8,14 +8,14 @@ import { getCanvasWidth, getCanvasHeight, getFrameRate } from "./BaseControls";
 const canvasFromParameters = () => {
   const state = store.getState();
 
-  return [ getCanvasWidth(state), getCanvasHeight(state) ];
-}
+  return [getCanvasWidth(state), getCanvasHeight(state)];
+};
 
 const frameRateFromParameters = () => {
   const state = store.getState();
 
   return getFrameRate(state);
-} 
+};
 
 /**
  * Hook p5 sketch API with the painters.
@@ -25,7 +25,8 @@ const Environment = (painters) => (ctx) => {
   checkDrawable(painters);
 
   function setup() {
-    const [canvasWidth = 1080, canvasHeight = 1080] = painters.canvasSize || canvasFromParameters();
+    const [canvasWidth = 1080, canvasHeight = 1080] =
+      painters.canvasSize || canvasFromParameters();
 
     ctx.createCanvas(canvasWidth, canvasHeight);
     ctx.background(painters.background || 0);

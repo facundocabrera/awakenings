@@ -1,6 +1,6 @@
 import { drawable } from "../flow/drawable";
 
-const clearCanvas = (bg = '#004166') => {
+const clearCanvas = (bg = "#004166") => {
   let context;
 
   const setup = (props) => {

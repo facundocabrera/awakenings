@@ -48,7 +48,7 @@ describe("compose", () => {
     expect(d2Args).toEqual(output);
   });
 
-  it('should throw on invalid drawable inputs', () => {
+  it("should throw on invalid drawable inputs", () => {
     expect(() => {
       compose([undefined]);
     }).toThrow();

@@ -20,7 +20,7 @@ const WavesInspector = () => {
   let ui;
   let origin;
 
-  const setup = props => {
+  const setup = (props) => {
     const {
       ctx,
       dimensions: { center },

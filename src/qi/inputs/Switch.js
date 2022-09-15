@@ -12,7 +12,7 @@ const Switch = ({ label, selector, name, update }) => {
         id={name}
         type="checkbox"
         onChange={(event) => {
-          dispatch(update({ name, value: event.target.checked }))
+          dispatch(update({ name, value: event.target.checked }));
         }}
         {...{ checked }}
       />

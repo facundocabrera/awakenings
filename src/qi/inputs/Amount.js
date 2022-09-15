@@ -19,7 +19,9 @@ const Amount = (props) => {
 
   return (
     <div>
-      <label htmlFor={name}>{label} {value}</label>
+      <label htmlFor={name}>
+        {label} {value}
+      </label>
       <input
         id={name}
         type="number"

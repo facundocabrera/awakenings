@@ -39,6 +39,8 @@
     "last 2 versions"
   ],
   "jest": {
-    "testPathIgnorePatterns": ["__tests__/utils.js"]
+    "testPathIgnorePatterns": [
+      "__tests__/utils.js"
+    ]
   }
 }

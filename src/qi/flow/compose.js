@@ -1,7 +1,7 @@
 import { isDrawable } from "../interfaces";
 
 export const compose = (drawables) => {
-  const invalid = drawables.filter(d => !isDrawable(d));
+  const invalid = drawables.filter((d) => !isDrawable(d));
 
   if (invalid.length > 0) {
     throw Error("provided invalid drawables", invalid);

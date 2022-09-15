@@ -6,7 +6,7 @@ const axis = () => {
   const setup = (props) => {
     const {
       ctx,
-      dimensions: { from : f, to: t, center: c },
+      dimensions: { from: f, to: t, center: c },
     } = props;
 
     ui = ctx;
@@ -24,7 +24,7 @@ const axis = () => {
 
     // horizontal
     ui.line(from[0], center[1], to[0], center[1]);
-  }
+  };
 
   return drawable(setup, draw);
 };

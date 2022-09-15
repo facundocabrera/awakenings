@@ -1,36 +1,44 @@
 import { drawable, compose } from "../flow";
 
-import store from "../store";
-import { getFrameRate, getCanvasWidth, getCanvasHeight } from "../BaseControls";
+/**
+ *
+ * @param {Array<Drawables>} drawables execution tree
+ * @param {Object} settings object with canvas settings
+ * @returns
+ */
+const hook =
+  (
+    drawables,
+    { frameRate = 30, width = 1080, height = 1080, background = 0 }
+  ) =>
+  (p5js) => {
+    const setup = () => {
+      p5js.createCanvas(width, height);
+      p5js.background(background);
+      p5js.frameRate(frameRate);
 
-const hook = (drawables) => (p5js) => {
-  const setup = () => {
-    const state = store.getState();
-
-    const frameRate = getFrameRate(state);
-    const canvasWidth = getCanvasWidth(state);
-    const canvasHeight = getCanvasHeight(state);
-
-    p5js.createCanvas(canvasWidth, canvasHeight);
-    p5js.background(0);
-    p5js.frameRate(frameRate);
-
-    return {
-      ctx: p5js,
-      dimensions: {
-        from: [0, 0],
-        to: [canvasWidth, canvasHeight],
-        center: [canvasWidth / 2, canvasHeight / 2],
-      },
+      return {
+        ctx: p5js,
+        dimensions: {
+          from: [0, 0],
+          to: [width, height],
+          center: [width / 2, height / 2],
+        },
+        configs: {
+          frameRate,
+          width,
+          height,
+          background,
+        },
+      };
     };
+
+    const startUp = drawable(setup);
+    const joint = compose([startUp, drawables]);
+
+    // Hook functions into p5 sketch configuration context
+    p5js.setup = joint.setup;
+    p5js.draw = joint.draw;
   };
-
-  const startUp = drawable(setup);
-  const joint = compose([startUp, drawables]);
-
-  // Hook functions into p5 sketch configuration context
-  p5js.setup = joint.setup;
-  p5js.draw = joint.draw;
-};
 
 export { hook };

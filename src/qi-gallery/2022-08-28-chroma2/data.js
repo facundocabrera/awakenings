@@ -25,13 +25,15 @@ const DataProvider = (drawable, { curves, functions, circularFreq }) => {
       radius * Math.sin(TWO_PI * freq * time),
     ]);
 
-    const circularWaves = waves.map(([time, radius]) => freqMapping({ time, radius, freq: circularFreq }));
+    const circularWaves = waves.map(([time, radius]) =>
+      freqMapping({ time, radius, freq: circularFreq })
+    );
 
     drawable.draw({
       ...props,
       centers,
       waves,
-      circularWaves
+      circularWaves,
     });
   };
 

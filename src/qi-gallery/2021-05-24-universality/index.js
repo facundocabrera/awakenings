@@ -1,59 +1,67 @@
-import { BaseLayer } from "../../qi/base-layer";
-import { Environment } from "../../qi/sketch";
-import { Canvas, ComposePainter } from "../../qi/interfaces";
+import chroma from "chroma-js";
 
-import { DataProvider1, DataProvider2, DataProvider3 } from "./data";
+import { drawable, compose, branch } from "../../qi/flow";
+import { hook, axis, pushPop } from "../../qi/drawlets";
 
-const Plot = () => {
+import { RecurrentXn, RecurrentSin, RecurrentCos } from "./data";
+
+const Center = () => {
+  const setup = ({ dimensions: dim }) => {
+    const {
+      to: [width, height],
+    } = dim;
+
+    return {
+      dimensions: {
+        ...dim,
+        center: [width / 2, height / 2],
+      },
+    };
+  };
+
+  return drawable(setup);
+};
+
+const Plot = (colorScale) => {
   let ui;
   let width;
   let heigth;
-  let bg;
 
-  const setup = ({ ctx, dimensions: { to } }) => {
+  const setup = ({ ctx, dimensions: { to, center } }) => {
     ui = ctx;
     width = to[0] - 20;
     heigth = to[1] - 20;
-
-    bg = [
-      ui.random(255), // r is a random number between 0 - 255
-      ui.random(100, 200), // g is a random number betwen 100 - 200
-      ui.random(100), // b is a random number between 0 - 100
-      ui.random(200, 255), // a is a random number between 200 - 255
-    ];
+    origin = center;
   };
 
   const draw = ({ x, y }) => {
-    console.log(x, y);
+    ui.translate(...origin);
 
-    ui.noFill();
-
-    ui.stroke(bg[0], bg[1], bg[2], bg[3]);
+    ui.stroke(colorScale((x * y) / 2).hex());
+    ui.fill(colorScale((x * y) / 3).hex());
     ui.strokeWeight(1);
 
-    ui.ellipse(x * width + 10, y * heigth + 10, 10);
+    ui.ellipse(x * 200, y * -200, 4);
   };
 
-  return {
-    name: "Plot",
-    setup,
-    draw,
-  };
+  return pushPop(drawable(setup, draw));
 };
 
-const frameRate = 60;
-const canvasSize = [1080, 1080];
+const trunk = compose([Center(), axis()]);
 
-export const skeleton = ComposePainter([
-  DataProvider1(Plot(), 4, 0.54),
-  DataProvider2(Plot(), 1, 0.54),
-  DataProvider3(Plot(), 1, 0.54),
-]);
+const plotterA = Plot(chroma.scale(["#00E4FA", "#00A6AD"]).mode("lch"));
+const plotterB = Plot(chroma.scale(["#FA007F", "#FA00B7"]).mode("lch"));
+const plotterC = Plot(chroma.scale(["#8AEB00", "#306F00"]).mode("lch"));
 
-export const sketch = Environment(
-  BaseLayer({
-    ...Canvas(skeleton),
-    frameRate,
-    canvasSize,
-  })
-);
+const branchA = compose([RecurrentXn(4, 0.21), plotterA]);
+const branchB = compose([RecurrentSin(4, 0.33), plotterB]);
+const branchC = compose([RecurrentCos(2, 0.25), plotterC]);
+
+export const skeleton = branch(trunk, branchA, branchB, branchC);
+
+export const sketch = hook(skeleton, {
+  frameRate: 60,
+  width: 1080,
+  height: 1080,
+  background: "#212121",
+});

@@ -79,7 +79,7 @@ const CircularRenderer = (colors) => {
 
       ui.strokeWeight(3);
       ui.stroke(getColor(time));
-      blurEffect(getColor(time+2));
+      blurEffect(getColor(time + 2));
 
       for (let i = 0; i < 3; i++) {
         ui.point(wy, 0);
@@ -105,7 +105,7 @@ const canvasSize = [1080, 1080];
 
 const inspect = false;
 
-const colors = ['#FF36FF', '#36FFFF'];
+const colors = ["#FF36FF", "#36FFFF"];
 
 export const skeleton = DataProvider(
   ComposePainter([inspect && WavesInspector(colors), CircularRenderer(colors)]),
@@ -120,7 +120,7 @@ export const skeleton = DataProvider(
       { freq: 1 / 108, radius: 100 },
       { freq: 1 / 144, radius: 100 },
     ],
-    circularFreq: 1 / 360
+    circularFreq: 1 / 360,
   }
 );
 
