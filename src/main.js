@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 
 import BaseControls from "./qi/BaseControls";
 
-import { sketch } from "./qi-gallery/2021-05-24-universality";
+// import { sketch } from "./qi-gallery/2021-05-24-universality";
 // import { sketch } from "./qi-gallery/2021-03-12-fft";
 // import { sketch } from "./qi-gallery/2022-08-23-rebuilding";
 // import { sketch } from "./qi-gallery/2022-08-24-rotate";
@@ -15,7 +15,7 @@ import { sketch } from "./qi-gallery/2021-05-24-universality";
 // import { sketch } from "./qi-gallery/2022-08-28-chroma2";
 // import { sketch, store, Controls } from "./qi-gallery/2022-09-05-chroma3";
 // import { sketch, store, Controls } from "./qi-gallery/2022-09-09-lerp-bezier";
-// import { sketch, store, Controls } from "./qi-gallery/2022-09-14-lerp-reversed";
+import { sketch, store, Controls } from "./qi-gallery/2022-09-15-logistic-lerp";
 
 const runtime = new p5(sketch);
 
