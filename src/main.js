@@ -15,7 +15,8 @@ import BaseControls from "./qi/BaseControls";
 // import { sketch } from "./qi-gallery/2022-08-28-chroma2";
 // import { sketch, store, Controls } from "./qi-gallery/2022-09-05-chroma3";
 // import { sketch, store, Controls } from "./qi-gallery/2022-09-09-lerp-bezier";
-import { sketch, store, Controls } from "./qi-gallery/2022-09-15-logistic-lerp";
+// import { sketch, store, Controls } from "./qi-gallery/2022-09-15-logistic-lerp";
+import { sketch } from "./qi-gallery/2022-09-18-canvas";
 
 const runtime = new p5(sketch);
 

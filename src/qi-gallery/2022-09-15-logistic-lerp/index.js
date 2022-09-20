@@ -26,16 +26,20 @@ import logistic from "./logistic";
 
 const origin = () => {
   const setup = (props) => {
-    const { dimensions: { to: [, height] } } = props;
+    const {
+      dimensions: {
+        to: [, height],
+      },
+    } = props;
 
     return {
       dimensions: {
         ...props.dimensions,
-        center: [0, height - 20]
-      }
+        center: [0, height - 20],
+      },
     };
   };
-  
+
   return drawable(setup);
 };
 
@@ -51,7 +55,7 @@ const plot = () => {
       ctx,
       dimensions: {
         to: [width, height],
-        center
+        center,
       },
     } = props;
 
@@ -79,7 +83,7 @@ const plot = () => {
     ui.strokeWeight(1);
     // ui.noStroke();
     // ui.stroke(color(point[0]).hex());
-    ui.stroke('white');
+    ui.stroke("white");
     ui.noFill();
     // ui.fill(color(point[0] * point[1] / 2).hex());
 
@@ -102,4 +106,9 @@ const trunk = compose([
 
 export const skeleton = trunk;
 
-export const sketch = hook(skeleton, { frameRate: 60, width: 1000, height: 1000, background: '#222' });
+export const sketch = hook(skeleton, {
+  frameRate: 60,
+  width: 1000,
+  height: 1000,
+  background: "#222",
+});

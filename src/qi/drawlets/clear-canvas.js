@@ -1,6 +1,7 @@
+import { once } from "lodash";
 import { drawable } from "../flow/drawable";
 
-const clearCanvas = (bg = "#004166") => {
+const clearCanvas = (bg = "#004166", runOnce = false) => {
   let context;
 
   const setup = (props) => {
@@ -13,7 +14,9 @@ const clearCanvas = (bg = "#004166") => {
     context.background(bg);
   };
 
-  return drawable(setup, draw);
+  const drawOnce = once(draw);
+
+  return drawable(setup, runOnce ? drawOnce : draw);
 };
 
 export { clearCanvas };

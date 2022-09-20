@@ -3,6 +3,7 @@ export * from "./clear-canvas";
 export * from "./hook";
 export * from "./memory";
 export * from "./oscillator";
+export * from "./pixels";
 export * from "./push-pop";
 export * from "./stop-when";
 export * from "./time";
