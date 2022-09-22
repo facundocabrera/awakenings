@@ -10,7 +10,7 @@ import {
 
 import { scale, set } from "../../images/pixel";
 
-const origin = () => {
+export const origin = () => {
   const setup = (props) => {
     const {
       dimensions: {
@@ -29,7 +29,7 @@ const origin = () => {
   return drawable(setup);
 };
 
-const plot = () => {
+export const plot = () => {
   let ui;
   let origin;
   let cw, ch;

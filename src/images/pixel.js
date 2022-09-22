@@ -35,3 +35,32 @@ export const scale = (value, density) => {
     }
   }
 };
+
+export const range = (storage, [x, y], [z, t], [sw, sd]) => {
+  const matrix = [];
+
+  for (let h = 0; h < t - y; h++) {
+    // compute position
+    const start = position([x, y + h], [sw, sd]);
+
+    // horizontal chunks
+    const row = storage.slice(start, start + (z - x) * sd);
+
+    // accumulate chunks vertically
+    matrix.push(row);
+  }
+
+  return matrix;
+};
+
+export const updateRange = (
+  storage,
+  [x, y],
+  state,
+  [storageW, storageH, storageDensity],
+  [stateW, stateH, stateDensity]
+) => {
+  for (let row = 0; row < stateH; row++) {
+    set(storage, [x, y + row], [storageW, storageDensity], state[row]);
+  }
+};

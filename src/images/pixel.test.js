@@ -1,4 +1,215 @@
-import { read, set, scale, position } from "./pixel";
+import { read, set, scale, position, range, updateRange } from "./pixel";
+
+describe("updateRange", () => {
+  test("4x4 using 2x2", () => {
+    const storage = Uint8ClampedArray.from([
+      /*(0, 0)*/ 2, 2, 7, 7 /*(4, 0)*/, /*(0, 1)*/ 4, 4, 5, 5 /*(4, 1)*/,
+      /*(0, 2)*/ 9, 9, 10, 10 /*(4, 2)*/, /*(0, 3)*/ 16, 16, 11, 11 /*(4, 3)*/,
+    ]);
+    const sd = 1;
+    const sw = 4;
+    const sh = 4;
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    updateRange(
+      storage,
+      [0, 0],
+      [
+        [54, 54],
+        [54, 54],
+      ],
+      [sw, sh, sd],
+      [2, 2, 1]
+    );
+
+    const q1 = range(storage, [0, 0], [2, 2], [sw, sd]);
+    expect(q1).toEqual([
+      Uint8ClampedArray.from([54, 54]),
+      Uint8ClampedArray.from([54, 54]),
+    ]);
+
+    updateRange(
+      storage,
+      [2, 2],
+      [
+        [54, 54],
+        [54, 54],
+      ],
+      [sw, sh, sd],
+      [2, 2, 1]
+    );
+
+    const q2 = range(storage, [2, 2], [4, 4], [sw, sd]);
+    expect(q2).toEqual([
+      Uint8ClampedArray.from([54, 54]),
+      Uint8ClampedArray.from([54, 54]),
+    ]);
+  });
+
+  test("2x2x2 using 2x2x2", () => {
+    const storage = Uint8ClampedArray.from([
+      /*(0, 0)*/ 2, 2, 7, 7 /*(1, 0)*/, /*(0, 1)*/ 4, 4, 5, 5 /*(1, 1)*/,
+    ]);
+    const sd = 2;
+    const sw = 2;
+    const sh = 2;
+
+    const state = [
+      [54, 54, 54, 54],
+      [54, 54, 54, 54],
+    ];
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    updateRange(storage, [0, 0], state, [sw, sh, sd], [2, 2, 2]);
+
+    const q1 = range(storage, [0, 0], [2, 2], [sw, sd]);
+    expect(q1).toEqual([
+      Uint8ClampedArray.from([54, 54, 54, 54]),
+      Uint8ClampedArray.from([54, 54, 54, 54]),
+    ]);
+  });
+
+  test("2x2x2 using 1x2x2", () => {
+    const storage = Uint8ClampedArray.from([
+      /*(0, 0)*/ 2, 2, 7, 7 /*(1, 0)*/, /*(0, 1)*/ 4, 4, 5, 5 /*(1, 1)*/,
+    ]);
+    const sd = 2;
+    const sw = 2;
+    const sh = 2;
+
+    const state = [
+      [54, 54],
+      [54, 54],
+    ];
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    updateRange(storage, [0, 0], state, [sw, sh, sd], [1, 2, 2]);
+
+    const q1 = range(storage, [0, 0], [2, 2], [sw, sd]);
+    expect(q1).toEqual([
+      Uint8ClampedArray.from([54, 54, 7, 7]),
+      Uint8ClampedArray.from([54, 54, 5, 5]),
+    ]);
+  });
+
+  test("2x2x2 using 1x2x2", () => {
+    const storage = Uint8ClampedArray.from([
+      /*(0, 0)*/ 2, 2, 7, 7 /*(1, 0)*/, /*(0, 1)*/ 4, 4, 5, 5 /*(1, 1)*/,
+    ]);
+    const sd = 2;
+    const sw = 2;
+    const sh = 2;
+
+    const state = [
+      [54, 54],
+      [54, 54],
+    ];
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    updateRange(storage, [1, 0], state, [sw, sh, sd], [1, 2, 2]);
+
+    const q1 = range(storage, [0, 0], [2, 2], [sw, sd]);
+    expect(q1).toEqual([
+      Uint8ClampedArray.from([2, 2, 54, 54]),
+      Uint8ClampedArray.from([4, 4, 54, 54]),
+    ]);
+  });
+});
+
+describe("range", () => {
+  test("4x4 using 2x2", () => {
+    const storage = [
+      /*(0, 0)*/ 2, 2, 7, 7 /*(4, 0)*/, /*(0, 1)*/ 4, 4, 5, 5 /*(4, 1)*/,
+      /*(0, 2)*/ 9, 9, 10, 10 /*(4, 2)*/, /*(0, 3)*/ 16, 16, 11, 11 /*(4, 3)*/,
+    ];
+    const sd = 1;
+    const sw = 4;
+    const sh = 4;
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    const q1 = range(storage, [0, 0], [2, 2], [sw, sd]);
+    expect(q1).toEqual([
+      [2, 2],
+      [4, 4],
+    ]);
+
+    const q2 = range(storage, [2, 0], [4, 2], [sw, sd]);
+    expect(q2).toEqual([
+      [7, 7],
+      [5, 5],
+    ]);
+
+    const q3 = range(storage, [0, 2], [2, 4], [sw, sd]);
+    expect(q3).toEqual([
+      [9, 9],
+      [16, 16],
+    ]);
+
+    const q4 = range(storage, [2, 2], [4, 4], [sw, sd]);
+    expect(q4).toEqual([
+      [10, 10],
+      [11, 11],
+    ]);
+  });
+
+  test("4x4x2 using 2x2", () => {
+    const storage = [
+      /* (0,0) */ "a1",
+      "a1",
+      "b1",
+      "b1",
+      "c1",
+      "c1",
+      "d1",
+      "d1" /* (4, 0) */,
+      /* (0,1) */ "a2",
+      "a2",
+      "b2",
+      "b2",
+      "c2",
+      "c2",
+      "d2",
+      "d2" /* (4, 1) */,
+      /* (0,2) */ "a3",
+      "a3",
+      "b3",
+      "b3",
+      "c3",
+      "c3",
+      "d3",
+      "d3" /* (4, 2) */,
+      /* (0,3) */ "a4",
+      "a4",
+      "b4",
+      "b4",
+      "c4",
+      "c4",
+      "d4",
+      "d4" /* (4, 3) */,
+    ];
+
+    const sw = 4;
+    const sh = 4;
+    const sd = 2;
+
+    expect(sw * sh * sd).toEqual(storage.length);
+
+    expect(range(storage, [0, 0], [2, 2], [sw, sd])).toEqual([
+      ["a1", "a1", "b1", "b1"],
+      ["a2", "a2", "b2", "b2"],
+    ]);
+
+    expect(range(storage, [2, 2], [4, 4], [sw, sd])).toEqual([
+      ["c3", "c3", "d3", "d3"],
+      ["c4", "c4", "d4", "d4"],
+    ]);
+  });
+});
 
 describe("position", () => {
   test("3x3 density 1", () => {
