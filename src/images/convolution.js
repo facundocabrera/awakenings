@@ -1,5 +1,9 @@
 import { chunk } from "lodash";
+
 import { range, updateRange } from "./pixel";
+import { walker } from "./walker";
+import { applyOpByRow, opMultRGBA } from "./matrix";
+import domain from "../numbers/domain";
 
 /**
  * 1. At this level of computation density should be equal to 1.
@@ -29,6 +33,8 @@ export const applyMatrix = (data, matrix) => {
 };
 
 /**
+ * Solution #1.
+ *
  * 1. There is no overlapping while applying the operation given the step is
  *    handle by the matrix width and height.
  * 2. Create high level iterator dividing the storage in smaller matrices.
@@ -49,3 +55,69 @@ export function convolution(storage, matrix, [sw, sh, sd], [mw, mh, md]) {
     }
   }
 }
+
+/**
+ * Solution #2 fixed to 1 specific operation.
+ *
+ * @param {*} storage
+ * @param {*} shape
+ * @param {*} kernel
+ * @param {*} shape
+ */
+export const rgbaConvolution = (storage, [sw, sh, sd], kernel, [kw, kh]) => {
+  const walk = walker(storage, [sw, sh, sd], [kw, kh]);
+
+  let { value, done } = walk.next();
+  while (!done) {
+    // mutation are applied to value
+    applyOpByRow(value, kernel, [kw, kh, sd], opMultRGBA);
+
+    // the footprint is the mutation applied to value, so we feed it to be applied
+    // to the same matrix return by the iterator
+    ({ value, done } = walk.next(value));
+  }
+};
+
+/**
+ * Solution #3. Mutator should be provided as parameter.
+ *
+ * @param {Array} storage
+ * @param {Array} shape
+ * @param {Array} kernel
+ * @param {Array} shape
+ * @param {Function} mutator
+ */
+export const convolution3 = (
+  storage,
+  [sw, sh, sd],
+  kernel,
+  [kw, kh],
+  mutator
+) => {
+  const walk = walker(storage, [sw, sh, sd], [kw, kh]);
+
+  let { value, done } = walk.next();
+  while (!done) {
+    // should let me know the value has been changed.
+    const mutated = mutator(value, kernel, [kw, kh, sd]);
+
+    // if mutated then send value to apply the updates.
+    ({ value, done } = walk.next(mutated ? value : undefined));
+  }
+};
+
+export const rgba_mutator = (value, kernel, [width, height]) => {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      value[y][x + 0] = domain(
+        kernel[y][x + 0] * (value[y][x + 0] / 255),
+        [0, 255]
+      );
+      // value[y][x + 1] = domain(kernel[y][x + 1] * (value[y][x + 1] / 255), [0, 255]);
+      // value[y][x + 2] = domain(kernel[y][x + 2] * (value[y][x + 2] / 255), [0, 255]);
+      // value[y][x + 3] = domain(kernel[y][x + 3] * (value[y][x + 3] / 255), [0, 255]);
+    }
+  }
+
+  return true;
+};

@@ -33,10 +33,9 @@ const pixels = () => {
 
     // const density = ui.pixelDensity();
     const i = ui.pixels.indexOf(0);
-    // const zoomLevel = i / 4;
+    const zoomLevel = i / 4;
     const isRatioOptimal = zoomLevel % 2 === 0;
 
-    const zoomLevel = 1;
     const density = 2;
 
     console.log("black pixel position:", i);

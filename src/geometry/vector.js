@@ -53,6 +53,21 @@ const middle_vector = (x1, y1, x2, y2) => {
 
 const sum = ([x, y], [z, t]) => [x + z, y + t];
 
+export const sum_array = (numbers) => numbers.reduce((a, b) => a + b);
+export const prod_array = (numbers) => numbers.reduce((a, b) => a * b);
+export const mean_array = (numbers) => sum_array(numbers) / numbers.length;
+
+export const sum_matrix = (matrix) => {
+  const height = matrix.length;
+  let sum = 0;
+
+  for (let h = 0; h < height; h++) {
+    sum += sum_array(matrix[h]);
+  }
+
+  return sum;
+};
+
 const sumAll = (center, all) => all.map((v) => sum(v, center));
 
 const mult = (vector, v) => vector.map((scalar) => scalar * v);

@@ -209,6 +209,51 @@ describe("range", () => {
       ["c4", "c4", "d4", "d4"],
     ]);
   });
+
+  test("4x4x4 using 2x2x4", () => {
+    const black = [0, 0, 0, 255];
+    const white = [255, 255, 255, 255];
+    const green = [0, 255, 0, 255];
+
+    // prettier-ignore
+    const storage = Uint8ClampedArray.from([
+      /*(0,0)*/ ...black, ...white, ...black, ...white /*(3,0)*/,
+      /*(0,1)*/ ...white, ...green, ...white, ...black /*(3,1)*/,
+      /*(0,2)*/ ...black, ...white, ...black, ...white /*(3,2)*/,
+      /*(0,3)*/ ...white, ...black, ...white, ...green /*(3,3)*/,
+    ]);
+    const width = 4;
+    const height = 4;
+    const density = 4;
+
+    expect(width * height * density).toBe(storage.length);
+
+    const r1 = range(storage, [0, 0], [2, 2], [width, density]);
+
+    expect(r1).toEqual([
+      Uint8ClampedArray.from([...black, ...white]),
+      Uint8ClampedArray.from([...white, ...green]),
+    ]);
+
+    const r2 = range(storage, [1, 1], [2, 2], [width, density]);
+
+    expect(r2).toEqual([Uint8ClampedArray.from([...green])]);
+
+    const r3 = range(storage, [1, 1], [3, 3], [width, density]);
+
+    expect(r3).toEqual([
+      Uint8ClampedArray.from([...green, ...white]),
+      Uint8ClampedArray.from([...white, ...black]),
+    ]);
+
+    const r4 = range(storage, [1, 1], [4, 4], [width, density]);
+
+    expect(r4).toEqual([
+      Uint8ClampedArray.from([...green, ...white, ...black]),
+      Uint8ClampedArray.from([...white, ...black, ...white]),
+      Uint8ClampedArray.from([...black, ...white, ...green]),
+    ]);
+  });
 });
 
 describe("position", () => {

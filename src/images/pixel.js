@@ -36,18 +36,20 @@ export const scale = (value, density) => {
   }
 };
 
+// 1. Review the idea of views to prevent creating a matrix structure.
+// 2. TypedArray CANT store a memory position, so it's not usable for building a matrix.
 export const range = (storage, [x, y], [z, t], [sw, sd]) => {
-  const matrix = [];
+  const matrix = new Array(t - y);
 
   for (let h = 0; h < t - y; h++) {
     // compute position
     const start = position([x, y + h], [sw, sd]);
 
-    // horizontal chunks
+    // horizontal chunks (copy of the original)
     const row = storage.slice(start, start + (z - x) * sd);
 
     // accumulate chunks vertically
-    matrix.push(row);
+    matrix[h] = row;
   }
 
   return matrix;
