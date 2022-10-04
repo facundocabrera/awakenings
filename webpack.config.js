@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
-const publicPath = path.join(__dirname, "public");
+const publicPath = path.join(__dirname, "dist");
 
 module.exports = {
   // https://webpack.js.org/migrate/5/#make-sure-to-use-mode
@@ -19,7 +19,9 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
-    static: publicPath,
+    static: {
+      directory: publicPath,
+    },
     hot: true,
     client: {
       progress: true,
@@ -54,8 +56,12 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: publicPath,
+    assetModuleFilename: 'images/[hash][ext][query]'
   },
   module: {
-    rules: [{ test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }],
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: /\.png$/, type: 'asset/resource' }
+    ]
   },
 };

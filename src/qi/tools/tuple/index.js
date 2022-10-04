@@ -1,3 +1,13 @@
+/**
+ * Experiment with tagged templates to create a better API for indexes.
+ * 
+ * Ideas:
+ * 1. Abstract from the storage implementation.
+ * 2. Limit checks before access to the storage to prevent out of range.
+ * 3. Using [] operator doesn't provides enough flexibility and abstraction.
+ * 4. opcodes are custom operations we could call just from the definition of the indexes.
+ */
+
 const tuple = (dimensions, limit) => {
   const [density, width, height] = dimensions;
   const l = dimensions.length;

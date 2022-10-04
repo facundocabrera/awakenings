@@ -1,11 +1,12 @@
+import between from "../numbers/between"; 
+
 export const position = ([x, y], [width, density]) =>
   y * width * density + x * density;
 
 export const read = (storage, [x, y], [width, density]) => {
   const pos = position([x, y], [width, density]);
 
-  // more work to be done here, maybe I can create an vector which validates using just width and height known values.
-  if (pos > storage.length - 1) return [];
+  if (pos < 0 || pos >= storage.length) return [];
 
   return storage.slice(pos, pos + density);
 };
@@ -65,4 +66,40 @@ export const updateRange = (
   for (let row = 0; row < stateH; row++) {
     set(storage, [x, y + row], [storageW, storageDensity], state[row]);
   }
+};
+
+export const neighbours = (storage, [width, density = 4], [x, y], [dx, dy]) => {
+  const result = Array(2 * dy + 1);
+  const limits = (y) => {
+    const start = y * width * density;
+    const end = start + width * density;
+
+    return [start, end];
+  };
+
+  for (let h = y - dy, columnIndex = 0; h <= y + dy; h++, columnIndex++) {
+    const row = Array(2 * dx + 1);
+
+    for (let w = x - dx, rowIndex = 0; w <= x + dx; w++, rowIndex += density) {
+      const pos = position([w, h], [width, density]);
+      let value;
+
+      if (pos < 0 || pos >= storage.length || !between(pos, limits(h)) ) {
+        value = Array(density).fill(0);
+      } else {
+        value = read(storage, [w, h], [width, density]);
+      }
+
+      if (density === 1) {
+        row[rowIndex] = value[0];
+      } else
+        for (let index = 0; index < density; index++) {
+          row[rowIndex + index] = value[index];
+        }
+    }
+
+    result[columnIndex] = row;
+  }
+
+  return result;
 };

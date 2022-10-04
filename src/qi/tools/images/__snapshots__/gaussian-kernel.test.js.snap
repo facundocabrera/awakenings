@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`densify kernel 1 1`] = `
+Array [
+  Array [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    -1,
+    -1,
+    -1,
+    -1,
+  ],
+  Array [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ],
+  Array [
+    -1,
+    -1,
+    -1,
+    -1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+  ],
+]
+`;
+
 exports[`densify sigma 0.54 1`] = `
 Array [
   Array [

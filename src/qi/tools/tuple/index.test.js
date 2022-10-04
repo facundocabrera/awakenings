@@ -1,4 +1,4 @@
-import tuple from "./tuple";
+import tuple from ".";
 
 describe("tuple", () => {
   test("2x2x1", () => {

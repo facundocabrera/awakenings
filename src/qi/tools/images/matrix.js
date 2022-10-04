@@ -28,3 +28,34 @@ export const opMultRGBA = (left, right, [length, density]) => {
     left[index + 3] = domain(right[index + 3], [0, 255]);             // A
   }
 };
+
+export const read = (matrix, [x, y, density]) => {
+  matrix[y].slice(x, x + density);
+};
+
+/**
+ * Apply kernel to a neighborhood and return an array of density values.
+ * 
+ * @source http://www.songho.ca/dsp/convolution/convolution.html#convolution_2d
+ * 
+ * @param {*} neighborhood 3x3xdensity
+ * @param {*} kernel 3x3xdensity
+ * @param {*} shape [width, height, density]
+ * 
+ * @returns Array(density)
+ */
+export const convolutè = (neighborhood, kernel, [width, height, density]) => {
+  const sum = Array(density).fill(0);
+
+  const realWidth = width * density;
+
+  for(let y = 0; y < height; y++) {
+    for(let x = 0; x < realWidth; x += density) {
+      for(let d = 0; d < density; d++) {
+        sum[d] += neighborhood[y][x + d] * kernel[(height - 1) - y][(realWidth - 1) - x - d];
+      }
+    }
+  }
+
+  return sum;
+}

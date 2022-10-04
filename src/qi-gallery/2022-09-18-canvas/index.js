@@ -8,7 +8,7 @@ import {
   pixels,
 } from "../../qi/drawlets";
 
-import { scale, set } from "../../images/pixel";
+import { scale, set } from "../../qi/tools/images/pixel";
 
 export const origin = () => {
   const setup = (props) => {

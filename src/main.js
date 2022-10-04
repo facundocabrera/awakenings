@@ -10,6 +10,8 @@
 // import { sketch, store, Controls } from "./qi-gallery/2022-09-15-logistic-lerp";
 // import { sketch } from "./qi-gallery/2022-09-18-canvas";
 // import { sketch } from "./qi-gallery/2022-09-22-convolution";
-import { sketch } from "./qi-gallery/2022-09-29-convolution-3";
+// import { sketch } from "./qi-gallery/2022-09-29-convolution";
+// import { sketch } from "./qi-gallery/2022-09-30-convolution";
+import { sketch } from "./qi-gallery/2022-10-04-convolution";
 
 const runtime = new p5(sketch);

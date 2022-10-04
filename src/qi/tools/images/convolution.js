@@ -1,7 +1,7 @@
 import { chunk } from "lodash";
 
 import { range, updateRange } from "./pixel";
-import { walker } from "./walker";
+import { walker, walker2 } from "./walker";
 import { applyOpByRow, opMultRGBA } from "./matrix";
 import domain from "../numbers/domain";
 
@@ -120,4 +120,30 @@ export const rgba_mutator = (value, kernel, [width, height]) => {
   }
 
   return true;
+};
+
+/**
+ * Solution #4. Use a real convolution algorithm.
+ * 
+ * @param {Array} storage
+ * @param {Array} shape
+ * @param {Array} kernel
+ * @param {Array} shape
+ * @param {Function} mutator
+ */
+ export const convolution4 = (
+  storage,
+  [sw, sh, sd],
+  [dx, dy],
+  mutator
+) => {
+  const walk = walker2(storage, [sw, sh, sd], [dx,dy]);
+
+  let { value, done } = walk.next();
+  while (!done) {
+    const vv = mutator(value);
+
+    // if mutated then send value to apply the updates.
+    ({ value, done } = walk.next(vv));
+  }
 };
