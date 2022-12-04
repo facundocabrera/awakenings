@@ -49,6 +49,7 @@ export const kernel2D = (σ, width, height) => {
   return matrix;
 };
 
+// @TODO candidate to be called replicate and use density as the replication value
 export const densify = (matrix, [width, height, density]) => {
   const result = new Array(height);
 

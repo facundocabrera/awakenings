@@ -1,6 +1,6 @@
 /**
  * Experiment with tagged templates to create a better API for indexes.
- * 
+ *
  * Ideas:
  * 1. Abstract from the storage implementation.
  * 2. Limit checks before access to the storage to prevent out of range.

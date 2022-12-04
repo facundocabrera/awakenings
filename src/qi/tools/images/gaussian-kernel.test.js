@@ -53,9 +53,9 @@ describe("densify", () => {
     const K = [
       [1, 0, -1],
       [0, 0, 0],
-      [-1, 0, 1]
+      [-1, 0, 1],
     ];
-    
+
     const kd = densify(K, [3, 3, 4]);
 
     expect(kd).toMatchSnapshot();

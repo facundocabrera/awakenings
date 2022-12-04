@@ -52,13 +52,9 @@ export function* walker2(
         [dx, dy]
       );
 
-      if (mutation) // continuar aca, aun no probe si se actualiza correctamente el pixel
-        set(
-          storage,
-          [x, y],
-          [width, density],
-          mutation
-        );
+      if (mutation)
+        // continuar aca, aun no probe si se actualiza correctamente el pixel
+        set(storage, [x, y], [width, density], mutation);
     }
   }
 }

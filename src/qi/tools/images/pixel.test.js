@@ -1,38 +1,36 @@
-import { read, set, scale, position, range, updateRange, neighbours } from "./pixel";
+import {
+  read,
+  set,
+  scale,
+  position,
+  range,
+  updateRange,
+  neighbours,
+} from "./pixel";
 
 describe("neighbours", () => {
-  test('2x2', () => {
+  test("2x2", () => {
     // 2x2 density = 1
-    const storage = [
-      1,2,
-      3,4,
-    ];
+    const storage = [1, 2, 3, 4];
     const width = 2;
     const density = 1;
 
-    expect(neighbours(storage, [width, density], [0, 0], [1, 1])).toEqual(
-      [
-        [0, 0, 0],
-        [0, 1, 2],
-        [0, 3, 4],
-      ]
-    );
+    expect(neighbours(storage, [width, density], [0, 0], [1, 1])).toEqual([
+      [0, 0, 0],
+      [0, 1, 2],
+      [0, 3, 4],
+    ]);
 
-    expect(neighbours(storage, [width, density], [1, 1], [1, 1])).toEqual(
-      [
-        [1, 2, 0],
-        [3, 4, 0],
-        [0, 0, 0],
-      ]
-    );
+    expect(neighbours(storage, [width, density], [1, 1], [1, 1])).toEqual([
+      [1, 2, 0],
+      [3, 4, 0],
+      [0, 0, 0],
+    ]);
   });
 
-  test('2x2x2', () => {
+  test("2x2x2", () => {
     // 2x2 density = 2
-    const storage = [
-      1,1,2,2,
-      3,3,4,4
-    ];
+    const storage = [1, 1, 2, 2, 3, 3, 4, 4];
     const width = 2;
     const density = 2;
 

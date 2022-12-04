@@ -124,20 +124,15 @@ export const rgba_mutator = (value, kernel, [width, height]) => {
 
 /**
  * Solution #4. Use a real convolution algorithm.
- * 
+ *
  * @param {Array} storage
  * @param {Array} shape
  * @param {Array} kernel
  * @param {Array} shape
  * @param {Function} mutator
  */
- export const convolution4 = (
-  storage,
-  [sw, sh, sd],
-  [dx, dy],
-  mutator
-) => {
-  const walk = walker2(storage, [sw, sh, sd], [dx,dy]);
+export const convolution4 = (storage, [sw, sh, sd], [dx, dy], mutator) => {
+  const walk = walker2(storage, [sw, sh, sd], [dx, dy]);
 
   let { value, done } = walk.next();
   while (!done) {

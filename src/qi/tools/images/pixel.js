@@ -1,4 +1,4 @@
-import between from "../numbers/between"; 
+import between from "../numbers/between";
 
 export const position = ([x, y], [width, density]) =>
   y * width * density + x * density;
@@ -84,7 +84,7 @@ export const neighbours = (storage, [width, density = 4], [x, y], [dx, dy]) => {
       const pos = position([w, h], [width, density]);
       let value;
 
-      if (pos < 0 || pos >= storage.length || !between(pos, limits(h)) ) {
+      if (pos < 0 || pos >= storage.length || !between(pos, limits(h))) {
         value = Array(density).fill(0);
       } else {
         value = read(storage, [w, h], [width, density]);

@@ -26,7 +26,7 @@ const randomImage = () => {
   // @depends on pixels drawlet to describe the screen
   const draw = ({ pixels: [zoom, density] }) => {
     const img = ui.createImage(cw * density * zoom, ch * density * zoom);
-    
+
     img.loadPixels();
 
     for (let y = 0; y < img.height; y++) {
@@ -48,9 +48,9 @@ const randomImage = () => {
     img.updatePixels();
 
     return {
-      randomImage: img
+      randomImage: img,
     };
-    
+
     // This should be used to plot the random image into the canvas.
     // ui.image(img, 0, 0);
   };

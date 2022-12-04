@@ -12,6 +12,7 @@
 // import { sketch } from "./qi-gallery/2022-09-22-convolution";
 // import { sketch } from "./qi-gallery/2022-09-29-convolution";
 // import { sketch } from "./qi-gallery/2022-09-30-convolution";
-import { sketch } from "./qi-gallery/2022-10-04-convolution";
+// import { sketch } from "./qi-gallery/2022-10-04-convolution";
+import { sketch } from "./qi-gallery/2022-10-08-colors";
 
 const runtime = new p5(sketch);

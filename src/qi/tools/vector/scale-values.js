@@ -1,5 +1,5 @@
 const scale = (numbers, factor) => {
-  for(let index = 0; index < numbers.length; index++) {
+  for (let index = 0; index < numbers.length; index++) {
     numbers[index] *= factor;
   }
 

@@ -30,11 +30,11 @@ describe("normalize", () => {
   test("negative values", () => {
     /**
      * Normalizing negative data.
-     * 
-     * The solution is simple: Shift your data by adding all numbers with the 
-     * absolute of the most negative (minimum value of your data) such that 
-     * the most negative one will become zero and all other number become 
-     * positive. Then you can normalize your data as usual with any of 
+     *
+     * The solution is simple: Shift your data by adding all numbers with the
+     * absolute of the most negative (minimum value of your data) such that
+     * the most negative one will become zero and all other number become
+     * positive. Then you can normalize your data as usual with any of
      * above procedures.
      */
     expect(true).toBe(false);

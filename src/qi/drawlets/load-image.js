@@ -17,8 +17,8 @@ const loadImage = ({ path }) => {
     // I could use just a plain Image instance to handle an img load, but once I try to feed
     // p5js canvas, there is an error because some of the properties are missing, so using
     // this call, the behind scene is the same, but with few more properties.
-    const img = ui.createImg(path, '', '', () => (imageReady = true));
-    
+    const img = ui.createImg(path, "", "", () => (imageReady = true));
+
     // Give call appends the image to the dom, I need to hide it before it gets rendered.
     img.hide();
 
@@ -26,7 +26,7 @@ const loadImage = ({ path }) => {
       loadImage: {
         ...(loadImage ?? {}),
         [path]: { img, isReady: () => imageReady },
-      }
+      },
     };
 
     // This should be used to plot the image into the canvas.

@@ -2,7 +2,14 @@
 import { compose, drawable } from "../../qi/flow";
 
 // QI DRAWLETS
-import { time, hook, clearCanvas, stopWhen, pixels, loadImage } from "../../qi/drawlets";
+import {
+  time,
+  hook,
+  clearCanvas,
+  stopWhen,
+  pixels,
+  loadImage,
+} from "../../qi/drawlets";
 
 // QI TOOLS
 import { convolution4 } from "../../qi/tools/images/convolution";
@@ -47,14 +54,14 @@ const convo = () => {
     const { img, isReady } = loadImage[heartImg];
 
     if (isReady() && !alreadyLoaded) {
-      console.log('put image into the canvas');
-      console.log('kernel', kernel);
+      console.log("put image into the canvas");
+      console.log("kernel", kernel);
 
       alreadyLoaded = true;
       // rescale image to fit the canvas area, increase the canvas size for more detail.
-      ui.image(img, 0, 0, cw, img.height * cw / img.width);
+      ui.image(img, 0, 0, cw, (img.height * cw) / img.width);
     }
-    
+
     if (alreadyLoaded) {
       ui.loadPixels();
 
@@ -62,7 +69,7 @@ const convo = () => {
         ui.pixels,
         [cw * zoom * density, ch * zoom * density, 4],
         [1, 1], // dx, dy
-        // 1. Computing new colors has the challenge of handling scaling correctly 
+        // 1. Computing new colors has the challenge of handling scaling correctly
         //    after we apply the kernel. It is easy to get a white or black screen
         //    meaning we are out of range when computing the pixel value.
         (neighborhood) => convolutè(neighborhood, kernel, [3, 3, 4])

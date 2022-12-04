@@ -2,7 +2,14 @@
 import { compose, drawable } from "../../qi/flow";
 
 // QI DRAWLETS
-import { time, hook, clearCanvas, stopWhen, pixels, randomImage } from "../../qi/drawlets";
+import {
+  time,
+  hook,
+  clearCanvas,
+  stopWhen,
+  pixels,
+  randomImage,
+} from "../../qi/drawlets";
 
 // QI TOOLS
 import { convolution4 } from "../../qi/tools/images/convolution";
@@ -43,9 +50,8 @@ const convo = () => {
   };
 
   const draw = ({ randomImage, pixels: [zoom, density] }) => {
-    if (!img)
-      img = randomImage;
-    
+    if (!img) img = randomImage;
+
     img.loadPixels();
 
     convolution4(

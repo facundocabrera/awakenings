@@ -3,7 +3,7 @@ import { convolutè } from "./matrix";
 
 describe("Apply", () => {
   test("calculate new center pixel colors", () => {
-    const shape = [3,3,1];
+    const shape = [3, 3, 1];
     const K = [
       [1, 0, -1],
       [0, 0, 0],
@@ -22,18 +22,24 @@ describe("Apply", () => {
   });
 
   test("calculate new center pixel colors", () => {
-    const shape = [3,3,2];
-    const K = densify([
-      [0, 0, 0],
-      [0, 1, 0],
-      [0, 0, 0],
-    ], shape);
+    const shape = [3, 3, 2];
+    const K = densify(
+      [
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 0, 0],
+      ],
+      shape
+    );
 
-    const neighborhood = densify([
-      [0, 0, 0],
-      [0, 1, 0],
-      [0, 0, 0],
-    ], shape);
+    const neighborhood = densify(
+      [
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 0, 0],
+      ],
+      shape
+    );
 
     const pixel = convolutè(neighborhood, K, shape);
 

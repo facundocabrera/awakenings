@@ -56,12 +56,12 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: publicPath,
-    assetModuleFilename: 'images/[hash][ext][query]'
+    assetModuleFilename: "images/[hash][ext][query]",
   },
   module: {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
-      { test: /\.png$/, type: 'asset/resource' }
-    ]
+      { test: /(\.png|\.jpg|\.jpeg)$/, type: "asset/resource" },
+    ],
   },
 };
