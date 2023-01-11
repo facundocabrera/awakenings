@@ -157,89 +157,105 @@ let canvasWidth = 1080;
 let canvasHeight = 1080;
 
 let mainCanvas;
-let stats = [0,0,0,0,0,0,0,0,0,0];
+let stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function setup() {
-    // override manual screen size
-    // canvasWidth = windowWidth;
-    // canvasHeight = windowHeight;
+  // override manual screen size
+  // canvasWidth = windowWidth;
+  // canvasHeight = windowHeight;
 
-    mainCanvas = createCanvas(canvasWidth, canvasHeight);
+  mainCanvas = createCanvas(canvasWidth, canvasHeight);
 
-    background(0);
+  background("#000001");
 
-    frameRate(30);
+  frameRate(30);
 
-    time = inc(1);
+  time = inc(0.01);
 
-    layers.forEach(layer => layer.canvas = createGraphics(canvasWidth, canvasHeight));
+  layers.forEach(
+    (layer) => (layer.canvas = createGraphics(canvasWidth, canvasHeight))
+  );
+}
+
+let sw = true;
+function keyTyped() {
+  if (key === "s") {
+    if (sw) noLoop();
+    else loop();
+    sw = !sw;
+  }
 }
 
 function draw() {
-    const tValue = time.next().value;
+  const tValue = time.next().value;
 
-    const enabled = layers.filter(({disabled=false})=>!disabled);
+  const enabled = layers.filter(({ disabled = false }) => !disabled);
 
-    enabled.forEach(context=>{
-        const {canvas, waves, color, width=1, closed, rotate = 0} = context;
+  clear();
 
-        canvas.push();
+  enabled.forEach((context) => {
+    const { canvas, waves, color, width = 1, closed, rotate = 0 } = context;
 
-        if (frameCount % 7 === 0)
-            canvas.clear();
+    canvas.push();
 
-        canvas.stroke(color);
-        canvas.strokeWeight(width);
-        canvas.translate(canvasWidth / 2, canvasHeight / 2);
-        canvas.rotate(rotate);
+    // if (frameCount % 2 === 0)
+        canvas.clear();
 
-        //canvas.beginShape(LINES);
-        const points = waves.map(waveContext=>{
-            const {fn} = waveContext;
+    canvas.stroke(color);
+    canvas.strokeWeight(width);
+    canvas.translate(canvasWidth / 2, canvasHeight / 2);
+    canvas.rotate(rotate);
 
-            let point;
+    //canvas.beginShape(LINES);
+    const points = waves.map((waveContext) => {
+      const { fn } = waveContext;
 
-            // nueva version que soporta redefinir la function
-            if (fn)
-                point = fn.apply(waveContext, [tValue]);
-            else
-                point = harmonic(waveContext)(tValue);
+      let point;
 
-            //canvas.vertex(point.x, point.y);
+      // nueva version que soporta redefinir la function
+      if (fn) point = fn.apply(waveContext, [tValue]);
+      else point = harmonic(waveContext)(tValue);
 
-            return point;
-        }
-        );
+      //canvas.vertex(point.x, point.y);
 
-        //canvas.endShape();
+      return point;
+    });
 
-        const [one, two, three, four] = points;
+    //canvas.endShape();
 
-        canvas.noFill();
-//         canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
-        //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
-        canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
+    const [one, two, three, four] = points;
 
-        const d1 = Math.sqrt(Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2));
-        const d2 = Math.sqrt(Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2));
+    canvas.noFill();
+    //         canvas.bezier(one.x, one.y, one.x + two.x, one.y, two.x, two.y, two.x - one.x, two.y);
+    //canvas.bezier(one.x, one.y, 0,0, two.x, two.y, 0,0);
+    canvas.bezier(one.x, one.y, two.x, two.y, three.x, three.y, four.x, four.y);
 
-        stats[(d1+'')[0]]++;
-        stats[(d2+'')[0]]++;
-
-        // al incrementar x frame, frameCount representa el total
-        console.log(stats.map(x => Math.round(x / (2 * frameCount * enabled.length) * 100)));
-
-        canvas.pop();
-    }
+    const d1 = Math.sqrt(
+      Math.pow(one.x - three.x, 2) + Math.pow(one.y - three.y, 2)
+    );
+    const d2 = Math.sqrt(
+      Math.pow(two.x - four.x, 2) + Math.pow(two.y - four.y, 2)
     );
 
-    enabled.forEach(({canvas})=>{
-        image(canvas, 0, 0);
-    }
+    stats[(d1 + "")[0]]++;
+    stats[(d2 + "")[0]]++;
+
+    // al incrementar x frame, frameCount representa el total
+    console.log(
+      stats.map((x) =>
+        Math.round((x / (2 * frameCount * enabled.length)) * 100)
+      )
     );
+
+    canvas.pop();
+  });
+
+  enabled.forEach(({ canvas }) => {
+    image(canvas, 0, 0);
+  });
 }
 
 function mousePressed() {
-    // document.body.appendChild(new Image).src = mainCanvas.elt.toDataURL('image/webp', 1.0);
-    saveCanvas(mainCanvas, 'out', 'png');
+  // document.body.appendChild(new Image).src = mainCanvas.elt.toDataURL('image/webp', 1.0);
+  saveCanvas(mainCanvas, "out", "png");
 }

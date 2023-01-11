@@ -77,7 +77,7 @@ function hookeLawHarmonicOscillator(time) {
 function unstablePhase(time) {
     const {freq, phase=0, radius=0} = this;
 
-    const arc = 2 * PI * freq * time + Math.sqrt(phase * time);
+    const arc = 2 * PI * freq * time;
     const { x, y } = polar(arc,radius);
 
     return {
